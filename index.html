@@ -56,16 +56,16 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
 .sb-top{padding:22px 18px 16px;border-bottom:1px solid var(--dk3);display:flex;align-items:flex-start;justify-content:space-between;min-height:64px;overflow:hidden;}
 .sb-brand-wrap{overflow:hidden;transition:opacity .15s ease;}
 .brand{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:#FFFFFF;letter-spacing:2px;white-space:nowrap;}
-.brand-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--txl);margin-top:2px;white-space:nowrap;}
-.sb-toggle{background:none;border:none;cursor:pointer;color:#555;padding:2px 0;flex-shrink:0;font-size:15px;line-height:1;transition:color .12s;margin-top:2px;}
-.sb-toggle:hover{color:#aaa;}
+.brand-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin-top:2px;white-space:nowrap;}
+.sb-toggle{background:none;border:none;cursor:pointer;color:#aaa;padding:2px 0;flex-shrink:0;font-size:15px;line-height:1;transition:color .12s;margin-top:2px;}
+.sb-toggle:hover{color:#fff;}
 .nav{padding:12px 8px;flex:1;overflow-y:auto;overflow-x:hidden;}
 .ng{margin-bottom:16px;}
-.nl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#4A4A4A;padding:0 10px;margin-bottom:3px;white-space:nowrap;overflow:hidden;transition:opacity .15s;}
-.ni{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:#888;transition:all .12s;position:relative;white-space:nowrap;overflow:hidden;}
+.nl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#777;padding:0 10px;margin-bottom:3px;white-space:nowrap;overflow:hidden;transition:opacity .15s;}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:#ccc;transition:all .12s;position:relative;white-space:nowrap;overflow:hidden;}
 .ni:hover{background:var(--dk2);color:#ccc;}
 .ni.active{background:#FFFFFF;color:#141414;font-weight:600;}
-.ni-icon{flex-shrink:0;width:16px;text-align:center;}
+.ni-icon{display:none;}
 .ni-label{overflow:hidden;transition:opacity .15s,max-width .22s;max-width:160px;}
 .nbadge{margin-left:auto;font-size:9px;font-weight:700;background:#2A2A2A;color:#FFFFFF;padding:1px 5px;border-radius:8px;flex-shrink:0;transition:opacity .15s;}
 .ni.active .nbadge{background:rgba(0,0,0,.2);color:var(--blk);}
@@ -91,7 +91,7 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
 
 /* QUICK ADD BAR */
 .qab{background:var(--blk);padding:8px 22px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
-.qab-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#4A4A4A;margin-right:2px;}
+.qab-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-right:2px;}
 .qbtn{padding:5px 12px;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:'Outfit',sans-serif;transition:all .12s;}
 .qb-lead{background:#141414;color:#FFFFFF;}
 .qb-lead:hover{background:#333333;}
@@ -164,6 +164,96 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
 .pgr{background:#F0F0F0;color:#777;}
 .ppk{background:var(--pkp);color:#C0606A;}
 .phot{background:#FCF0F0;color:#C05050;}
+.pwarm{background:#FBF5E0;color:#9A7A1A;}
+.pcold{background:#EEF5FB;color:#4A72B0;}
+.pdeclined{background:#F5F5F5;color:#888;}
+
+/* ── CONTACTS PAGE — stat strip ── */
+.cstat-strip{display:flex;gap:8px;}
+.cstat-item{flex:1;background:var(--wh);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;text-align:center;}
+.cstat-lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);font-weight:500;}
+.cstat-val{font-size:20px;font-weight:700;color:var(--blk);font-family:'Cormorant Garamond',serif;margin-top:2px;}
+.cpage-btns{display:flex;gap:6px;flex-wrap:wrap;}
+
+/* ── FILTER PILL ROW ── */
+.cpill-row{display:flex;align-items:center;gap:6px;padding:10px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;border-bottom:1px solid var(--bd);flex-wrap:nowrap;}
+.cpill{border:1px solid var(--bd);background:var(--wh);color:var(--txm);font-size:11px;font-weight:600;padding:5px 14px;border-radius:20px;cursor:pointer;white-space:nowrap;font-family:'Outfit',sans-serif;transition:all .15s;}
+.cpill:hover{border-color:var(--blk);color:var(--blk);}
+.cpill-active{background:var(--blk)!important;color:#fff!important;border-color:var(--blk)!important;}
+.cpill-hot{border-color:#F0C0C0;color:#C05050;}
+.cpill-hot.cpill-active{background:#C05050!important;border-color:#C05050!important;}
+.cpill-warm{border-color:#E8C45A;color:#9A7A1A;}
+.cpill-warm.cpill-active{background:#9A7A1A!important;border-color:#9A7A1A!important;}
+.cpill-cold{border-color:#B0C8E8;color:#4A72B0;}
+.cpill-cold.cpill-active{background:#4A72B0!important;border-color:#4A72B0!important;}
+.cpill-ers{border-color:#F0B0B8;color:#C0606A;}
+.cpill-ers.cpill-active{background:#C0606A!important;border-color:#C0606A!important;}
+.cpill-leads{border-color:var(--bdl);color:var(--txm);}
+.cpill-div{width:1px;height:20px;background:var(--bd);flex-shrink:0;margin:0 2px;}
+
+/* ── BOOKING PAGE ── */
+.bk-wrap{max-width:860px;margin:0 auto;}
+.gcal-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:12px 16px;margin-bottom:14px;flex-wrap:wrap;}
+.bk-agent{display:flex;align-items:center;gap:14px;background:var(--blk);border-radius:12px;padding:20px 24px;margin-bottom:12px;color:#fff;}
+.bk-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--m),var(--g));display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;flex-shrink:0;font-weight:400;}
+.bk-agent-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#fff;}
+.bk-agent-sub{font-size:11px;color:#aaa;margin-top:2px;}
+.bk-badge{margin-left:auto;background:rgba(107,168,130,.25);color:var(--gl);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:20px;white-space:nowrap;}
+.bk-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:12px;}
+.bk-panel{background:var(--wh);border:1px solid var(--bd);border-radius:12px;padding:22px 22px;}
+.bk-section-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--txl);font-weight:600;margin-bottom:14px;}
+.bk-types{display:flex;flex-direction:column;gap:8px;}
+.bk-type{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid var(--bd);border-radius:8px;cursor:pointer;transition:all .15s;background:transparent;text-align:left;width:100%;font-family:'Outfit',sans-serif;}
+.bk-type:hover{border-color:var(--m);background:var(--mp);}
+.bk-type.active{border-color:var(--g);background:var(--gp);}
+.bk-type-name{font-size:12px;font-weight:600;color:var(--blk);}
+.bk-type-desc{font-size:10px;color:var(--txl);margin-top:1px;}
+.bk-duration{margin-left:auto;font-size:10px;font-weight:600;color:var(--txl);background:var(--cr);padding:3px 8px;border-radius:4px;flex-shrink:0;white-space:nowrap;}
+.bk-type.active .bk-duration{color:var(--g);background:var(--gp);}
+.bk-cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.bk-month-label{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--blk);}
+.bk-nav-btn{width:30px;height:30px;border:1px solid var(--bd);border-radius:7px;background:var(--cr);cursor:pointer;font-size:13px;color:var(--txm);transition:all .12s;display:flex;align-items:center;justify-content:center;}
+.bk-nav-btn:hover{border-color:var(--m);color:var(--m);}
+.bk-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.bk-day-hdr{text-align:center;font-size:9px;font-weight:600;letter-spacing:.5px;color:var(--txl);padding-bottom:6px;text-transform:uppercase;}
+.bk-day{aspect-ratio:1;border:none;background:transparent;border-radius:7px;cursor:pointer;font-size:12px;font-family:'Outfit',sans-serif;color:var(--tx);transition:all .12s;display:flex;align-items:center;justify-content:center;position:relative;}
+.bk-day:hover:not(.bk-day-off):not(.bk-day-sel){background:var(--mp);color:var(--md);}
+.bk-day-avail{font-weight:600;}
+.bk-day-avail::after{content:'';display:block;width:3px;height:3px;border-radius:50%;background:var(--m);position:absolute;bottom:3px;}
+.bk-day-sel{background:var(--blk)!important;color:#fff!important;font-weight:600;}
+.bk-day-off{color:#ccc;cursor:default;}
+.bk-day-today:not(.bk-day-sel){border:1.5px solid var(--m);color:var(--md);}
+.bk-time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.bk-time{padding:9px 4px;border:1.5px solid var(--bd);border-radius:7px;background:transparent;cursor:pointer;font-size:11.5px;font-family:'Outfit',sans-serif;color:var(--tx);transition:all .12s;text-align:center;}
+.bk-time:hover{border-color:var(--m);color:var(--md);}
+.bk-time.bk-time-sel{background:var(--blk);border-color:var(--blk);color:#fff;}
+.bk-summary{background:var(--gp);border:1px solid rgba(107,168,130,.3);border-radius:8px;padding:14px 16px;margin-bottom:16px;}
+.bk-summary-date{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--g);}
+.bk-summary-time{font-size:11px;color:var(--txm);margin-top:3px;}
+/* Booking log table */
+#bk-log .tbl{min-width:400px;}
+
+/* ── BOOKING RESPONSIVE ── */
+@media(max-width:700px){
+  .bk-grid{grid-template-columns:1fr;}
+  .bk-time-grid{grid-template-columns:repeat(2,1fr);}
+  .bk-agent{padding:16px;}
+}
+
+/* Sort bar */
+.csort-bar{display:flex;align-items:center;gap:5px;padding:7px 16px;background:var(--cr);border-bottom:1px solid var(--bd);flex-wrap:wrap;}
+.csort-lbl{font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--txl);font-weight:600;margin-right:3px;white-space:nowrap;}
+.csort-btn{background:none;border:1px solid transparent;color:var(--txl);font-size:11px;font-weight:500;padding:3px 10px;border-radius:5px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .12s;white-space:nowrap;}
+.csort-btn:hover{background:var(--wh);border-color:var(--bd);color:var(--blk);}
+.csort-active{background:var(--wh)!important;border-color:var(--bd)!important;color:var(--blk)!important;font-weight:600!important;}
+
+/* Old ctab kept for contact detail modal tabs */
+.ctab{padding:9px 14px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;white-space:nowrap;}
+.ctab:hover{color:var(--blk);}
+.ctab-active{color:var(--md)!important;border-bottom-color:var(--m)!important;font-weight:600;}
+.ctab-sub{padding:5px 12px;font-size:10px;font-weight:600;cursor:pointer;border-radius:20px;transition:all .12s;letter-spacing:.3px;white-space:nowrap;}
+.ctab-sub:hover{background:var(--cr);}
+.ctab-sub-active{background:var(--blk)!important;color:#fff!important;}
 
 /* PRIORITY DOT */
 .pd{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:3px;vertical-align:middle;}
@@ -192,21 +282,21 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
 .qs{background:var(--blk);border-radius:10px;padding:16px 20px;margin-bottom:12px;position:relative;overflow:hidden;}
 .qs::before{content:'"';position:absolute;top:-10px;left:10px;font-family:'Cormorant Garamond',serif;font-size:80px;color:var(--m);opacity:.15;line-height:1;}
 .qt{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--ml);line-height:1.5;position:relative;z-index:1;}
-.qauth{font-size:10px;color:#555;margin-top:4px;}
+.qauth{font-size:10px;color:#bbb;margin-top:4px;}
 
 /* MBAR */
 .mbar{display:grid;grid-template-columns:repeat(5,1fr);background:var(--blk);border-radius:10px;overflow:hidden;margin-bottom:12px;}
 .ms{padding:13px 15px;border-right:1px solid var(--dk3);}
 .ms:last-child{border-right:none;}
 .ms:hover{background:var(--dk2);}
-.msl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#555;margin-bottom:4px;}
+.msl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#fff;margin-bottom:4px;}
 .msv{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ml);line-height:1;}
-.mss{font-size:10px;color:#4A4A4A;margin-top:2px;}
+.mss{font-size:10px;color:#bbb;margin-top:2px;}
 
 /* DIAL COUNTER */
 .dial-box{background:var(--blk);border-radius:10px;padding:16px;text-align:center;}
 .dial-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--ml);line-height:1;}
-.dial-lbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#555;margin-bottom:10px;}
+.dial-lbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#fff;margin-bottom:10px;}
 .dial-btns{display:flex;gap:8px;justify-content:center;margin-top:10px;}
 .dial-btn{width:40px;height:40px;border-radius:50%;border:none;font-size:20px;font-weight:700;cursor:pointer;transition:all .12s;display:flex;align-items:center;justify-content:center;}
 .dial-plus{background:var(--m);color:var(--blk);}
@@ -351,7 +441,7 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
 /* COMMISSION */
 .comm-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px;background:var(--blk);border-radius:8px;margin-bottom:12px;}
 .cs2{text-align:center;}
-.cs2-lbl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#555;margin-bottom:4px;}
+.cs2-lbl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#fff;margin-bottom:4px;}
 .cs2-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ml);}
 .cs2-val.green{color:#6BA882;}
 .cs2-val.pink{color:var(--pk);}
@@ -394,116 +484,136 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
   .sb.open{left:0;}
   .sb-overlay.open{display:block;}
 
-  /* ── LOCK PAGE WIDTH — nothing wider than the screen ── */
-  html,body{overflow-x:hidden;max-width:100vw;}
-  *{box-sizing:border-box;}
+  /* ── ROOT: only body clips the outer viewport ── */
+  html{overflow-x:hidden;}
+  body{overflow-x:hidden;max-width:100vw;}
+  *{box-sizing:border-box;min-width:0;}
 
-  /* Main: full width, ZERO left margin */
-  .main{margin-left:0 !important;overflow-x:hidden;max-width:100vw;width:100%;}
+  /* Main: full width, NO overflow-x:hidden so inner scrollers can work */
+  .main{margin-left:0 !important;width:100%;max-width:100vw;}
 
-  /* Hide desktop collapse toggle (hamburger handles nav on mobile) */
+  /* Sidebar toggle hidden on mobile */
   .sb-toggle{display:none;}
 
-  /* Topbar: hide date, keep title + hamburger */
-  .topbar{padding:0 12px;height:52px;overflow:hidden;}
-  .pt{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60vw;}
+  /* Topbar */
+  .topbar{padding:0 12px;height:52px;}
+  .pt{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55vw;}
   .ps{display:none;}
   #today-date{display:none;}
 
-  /* Content: full width, vertical scroll only */
-  .content{padding:12px;overflow-x:hidden;width:100%;}
-  .content>*{width:100%;max-width:100%;overflow-x:hidden;}
+  /* Content area: vertical scroll, NO horizontal clip */
+  .content{padding:10px;width:100%;}
 
-  /* Quick add bar: shrink buttons to fit, wrap to next line if needed */
-  .qab{padding:7px 10px;gap:5px;flex-wrap:wrap;overflow-x:hidden;}
+  /* Quick add bar */
+  .qab{padding:7px 10px;gap:5px;flex-wrap:wrap;}
   .qab-lbl{display:none;}
   .qbtn{font-size:10px;padding:5px 9px;flex-shrink:0;}
 
-  /* ── GRIDS: all single column ── */
-  .g2,.g3,.g4,.g5,
-  .lay,.fr,
-  .comm-summary,
-  #carriers-list.g2,
-  #page-calendar>div,
-  #page-social .lay,
-  #page-stack .g3{grid-template-columns:1fr !important;width:100%;}
+  /* ── DASHBOARD: single column stack ── */
+  #page-dashboard .lay{display:flex !important;flex-direction:column !important;width:100% !important;gap:10px;}
+  #page-dashboard .lay>div,#page-dashboard .lay>.col{width:100% !important;max-width:100% !important;min-width:0 !important;}
+  .dial-box{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;gap:10px;}
+  .dial-lbl{margin-bottom:0;font-size:9px;}
+  .dial-num{font-size:34px !important;}
+  .dial-btns{margin-top:0;}
+  .dial-reset{display:none;}
 
-  /* Metric bar: 2 wide columns, no overflow */
-  .mbar{grid-template-columns:1fr 1fr !important;width:100%;overflow:hidden;}
+  /* ── ALL GRIDS → single column ── */
+  .g2,.g3,.g4,.g5,.lay,.comm-summary,
+  #carriers-list.g2,#page-calendar>div,
+  #page-social .lay,#page-stack .g3{grid-template-columns:1fr !important;width:100%;}
+
+  /* Stats bar: 2 col */
+  .mbar{grid-template-columns:1fr 1fr !important;width:100%;}
   .ms{border-right:none !important;border-bottom:1px solid var(--dk3);padding:10px 12px;}
   .ms:last-child{border-bottom:none;}
-  .msl{font-size:9px;}
-  .msv{font-size:16px;}
-  .mss{font-size:9px;}
+  .msl{font-size:9px;}.msv{font-size:16px;}.mss{font-size:9px;}
 
-  /* Cards: full width, no overflow */
-  .card{border-radius:8px;width:100%;overflow:hidden;}
-  .ch{padding:11px 14px 10px;flex-wrap:wrap;gap:6px;}
+  /* Cards */
+  .card{border-radius:8px;width:100%;}
+  .ch{padding:10px 12px;flex-wrap:wrap;gap:6px;}
 
-  /* Pipeline: horizontal scroll inside a contained box */
-  .pipe{
-    display:flex !important;
-    flex-direction:row;
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-    gap:0;
-    padding:10px 12px;
-    width:100%;
-  }
-  .pipc{min-width:140px;flex-shrink:0;}
+  /* ── PIPELINE: horizontal scroll ── */
+  .pipe{display:flex !important;flex-direction:row;overflow-x:auto;-webkit-overflow-scrolling:touch;gap:0;padding:10px;width:100%;}
+  .pipc{min-width:150px;flex-shrink:0;}
 
-  /* Tables: scroll inside wrapper, page doesn't scroll */
-  #contacts-wrap,#apps-wrap,#comm-wrap{
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-    width:100%;
-    max-width:100%;
-  }
-  .tbl{min-width:520px;}
+  /* ── TABLES: each wrapper scrolls independently ── */
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%;}
+  #contacts-wrap,#apps-wrap,#comm-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%;}
+  .tbl{min-width:600px;}
 
-  /* Modals: bottom sheet */
+  /* ── MOBILE CONTACT CARDS (replaces table on small screens) ── */
+  .mob-contact-card{background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:box-shadow .12s;}
+  .mob-contact-card:hover{box-shadow:var(--shm);}
+  .mob-cc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+  .mob-cc-name{font-size:13px;font-weight:700;color:var(--blk);}
+  .mob-cc-meta{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin-bottom:6px;}
+  .mob-cc-phone{font-size:11px;color:var(--txm);}
+  .mob-cc-btns{display:flex;gap:5px;margin-top:4px;}
+
+  /* ── MODALS: full-screen bottom sheet ── */
   .mbg{align-items:flex-end;}
-  .modal,.modal.wide,.modal.full{
-    width:100% !important;
-    max-width:100% !important;
-    border-radius:16px 16px 0 0;
-    max-height:92vh;
-    overflow-y:auto;
-  }
+  .modal,.modal.wide,.modal.full{width:100% !important;max-width:100% !important;border-radius:16px 16px 0 0;max-height:94vh;overflow-y:auto;}
 
-  /* Contact detail tabs */
-  .cdtabs{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 14px;}
-  .cdt{white-space:nowrap;}
+  /* Contact detail tabs: scroll */
+  .cdtabs{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 12px;flex-wrap:nowrap;}
+  .cdt{white-space:nowrap;font-size:10px;padding:8px 10px;}
+
+  /* Contact detail forms: single column */
+  .fr{grid-template-columns:1fr !important;}
 
   /* Calendar */
-  .cal-day{min-height:48px;padding:3px;}
+  .cal-day{min-height:44px;padding:2px;}
   .cal-date{font-size:10px;}
   .cal-event{display:none;}
-  .cal-header{font-size:9px;padding:6px 2px;}
-
-  /* Dial box */
-  .dial-num{font-size:38px;}
+  .cal-header{font-size:9px;padding:5px 2px;}
 
   /* Carrier / social tabs */
-  .car-tabs{overflow-x:auto;}
-
-  /* Form rows */
-  .fr{grid-template-columns:1fr !important;}
+  .car-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 
   /* Lock button */
   .lock-btn{bottom:10px;right:10px;font-size:9px;padding:5px 10px;}
 
-  /* Stats page */
+  /* Stats */
   .sv{font-size:22px;}
+
+  /* Contacts stat strip — compact on mobile */
+  .cstat-strip{gap:5px;margin-bottom:8px!important;}
+  .cstat-item{padding:7px 6px;}
+  .cstat-lbl{font-size:8px;letter-spacing:.5px;}
+  .cstat-val{font-size:16px;margin-top:1px;}
+
+  /* Filter pill row */
+  .cpill-row{padding:8px 12px;gap:5px;}
+  .cpill{font-size:10px;padding:5px 11px;}
+  .cpage-btns .btn{font-size:10px;padding:5px 9px;}
+
+  /* Contact cards on mobile */
+  .mob-contact-card{margin-bottom:6px;padding:10px 12px;}
+
+  /* Sort bar on mobile */
+  .csort-bar{padding:6px 12px;gap:4px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;}
+  .csort-btn{font-size:10px;padding:3px 8px;}
 
   /* Prod rows in carrier modal */
   #prod-rows>div{flex-wrap:wrap;}
 
-  /* Any flex row that might overflow: wrap it */
-  .topbar>div,.ch,.qab{flex-wrap:wrap;}
+  /* Topbar / ch / qab: allow wrapping */
+  .topbar{flex-wrap:wrap;}
+  .ch,.qab{flex-wrap:wrap;}
+
+  /* ERS batch grid: scrollable on mobile */
+  #lead-tab-ers .ers-grid-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  #ers-rows>div{min-width:600px;}
+
+  /* Contact filter sub-tabs: scroll */
+  #lead-subfilters{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;padding-bottom:4px;}
+  .ctab-sub{white-space:nowrap;font-size:10px;}
+  .ctab{font-size:10px;padding:8px 10px;}
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
@@ -543,27 +653,29 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
   <nav class="nav">
     <div class="ng">
       <div class="nl">Main</div>
-      <div class="ni active" onclick="goPage('dashboard',this)" title="Dashboard"><span class="ni-icon">&#9675;</span><span class="ni-label">Dashboard</span></div>
-      <div class="ni" onclick="goPage('contacts',this)" title="Contacts"><span class="ni-icon">&#9651;</span><span class="ni-label">Contacts</span><span class="nbadge" id="nb-c">0</span></div>
-      <div class="ni" onclick="goPage('pipeline',this)" title="Pipeline"><span class="ni-icon">&#9641;</span><span class="ni-label">Pipeline</span></div>
-      <div class="ni" onclick="goPage('calendar',this)" title="Calendar"><span class="ni-icon">&#9670;</span><span class="ni-label">Calendar</span></div>
+      <div class="ni active" onclick="goPage('dashboard',this)" title="Dashboard"><span class="ni-label">Dashboard</span></div>
+      <div class="ni" onclick="goPageFiltered('contacts','leads',this)" title="Leads"><span class="ni-label">Leads</span><span class="nbadge" id="nb-prospects">0</span></div>
+      <div class="ni" onclick="goPageFiltered('contacts','client',this)" title="Clients"><span class="ni-label">Clients</span><span class="nbadge" id="nb-clients">0</span></div>
+      <div class="ni" onclick="goPage('pipeline',this)" title="Pipeline"><span class="ni-label">Pipeline</span></div>
+      <div class="ni" onclick="goPage('calendar',this)" title="Calendar"><span class="ni-label">Calendar</span></div>
+      <div class="ni" onclick="goPage('booking',this)" title="Book a Call"><span class="ni-label">Book a Call</span></div>
     </div>
     <div class="ng">
       <div class="nl">Business</div>
-      <div class="ni" onclick="goPage('applications',this)" title="Applications"><span class="ni-icon">&#9641;</span><span class="ni-label">Applications</span><span class="nbadge" id="nb-a">0</span></div>
-      <div class="ni" onclick="goPage('commissions',this)" title="Commissions"><span class="ni-icon">&#9651;</span><span class="ni-label">Commissions</span></div>
-      <div class="ni" onclick="goPage('social',this)" title="Social Media"><span class="ni-icon">&#9670;</span><span class="ni-label">Social Media</span></div>
+      <div class="ni" onclick="goPage('applications',this)" title="Applications"><span class="ni-label">Applications</span><span class="nbadge" id="nb-a">0</span></div>
+      <div class="ni" onclick="goPage('commissions',this)" title="Commissions"><span class="ni-label">Commissions</span></div>
+      <div class="ni" onclick="goPage('social',this)" title="Social Media"><span class="ni-label">Social Media</span></div>
     </div>
     <div class="ng">
       <div class="nl">Resources</div>
-      <div class="ni" onclick="goPage('carriers',this)" title="Carriers"><span class="ni-icon">&#9663;</span><span class="ni-label">Carriers</span><span class="nbadge" id="nb-car">0</span></div>
-      <div class="ni" onclick="goPage('stack',this)" title="My Stack"><span class="ni-icon">&#9675;</span><span class="ni-label">My Stack</span></div>
+      <div class="ni" onclick="goPage('carriers',this)" title="Carriers"><span class="ni-label">Carriers</span><span class="nbadge" id="nb-car">0</span></div>
+      <div class="ni" onclick="goPage('stack',this)" title="My Stack"><span class="ni-label">My Stack</span></div>
     </div>
   </nav>
   <div class="sb-foot">
     <div style="display:flex;align-items:center;gap:8px;">
       <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--m),var(--g));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--blk);flex-shrink:0;">AG</div>
-      <div class="sb-foot-text"><div style="font-size:11px;color:#ccc;font-weight:500;">Ariel Gildon</div><div style="font-size:10px;color:#555;">Licensed Agent</div></div>
+      <div class="sb-foot-text"><div style="font-size:11px;color:#ddd;font-weight:500;">Ariel Gildon</div><div style="font-size:10px;color:#888;">Licensed Agent</div></div>
     </div>
   </div>
 </aside>
@@ -576,7 +688,7 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
         <span></span><span></span><span></span>
       </button>
       <div>
-        <div class="pt" id="ptitle">Good morning, Ariel</div>
+        <div class="pt" id="ptitle"></div>
         <div class="ps" id="psub">Your business dashboard</div>
       </div>
     </div>
@@ -670,7 +782,7 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
         <div class="dial-box">
           <div class="dial-lbl">Dials Today</div>
           <div class="dial-num" id="dial-count">0</div>
-          <div style="font-size:10px;color:#555;">Goal: 20</div>
+          <div style="font-size:10px;color:#fff;">Goal: 20</div>
           <div class="dial-btns">
             <button class="dial-btn dial-minus" onclick="changeDial(-1)">−</button>
             <button class="dial-btn dial-plus" onclick="changeDial(1)">+</button>
@@ -698,33 +810,47 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
     </div>
   </div>
 
-  <!-- ═══ CONTACTS ═══ -->
+  <!-- ═══ CONTACTS / LEADS / CLIENTS ═══ -->
   <div class="page" id="page-contacts">
-    <div class="g4 mb12">
-      <div class="stat"><div class="sl">Total</div><div class="sv" id="ct-total">0</div></div>
-      <div class="stat"><div class="sl">Clients</div><div class="sv" id="ct-clients">0</div></div>
-      <div class="stat"><div class="sl">Prospects</div><div class="sv" id="ct-prospects">0</div></div>
-      <div class="stat"><div class="sl">Hot Leads</div><div class="sv" id="ct-hot" style="color:#E06060;">0</div></div>
+    <!-- Compact stat strip -->
+    <div class="cstat-strip mb12">
+      <div class="cstat-item"><div class="cstat-lbl">Total</div><div class="cstat-val" id="ct-total">0</div></div>
+      <div class="cstat-item"><div class="cstat-lbl">Clients</div><div class="cstat-val" id="ct-clients">0</div></div>
+      <div class="cstat-item"><div class="cstat-lbl">Leads</div><div class="cstat-val" id="ct-prospects">0</div></div>
+      <div class="cstat-item"><div class="cstat-lbl">Hot</div><div class="cstat-val" id="ct-hot" style="color:#C05050;">0</div></div>
     </div>
     <div class="card">
+      <!-- Header: title + action buttons -->
       <div class="ch">
-        <span class="ct">All Contacts</span>
-        <div style="display:flex;gap:6px;">
+        <span class="ct" id="contacts-page-title">Leads</span>
+        <div class="cpage-btns">
           <button class="btn bg bsm" onclick="openModal('import')">Import</button>
-          <button class="btn bp bsm" onclick="openModal('new-lead')">+ Prospect</button>
+          <button class="btn bp bsm" onclick="openModal('new-lead')">+ Lead</button>
           <button class="btn bgrn bsm" onclick="openModal('new-client')">+ Client</button>
+          <button class="btn bsm" style="background:#F8E8E8;color:#C0392B;border:1px solid #F0C0C0;" onclick="deleteAllContacts()">Delete All</button>
         </div>
       </div>
-      <div style="display:flex;gap:0;border-bottom:1px solid var(--bd);padding:0 16px;">
-        <div class="cdt active" style="padding:8px 12px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;" onclick="filterC('all',this)">All</div>
-        <div class="cdt" style="padding:8px 12px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;" onclick="filterC('client',this)">Clients</div>
-        <div class="cdt" style="padding:8px 12px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;" onclick="filterC('prospect',this)">Prospects</div>
-        <div class="cdt" style="padding:8px 12px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;" onclick="filterC('hot',this)">Hot</div>
-        <div class="cdt" style="padding:8px 12px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;" onclick="filterC('ers',this)">ERS</div>
+      <!-- Filter pills: single scrollable row -->
+      <div class="cpill-row" id="cpill-row">
+        <button class="cpill cpill-active" id="cpill-all" onclick="filterC('all','all')">All</button>
+        <button class="cpill" id="cpill-client" onclick="filterC('client','client')">Clients</button>
+        <button class="cpill cpill-leads" id="cpill-leads" onclick="filterC('leads','leads')">Leads</button>
+        <div class="cpill-div"></div>
+        <button class="cpill cpill-hot" id="cpill-hot" onclick="filterCSub2('hot')">Hot</button>
+        <button class="cpill cpill-warm" id="cpill-warm" onclick="filterCSub2('warm')">Warm</button>
+        <button class="cpill cpill-cold" id="cpill-cold" onclick="filterCSub2('cold')">Cold</button>
+        <button class="cpill cpill-ers" id="cpill-ers" onclick="filterCSub2('ers')">ERS</button>
       </div>
-      <div id="contacts-wrap">
-        <div class="empty"><div class="ei">&#9651;</div><p>No contacts yet. Use Quick Add above.</p></div>
+      <!-- Sort bar -->
+      <div class="csort-bar">
+        <span class="csort-lbl">Sort:</span>
+        <button class="csort-btn csort-active" id="csort-pri" onclick="setSort('priority')">Priority</button>
+        <button class="csort-btn" id="csort-az" onclick="setSort('az')">A – Z</button>
+        <button class="csort-btn" id="csort-za" onclick="setSort('za')">Z – A</button>
+        <button class="csort-btn" id="csort-recent" onclick="setSort('recent')">Last Contact</button>
+        <button class="csort-btn" id="csort-new" onclick="setSort('newest')">Newest</button>
       </div>
+      <div id="contacts-wrap" style="padding:8px 0;"></div>
     </div>
   </div>
 
@@ -900,6 +1026,129 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
     </div>
   </div>
 
+  <!-- ═══ BOOKING ═══ -->
+  <div class="page" id="page-booking">
+    <div class="bk-wrap">
+
+      <!-- Google Calendar info banner (no OAuth needed) -->
+      <div class="gcal-banner" style="background:#EBF4EE;border-color:#6BA882;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#4A7C59" stroke-width="1.8"/><line x1="3" y1="9" x2="21" y2="9" stroke="#4A7C59" stroke-width="1.8"/><line x1="8" y1="2" x2="8" y2="6" stroke="#4A7C59" stroke-width="1.8"/><line x1="16" y1="2" x2="16" y2="6" stroke="#4A7C59" stroke-width="1.8"/></svg>
+          <span style="font-size:12px;font-weight:600;color:var(--g);">Google Calendar</span>
+          <span style="font-size:11px;color:var(--txm);">After confirming a booking, it will open Google Calendar so you can save the event.</span>
+        </div>
+      </div>
+
+      <!-- Agent header -->
+      <div class="bk-agent">
+        <div class="bk-avatar">A</div>
+        <div class="bk-agent-info">
+          <div class="bk-agent-name">Ariel Gildon</div>
+          <div class="bk-agent-sub">Licensed Life Insurance Agent · Olivar Co</div>
+        </div>
+        <div class="bk-badge">Available</div>
+      </div>
+
+      <!-- Booking grid -->
+      <div class="bk-grid" id="bkGrid">
+
+        <!-- Left: meeting type -->
+        <div class="bk-panel">
+          <div class="bk-section-label">Meeting Type</div>
+          <div class="bk-types">
+            <button class="bk-type active" onclick="bkSelectType(this)">
+              <div class="bk-type-body">
+                <div class="bk-type-name">Initial Consultation</div>
+                <div class="bk-type-desc">See if we're a good fit</div>
+              </div>
+              <div class="bk-duration">30 min</div>
+            </button>
+            <button class="bk-type" onclick="bkSelectType(this)">
+              <div class="bk-type-body">
+                <div class="bk-type-name">Policy Review</div>
+                <div class="bk-type-desc">Review existing coverage</div>
+              </div>
+              <div class="bk-duration">30 min</div>
+            </button>
+            <button class="bk-type" onclick="bkSelectType(this)">
+              <div class="bk-type-body">
+                <div class="bk-type-name">Follow-Up Call</div>
+                <div class="bk-type-desc">Continue a conversation</div>
+              </div>
+              <div class="bk-duration">20 min</div>
+            </button>
+          </div>
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--bd);">
+            <div style="font-size:11px;color:var(--txl);margin-bottom:5px;">All times in your local timezone</div>
+            <div style="font-size:11px;color:var(--txl);">Video or phone — your choice</div>
+          </div>
+        </div>
+
+        <!-- Right: calendar + form -->
+        <div class="bk-panel">
+          <!-- Calendar -->
+          <div id="bk-cal-section">
+            <div class="bk-cal-nav">
+              <button class="bk-nav-btn" onclick="bkChangeMonth(-1)">&#8592;</button>
+              <div class="bk-month-label" id="bk-month-label">May 2026</div>
+              <button class="bk-nav-btn" onclick="bkChangeMonth(1)">&#8594;</button>
+            </div>
+            <div class="bk-cal-grid" id="bk-cal-grid">
+              <div class="bk-day-hdr">Su</div><div class="bk-day-hdr">Mo</div><div class="bk-day-hdr">Tu</div>
+              <div class="bk-day-hdr">We</div><div class="bk-day-hdr">Th</div><div class="bk-day-hdr">Fr</div><div class="bk-day-hdr">Sa</div>
+            </div>
+            <!-- Time slots -->
+            <div id="bk-times-wrap" style="display:none;margin-top:14px;">
+              <div class="bk-section-label" id="bk-times-label">Available Times</div>
+              <div class="bk-time-grid" id="bk-time-grid"></div>
+            </div>
+          </div>
+
+          <!-- Confirm form -->
+          <div id="bk-confirm" style="display:none;">
+            <div class="bk-summary">
+              <div class="bk-summary-date" id="bk-sum-date">Thursday, May 7</div>
+              <div class="bk-summary-time" id="bk-sum-time">10:00 AM · 30 min · Initial Consultation</div>
+            </div>
+            <div class="fr" style="margin-bottom:0;">
+              <div class="fg"><label class="fl">First Name</label><input class="fi" id="bk-fn" placeholder="First"></div>
+              <div class="fg"><label class="fl">Last Name</label><input class="fi" id="bk-ln" placeholder="Last"></div>
+            </div>
+            <div class="fr" style="margin-bottom:0;">
+              <div class="fg"><label class="fl">Email</label><input class="fi" id="bk-em" type="email" placeholder="you@email.com"></div>
+              <div class="fg"><label class="fl">Phone</label><input class="fi" id="bk-ph" type="tel" placeholder="(555) 000-0000"></div>
+            </div>
+            <div class="fg" style="margin-bottom:14px;"><label class="fl">Notes (optional)</label><textarea class="fta" id="bk-notes" placeholder="Anything you'd like Ariel to know before the call..."></textarea></div>
+            <div style="display:flex;gap:7px;">
+              <button class="btn bg" style="flex:1;" onclick="bkBackToCalendar()">Back</button>
+              <button class="btn bgrn" style="flex:2;" onclick="bkConfirm()" id="bk-confirm-btn">Confirm Appointment</button>
+            </div>
+          </div>
+
+          <!-- Success -->
+          <div id="bk-success" style="display:none;text-align:center;padding:32px 16px;">
+            <div style="font-size:32px;margin-bottom:12px;">✓</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--g);margin-bottom:6px;">You're on the calendar.</div>
+            <div style="font-size:12px;color:var(--txm);margin-bottom:16px;" id="bk-success-detail"></div>
+            <div style="font-size:11px;color:var(--txm);margin-bottom:12px;">Google Calendar opened in a new tab — click Save to add the event.</div>
+            <a id="bk-gcal-link" href="#" target="_blank">
+              <button class="btn bp bsm" style="margin-bottom:8px;">Open Google Calendar Again</button>
+            </a>
+            <button class="btn bg bsm" onclick="bkReset()" style="margin-left:6px;">Book Another</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Past bookings log -->
+      <div class="card" style="margin-top:16px;">
+        <div class="ch"><span class="ct">Scheduled Appointments</span></div>
+        <div id="bk-log">
+          <div class="empty"><div class="ei">&#9670;</div><p>No appointments booked yet.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   </div><!-- /content -->
 </main>
 
@@ -1014,6 +1263,8 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
               <span class="pill pg" style="cursor:pointer;" onclick="setAppStatus('approved')">5. Approved</span><span style="color:var(--txl);align-self:center;font-size:10px;">→</span>
               <span class="pill pg" style="cursor:pointer;" onclick="setAppStatus('delivered')">6. Delivered</span><span style="color:var(--txl);align-self:center;font-size:10px;">→</span>
               <span class="pill pg" style="cursor:pointer;" onclick="setAppStatus('issued')">7. Issued & Paid</span>
+              <span style="color:var(--txl);align-self:center;font-size:10px;margin-left:4px;">|</span>
+              <span class="pill bred" style="cursor:pointer;background:#FDECEA;color:#C0392B;border:none;" onclick="setAppStatus('declined')">✕ Declined</span>
             </div>
             <div id="app-step-checklist" style="margin-top:10px;"></div>
           </div>
@@ -1135,16 +1386,21 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
     <div id="lead-tab-ers" style="display:none;padding:16px 20px;">
       <div style="background:var(--pkp);border-left:3px solid var(--pk);border-radius:6px;padding:10px 12px;margin-bottom:12px;">
         <div style="font-size:12px;font-weight:600;color:#C0606A;margin-bottom:3px;">ERS Batch Entry — Text First, Same Day</div>
-        <div style="font-size:11px;color:var(--txm);">Add multiple ERS leads at once. All will be created as prospects with ERS Referral as the source and your selected priority + workflow applied automatically.</div>
+        <div style="font-size:11px;color:var(--txm);">Add multiple ERS leads at once. Fill in each row — Name is required. All leads get ERS Referral as source with the priority you select.</div>
       </div>
-      <div class="fr">
-        <div class="fg"><label class="fl">Referred By <span>(existing contact)</span></label><select class="fs" id="ers-ref-contact"><option value="">Select referral source</option></select></div>
-        <div class="fg"><label class="fl">Priority for All</label><select class="fs" id="ers-batch-pri"><option value="hot">Hot — Contact today</option><option value="warm">Warm — Contact this week</option><option value="cold">Cold — Nurture</option></select></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;">
+        <div class="fg" style="flex:0 0 180px;margin-bottom:0;"><label class="fl" style="margin-bottom:4px;">Priority for All</label><select class="fs" id="ers-batch-pri"><option value="hot">Hot — Contact today</option><option value="warm">Warm — Contact this week</option><option value="cold">Cold — Nurture</option></select></div>
+        <div style="display:flex;gap:6px;margin-top:16px;">
+          <button onclick="downloadERSTemplate()" style="background:var(--g);color:#fff;border:none;border-radius:5px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;">⬇ Download ERS Template</button>
+          <label style="background:var(--blk);color:#fff;border:none;border-radius:5px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;">⬆ Upload CSV<input type="file" accept=".csv" style="display:none;" onchange="importERSCSV(this)"></label>
+        </div>
       </div>
-      <div style="display:grid;grid-template-columns:2fr 1.5fr 1fr auto;gap:6px;margin-bottom:6px;padding:0 2px;">
+      <div style="display:grid;grid-template-columns:2fr 1.5fr 2fr 1fr 1.5fr auto;gap:6px;margin-bottom:4px;padding:0 2px;">
         <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);font-weight:600;">Name</div>
-        <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);font-weight:600;">Phone</div>
+        <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);font-weight:600;">Relationship</div>
+        <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);font-weight:600;">Referred By</div>
         <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);font-weight:600;">State</div>
+        <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);font-weight:600;">Phone</div>
         <div></div>
       </div>
       <div id="ers-rows"></div>
@@ -1204,7 +1460,7 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
       <div class="fr"><div class="fg"><label class="fl">Client Name</label><input class="fi" id="app-name"></div><div class="fg"><label class="fl">Carrier</label><input class="fi" id="app-car"></div></div>
       <div class="fr"><div class="fg"><label class="fl">Product</label><select class="fs" id="app-prod"><option>Life Insurance</option><option>Final Expense</option><option>Mortgage Protection</option><option>IUL</option><option>Whole Life</option><option>Term Life</option><option>Annuity</option></select></div><div class="fg"><label class="fl">Monthly Premium</label><input class="fi" id="app-prem" placeholder="$0.00"></div></div>
       <div class="fr"><div class="fg"><label class="fl">Commission Rate %</label><input class="fi" id="app-comm" placeholder="e.g. 80" type="number"></div><div class="fg"><label class="fl">Date Submitted</label><input class="fi" id="app-date" type="date"></div></div>
-      <div class="fg"><label class="fl">Status</label><select class="fs" id="app-sts"><option value="submitted">App Submitted</option><option value="docs">Pending Documents</option><option value="interview">Phone Interview</option><option value="underwriting">In Underwriting</option><option value="approved">Approved</option><option value="issued">Issued & Paid</option></select></div>
+      <div class="fg"><label class="fl">Status</label><select class="fs" id="app-sts"><option value="submitted">App Submitted</option><option value="docs">Pending Documents</option><option value="interview">Phone Interview</option><option value="underwriting">In Underwriting</option><option value="approved">Approved</option><option value="delivered">Policy Delivered</option><option value="issued">Issued & Paid</option><option value="declined">Declined</option></select></div>
       <div class="fg"><label class="fl">Notes</label><textarea class="fta" id="app-notes" placeholder="Underwriting notes, docs needed..."></textarea></div>
     </div>
     <div class="mf"><button class="btn bg" onclick="closeModal('new-app')">Cancel</button><button class="btn bp" onclick="saveApp()">Save</button></div>
@@ -1247,16 +1503,21 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
   <div class="modal">
     <div class="mh"><span class="mh-title">Import Contacts</span><div class="mclose" onclick="closeModal('import')">✕</div></div>
     <div class="mb2">
+      <div style="background:var(--gp);border:1px solid var(--g);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:11px;color:var(--gd);">
+        <strong>Step 1:</strong> Download the template, fill it in, then upload it below.<br>
+        <button onclick="downloadImportTemplate()" style="margin-top:6px;background:var(--g);color:#fff;border:none;border-radius:5px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;">⬇ Download CSV Template</button>
+      </div>
       <div class="upload-area" onclick="document.getElementById('csv-input').click()" id="drop-area" ondragover="event.preventDefault();this.style.borderColor='var(--m)'" ondragleave="this.style.borderColor='var(--bd)'" ondrop="handleDrop(event)">
         <div style="font-size:22px;margin-bottom:6px;">&#8679;</div>
         <div style="font-size:12px;font-weight:600;color:var(--blk);">Drop CSV file or click to browse</div>
-        <div style="font-size:10px;color:var(--txl);margin-top:3px;">Columns: First Name, Last Name, Phone, Email, State, Product, Priority</div>
+        <div style="font-size:10px;color:var(--txl);margin-top:3px;">Required: First Name, Last Name &nbsp;|&nbsp; Optional: Phone, Email, State, Product, Priority, Type</div>
         <input type="file" id="csv-input" accept=".csv" style="display:none;" onchange="handleCSV(this)">
       </div>
       <div id="csv-preview" style="margin-top:10px;"></div>
       <div style="margin-top:14px;border-top:1px solid var(--bd);padding-top:12px;">
-        <div style="font-size:11px;font-weight:600;color:var(--blk);margin-bottom:6px;">Or paste manually (one per line):</div>
-        <textarea class="fta" id="manual-paste" placeholder="First Last, Phone, State&#10;John Smith, (317) 555-0123, IN"></textarea>
+        <div style="font-size:11px;font-weight:600;color:var(--blk);margin-bottom:4px;">Or paste from a spreadsheet (copy &amp; paste rows):</div>
+        <div style="font-size:10px;color:var(--txl);margin-bottom:6px;">Format: First Name, Last Name, Phone, Email, State, Product, Priority</div>
+        <textarea class="fta" id="manual-paste" placeholder="Jane, Smith, (317) 555-0100, jane@email.com, IN, Life, High&#10;Bob, Jones, (317) 555-0101, , TX, Auto, Medium"></textarea>
       </div>
     </div>
     <div class="mf"><button class="btn bg" onclick="closeModal('import')">Cancel</button><button class="btn bp" onclick="doImport()">Import</button></div>
@@ -1381,25 +1642,59 @@ function rowToContact(row){
 
 async function loadData(){
   ldLocal();
-  const [{data:contacts},{data:deals}]=await Promise.all([
+  const [cRes,dRes]=await Promise.all([
     sb.from('contacts').select('*').order('created_at',{ascending:false}),
     sb.from('deals').select('*').order('created_at',{ascending:false})
   ]);
-  DB.contacts=(contacts||[]).map(rowToContact);
-  DB.applications=deals||[];
+  if(cRes.error){console.error('Load contacts error:',cRes.error);showSaveError(cRes.error.message);}
+  if(dRes.error){console.error('Load deals error:',dRes.error);}
+  DB.contacts=(cRes.data||[]).map(rowToContact);
+  DB.applications=dRes.data||[];
   if(!DB.carriers||DB.carriers.length===0){DB.carriers=DEFAULT_CARRIERS;svLocal();}
 }
 
 async function upsertContact(c){
   if(!currentUserId)return;
   const row=contactToRow(c);
-  const {error}=await sb.from('contacts').upsert({...row,user_id:currentUserId});
-  if(error)console.error('Contact save error:',error);
+  // Only send columns that exist in the schema
+  const safe={
+    id:row.id,user_id:currentUserId,type:row.type,
+    fn:row.fn,ln:row.ln,ph:row.ph,em:row.em,
+    st:row.st,src:row.src,pri:row.pri,sts:row.sts,
+    prod:row.prod,stg:row.stg,bt:row.bt,fu:row.fu,
+    age:row.age,smk:row.smk,ht:row.ht,wt:row.wt,
+    cond:row.cond,meds:row.meds,cov:row.cov,bud:row.bud,
+    bn:row.bn,br:row.br,bd:row.bd,bssn:row.bssn,bn2:row.bn2,br2:row.br2,
+    uwn:row.uwn,cn:row.cn,
+    acar:row.acar,aprod:row.aprod,aprem:row.aprem,aface:row.aface,
+    acomm:row.acomm,adate:row.adate,asts:row.asts,anext:row.anext,
+    adocs:row.adocs,auwn:row.auwn,
+    ers:row.ers,ers_ref:row.ers_ref,ers_ref_id:row.ers_ref_id,
+    ers_rel:row.ers_rel,ers_what:row.ers_what,ers_knew:row.ers_knew,ers_approach:row.ers_approach,
+    pols:row.pols||[],acts:row.acts||[],docs:row.docs||[],ds_log:row.ds_log||[],
+    created:row.created
+  };
+  const {error}=await sb.from('contacts').upsert(safe);
+  if(error){console.error('Contact save error:',error);showSaveError(error.message);}
 }
 async function upsertApp(app){
   if(!currentUserId)return;
-  const {error}=await sb.from('deals').upsert({...app,user_id:currentUserId});
-  if(error)console.error('App save error:',error);
+  const safe={
+    id:app.id,user_id:currentUserId,name:app.name,car:app.car,
+    prod:app.prod,prem:app.prem,rate:app.rate||0,
+    expected:app.expected,date:app.date,sts:app.sts,notes:app.notes
+  };
+  const {error}=await sb.from('deals').upsert(safe);
+  if(error){console.error('App save error:',error);showSaveError(error.message);}
+}
+function showSaveError(msg){
+  // Only show once per session to avoid spam
+  if(window._saveErrShown)return;window._saveErrShown=true;
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;bottom:60px;left:50%;transform:translateX(-50%);background:#E06060;color:#fff;padding:10px 18px;border-radius:8px;font-size:12px;font-weight:600;z-index:9999;max-width:90vw;text-align:center;';
+  d.textContent='⚠ Data not saving to cloud: '+msg+'. Check Supabase schema.';
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(),8000);
 }
 
 // ─── QUOTES ───
@@ -1422,6 +1717,7 @@ document.getElementById('dq').textContent='"'+q.t+'"';
 document.getElementById('dqa').textContent='— '+q.a;
 const today=new Date();
 document.getElementById('today-date').textContent=today.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+document.getElementById('ptitle').textContent=getGreeting();
 
 // ─── CALL / TEXT / QUICK LOG ───
 function callContact(id,ph,e){
@@ -1498,9 +1794,18 @@ function closeSidebar(){
   document.getElementById('sb-overlay').classList.remove('open');
 }
 
+// ─── GREETING ───
+function getGreeting(){
+  const h=new Date().getHours();
+  if(h>=5 && h<12) return 'Good morning, Ariel';
+  if(h>=12 && h<17) return 'Good afternoon, Ariel';
+  if(h>=17 && h<21) return 'Good evening, Ariel';
+  return 'Working late, Ariel';
+}
+
 // ─── NAV ───
 const PT={
-  dashboard:["Good morning, Ariel","Your business dashboard"],
+  dashboard:[getGreeting(),"Your business dashboard"],
   contacts:["Contacts","All your leads and clients"],
   pipeline:["Sales Pipeline","Prospect to closed policy"],
   calendar:["Calendar","Appointments and schedule"],
@@ -1508,7 +1813,8 @@ const PT={
   commissions:["Commissions","Expected vs received"],
   social:["Social Media","Content calendar and Buffer"],
   carriers:["Carrier Hub","Your carrier quick-reference"],
-  stack:["My Stack","$29/month total"]
+  stack:["My Stack","$29/month total"],
+  booking:["Book a Call","Client-facing scheduling page"]
 };
 
 function goPage(name,el){
@@ -1518,13 +1824,39 @@ function goPage(name,el){
   if(el)el.classList.add('active');
   closeSidebar();
   const t=PT[name];if(t){document.getElementById('ptitle').textContent=t[0];document.getElementById('psub').textContent=t[1];}
-  if(name==='contacts')renderContacts();
+  if(name==='contacts'){cTabState='leads';cSubState='all';resetContactTabs();renderContacts();}
   if(name==='pipeline')renderPipe();
   if(name==='applications')renderApps();
   if(name==='commissions')renderCommsFromApps();
   if(name==='carriers')renderCarriers();
   if(name==='social')renderSocial();
   if(name==='calendar')renderCal();
+  if(name==='booking')initBooking();
+}
+function goPageFiltered(name,filter,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  const pg=document.getElementById('page-'+name);if(pg)pg.classList.add('active');
+  if(el)el.classList.add('active');
+  closeSidebar();
+  const labels={leads:['Leads','Hot, warm & cold prospects'],client:['Clients','Active policyholders']};
+  const lbl=labels[filter]||['Leads',''];
+  document.getElementById('ptitle').textContent=lbl[0];
+  document.getElementById('psub').textContent=lbl[1];
+  cTabState=filter; cSubState='all';
+  resetContactTabs();
+  const activePill=filter==='client'?'cpill-client':'cpill-leads';
+  const p=document.getElementById(activePill);
+  if(p)p.classList.add('cpill-active');
+  const title=document.getElementById('contacts-page-title');
+  if(title)title.textContent=filter==='client'?'Clients':'Leads';
+  renderContacts();
+}
+function resetContactTabs(){
+  setAllPillsInactive();
+  // default: leads pill active
+  const p=document.getElementById('cpill-leads');
+  if(p)p.classList.add('cpill-active');
 }
 
 // ─── MODAL ───
@@ -1647,7 +1979,15 @@ function openContact(id){
   editActs=JSON.parse(JSON.stringify(c.acts||[]));
   document.getElementById('cd-name-title').textContent=(c.fn+' '+(c.ln||'')).trim();
   const sb=document.getElementById('cd-status-badge');
-  sb.innerHTML=c.sts==='client'?'<span class="pill pg">Active Client</span>':c.ers?'<span class="pill ppk">ERS Lead</span>':'<span class="pill pb">Prospect</span>';
+  if(c.sts==='client'||c.type==='client'){
+    sb.innerHTML='<span class="pill pg">Active Client</span>';
+  } else if(c.ers){
+    const priLabel=c.pri==='hot'?'🔥 Hot ERS':c.pri==='warm'?'☀ Warm ERS':c.pri==='cold'?'❄ Cold ERS':'ERS Lead';
+    sb.innerHTML=`<span class="pill ppk">${priLabel}</span>`;
+  } else {
+    const priLabel=c.pri==='hot'?'🔥 Hot':c.pri==='warm'?'☀ Warm':c.pri==='cold'?'❄ Cold':'';
+    sb.innerHTML=priLabel?`<span class="pill ${c.pri==='hot'?'phot':c.pri==='warm'?'pwarm':'pcold'}">${priLabel}</span><span class="pill pb" style="margin-left:4px;">Prospect</span>`:'<span class="pill pb">Prospect</span>';
+  }
   const fields={fn:c.fn,ln:c.ln,ph:c.ph,em:c.em,st:c.st,src:c.src,pri:c.pri,sts:c.sts,prod:c.prod,stg:c.stg,bt:c.bt,fu:c.fu,age:c.age,smk:c.smk,ht:c.ht,wt:c.wt,cond:c.cond,meds:c.meds,cov:c.cov,bud:c.bud,bn:c.bn,br:c.br,bd:c.bd,bssn:c.bssn,bn2:c.bn2,br2:c.br2,uwn:c.uwn,cn:c.cn,acar:c.acar,aprod:c.aprod,aprem:c.aprem,aface:c.aface,acomm:c.acomm,adate:c.adate,asts:c.asts,anext:c.anext,adocs:c.adocs,auwn:c.auwn};
   Object.entries(fields).forEach(([k,v])=>{const el=document.getElementById('cd-'+k);if(el&&v!==undefined)el.value=v||'';});
   document.getElementById('cd-aface').value=c.aface||'';
@@ -1660,6 +2000,8 @@ function openContact(id){
   renderDocsList(c);
   renderDSLog(c);
   renderAppDocList(c);
+  // render app checklist for current status
+  if(c.asts)renderAppChecklist(c.asts);
   // reset tabs
   document.querySelectorAll('.cdtabs .cdt').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.cdtc').forEach(t=>t.classList.remove('active'));
@@ -1709,8 +2051,13 @@ function saveContact(){
   fields.forEach(k=>{const el=document.getElementById('cd-'+k);if(el)c[k]=el.value;});
   c.pols=editPols;
   c.acts=editActs;
+  // auto-promote to client when app is approved/delivered/issued
+  if(['approved','delivered','issued'].includes(c.asts)){
+    c.sts='client';c.type='client';
+    const stsEl=document.getElementById('cd-sts');
+    if(stsEl)stsEl.value='client';
+  }
   if(c.sts==='client')c.type='client';
-  if(['approved','delivered','issued'].includes(c.asts))c.type='client';
   // save ERS fields
   const ersRef=document.getElementById('cd-ers-ref');
   if(ersRef){
@@ -1730,7 +2077,35 @@ function saveContact(){
 function checkApproval(){
   const sts=document.getElementById('cd-asts').value;
   const polTab=document.getElementById('cd-policies-tab');
-  polTab.style.display=['approved','delivered','issued'].includes(sts)?'block':'none';
+  const isApproved=['approved','delivered','issued'].includes(sts);
+  polTab.style.display=isApproved?'block':'none';
+  // live-update status dropdown and badge when approved
+  if(isApproved){
+    const stsEl=document.getElementById('cd-sts');
+    if(stsEl)stsEl.value='client';
+    const badge=document.getElementById('cd-status-badge');
+    if(badge)badge.innerHTML='<span class="pill pg" style="font-size:10px;">Active Client</span>';
+    // show a subtle banner
+    showApprovalBanner();
+    // auto-switch to Policies tab after a moment
+    setTimeout(()=>{
+      const polTabBtn=document.getElementById('cd-policies-tab');
+      if(polTabBtn)polTabBtn.click();
+    },400);
+  }
+}
+
+function showApprovalBanner(){
+  let b=document.getElementById('approval-banner');
+  if(!b){
+    b=document.createElement('div');
+    b.id='approval-banner';
+    b.style.cssText='position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#2F5238;color:#fff;padding:10px 20px;border-radius:8px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:opacity .4s;';
+    b.textContent='🎉 Congratulations! Contact promoted to Active Client.';
+    document.body.appendChild(b);
+  }
+  b.style.opacity='1';
+  setTimeout(()=>{b.style.opacity='0';},3000);
 }
 
 // ─── POLICIES ───
@@ -1845,7 +2220,8 @@ const APP_CHECKLISTS={
   underwriting:['Check carrier portal every 2-3 days','Note any additional requirements from underwriter','Keep client updated on timeline','Estimated timeline: 3-10 business days'],
   approved:['Call client immediately with good news!','Schedule policy delivery appointment','Prepare policy documents','Commission will calculate automatically'],
   delivered:['Review policy with client page by page','Confirm beneficiary information is correct','Collect signed delivery receipt','Send to DocuSign if remote delivery'],
-  issued:['Policy is active — client is protected','Send thank you text/note to client','Request Google review via JustCall','Set 30-day check-in reminder','Ask for referral!']
+  issued:['Policy is active — client is protected','Send thank you text/note to client','Request Google review via JustCall','Set 30-day check-in reminder','Ask for referral!'],
+  declined:['Note decline reason from carrier','Discuss alternative carriers with client','Check if client qualifies for graded/simplified issue','Consider guaranteed issue if all others declined','Follow up in 6-12 months if health improves']
 };
 
 function setAppStatus(sts){
@@ -1858,7 +2234,7 @@ function renderAppChecklist(sts){
   const el=document.getElementById('app-step-checklist');
   if(!el||!sts||!APP_CHECKLISTS[sts])return;
   const items=APP_CHECKLISTS[sts];
-  const stslabels={submitted:'App Submitted',docs:'Pending Documents',interview:'Phone Interview',underwriting:'In Underwriting',approved:'Approved',delivered:'Policy Delivered',issued:'Issued & Paid'};
+  const stslabels={submitted:'App Submitted',docs:'Pending Documents',interview:'Phone Interview',underwriting:'In Underwriting',approved:'Approved',delivered:'Policy Delivered',issued:'Issued & Paid',declined:'Declined'};
   el.innerHTML=`<div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--txl);margin-bottom:6px;">Next Steps — ${stslabels[sts]||sts}</div>`+
     items.map((item,i)=>`<div style="display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid var(--bd);" onclick="this.querySelector('.app-check').classList.toggle('done');this.querySelector('.app-lbl').classList.toggle('done')" style="cursor:pointer;">
       <div class="app-check" style="width:14px;height:14px;border-radius:3px;border:2px solid var(--bdl);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .12s;cursor:pointer;"></div>
@@ -1901,26 +2277,108 @@ function updateWF(){
 }
 
 // ─── RENDER CONTACTS ───
-function renderContacts(filter='all'){
+let cTabState='leads'; // 'all','client','leads'
+let cSubState='all';  // 'all','hot','warm','cold','ers'
+let cSortState='priority'; // 'priority','az','za','recent','newest'
+function renderContacts(){
   let cx=DB.contacts;
-  if(filter==='client')cx=cx.filter(c=>c.sts==='client'||c.type==='client');
-  else if(filter==='prospect')cx=cx.filter(c=>c.sts!=='client'&&c.type!=='client');
-  else if(filter==='hot')cx=cx.filter(c=>c.pri==='hot');
-  else if(filter==='ers')cx=cx.filter(c=>c.ers);
+  if(cTabState==='client')cx=cx.filter(c=>c.sts==='client'||c.type==='client');
+  else if(cTabState==='leads'){
+    cx=cx.filter(c=>c.sts!=='client'&&c.type!=='client');
+    if(cSubState==='hot')cx=cx.filter(c=>c.pri==='hot');
+    else if(cSubState==='warm')cx=cx.filter(c=>c.pri==='warm');
+    else if(cSubState==='cold')cx=cx.filter(c=>c.pri==='cold');
+    else if(cSubState==='ers')cx=cx.filter(c=>c.ers);
+  }
+  cx=applySortContacts(cx);
   const el=document.getElementById('contacts-wrap');
-  if(!cx.length){el.innerHTML='<div class="empty"><div class="ei">&#9651;</div><p>No contacts yet.</p></div>';return;}
-  el.innerHTML=`<table class="tbl"><thead><tr><th>Name</th><th>Phone</th><th>Product</th><th>State</th><th>Priority</th><th>Status</th><th>Source</th><th>Added</th></tr></thead><tbody>${cx.map(c=>`<tr onclick="openContact('${c.id}')"><td><div class="cn">${c.fn} ${c.ln||''}</div><div class="csub">${c.em||c.src||''}</div></td><td>${c.ph?`<div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;"><span style="font-size:11px;">${c.ph}</span><button class="btn-call" onclick="callContact('${c.id}','${c.ph}',event)">📞 Call</button><button class="btn-text" onclick="textContact('${c.id}','${c.ph}',event)">💬 Text</button></div>`:'—'}</td><td>${c.prod||'—'}</td><td>${c.st||'—'}</td><td>${c.pri?`<span class="pd p${c.pri[0]}"></span>${c.pri.charAt(0).toUpperCase()+c.pri.slice(1)}`:'—'}</td><td>${sPill(c)}</td><td>${c.src||'—'}</td><td style="font-size:10px;color:var(--txl);">${c.created||''}</td></tr>`).join('')}</tbody></table>`;
+  if(!cx.length){el.innerHTML='<div class="empty"><div class="ei">&#9651;</div><p>No contacts found for this filter.</p></div>';return;}
+  if(window.innerWidth<=700){
+    // ── MOBILE: card list ──
+    el.innerHTML=cx.map(c=>`
+      <div class="mob-contact-card" onclick="openContact('${c.id}')">
+        <div class="mob-cc-top">
+          <div class="mob-cc-name">${c.fn} ${c.ln||''}</div>
+          <div>${sPill(c)}</div>
+        </div>
+        <div class="mob-cc-meta">
+          ${c.prod?`<span style="font-size:10px;color:var(--txl);">${c.prod}</span>`:''}
+          ${c.st?`<span style="font-size:10px;color:var(--txl);">· ${c.st}</span>`:''}
+          ${c.src?`<span style="font-size:10px;color:var(--txl);">· ${c.src}</span>`:''}
+        </div>
+        ${c.ph?`<div class="mob-cc-btns">
+          <span style="font-size:11px;color:var(--txm);align-self:center;">${c.ph}</span>
+          <button class="btn-call" onclick="callContact('${c.id}','${c.ph}',event)">📞 Call</button>
+          <button class="btn-text" onclick="textContact('${c.id}','${c.ph}',event)">💬 Text</button>
+        </div>`:''}
+      </div>`).join('');
+  } else {
+    // ── DESKTOP: full table ──
+    el.innerHTML=`<table class="tbl"><thead><tr><th>Name</th><th>Phone</th><th>Product</th><th>State</th><th>Priority</th><th>Status</th><th>Source</th><th>Added</th></tr></thead><tbody>${cx.map(c=>`<tr onclick="openContact('${c.id}')"><td><div class="cn">${c.fn} ${c.ln||''}</div><div class="csub">${c.em||c.src||''}</div></td><td>${c.ph?`<div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;"><span style="font-size:11px;">${c.ph}</span><button class="btn-call" onclick="callContact('${c.id}','${c.ph}',event)">📞 Call</button><button class="btn-text" onclick="textContact('${c.id}','${c.ph}',event)">💬 Text</button></div>`:'—'}</td><td>${c.prod||'—'}</td><td>${c.st||'—'}</td><td>${c.pri?`<span class="pd p${c.pri[0]}"></span>${c.pri.charAt(0).toUpperCase()+c.pri.slice(1)}`:'—'}</td><td>${sPill(c)}</td><td>${c.src||'—'}</td><td style="font-size:10px;color:var(--txl);">${c.created||''}</td></tr>`).join('')}</tbody></table>`;
+  }
 }
 function sPill(c){
   if(c.sts==='client'||c.type==='client')return'<span class="pill pg">Active Client</span>';
   if(c.ers)return'<span class="pill ppk">ERS Lead</span>';
-  if(c.pri==='hot')return'<span class="pill phot">Hot Prospect</span>';
+  if(c.pri==='hot')return'<span class="pill phot">🔥 Hot</span>';
+  if(c.pri==='warm')return'<span class="pill pwarm">☀ Warm</span>';
+  if(c.pri==='cold')return'<span class="pill pcold">❄ Cold</span>';
   return'<span class="pill pb">Prospect</span>';
 }
-function filterC(f,el){
-  document.querySelectorAll('#page-contacts .cdt').forEach(t=>{t.style.color='var(--txl)';t.style.borderBottomColor='transparent';});
-  el.style.color='var(--md)';el.style.borderBottomColor='var(--m)';
-  renderContacts(f);
+function setAllPillsInactive(){
+  document.querySelectorAll('.cpill').forEach(p=>p.classList.remove('cpill-active'));
+}
+function filterC(f,pillId){
+  cTabState=f; cSubState='all';
+  setAllPillsInactive();
+  const p=document.getElementById('cpill-'+pillId);
+  if(p)p.classList.add('cpill-active');
+  const title=document.getElementById('contacts-page-title');
+  if(title)title.textContent=f==='client'?'Clients':f==='leads'?'Leads':'All Contacts';
+  renderContacts();
+}
+function filterCSub2(sub){
+  // Hot/Warm/Cold/ERS = leads sub-filter
+  cTabState='leads'; cSubState=sub;
+  setAllPillsInactive();
+  const p=document.getElementById('cpill-'+sub);
+  if(p)p.classList.add('cpill-active');
+  const title=document.getElementById('contacts-page-title');
+  const labels={hot:'Hot Leads',warm:'Warm Leads',cold:'Cold Leads',ers:'ERS Leads'};
+  if(title)title.textContent=labels[sub]||'Leads';
+  renderContacts();
+}
+// keep old name for backward compat
+function filterCSub(sub){filterCSub2(sub);}
+
+function setSort(s){
+  cSortState=s;
+  document.querySelectorAll('.csort-btn').forEach(b=>b.classList.remove('csort-active'));
+  const btn=document.getElementById('csort-'+s);
+  if(btn)btn.classList.add('csort-active');
+  renderContacts();
+}
+
+function applySortContacts(cx){
+  const priOrder={hot:0,warm:1,cold:2};
+  if(cSortState==='az')
+    return [...cx].sort((a,b)=>(a.fn||'').localeCompare(b.fn||''));
+  if(cSortState==='za')
+    return [...cx].sort((a,b)=>(b.fn||'').localeCompare(a.fn||''));
+  if(cSortState==='priority')
+    return [...cx].sort((a,b)=>(priOrder[a.pri]??9)-(priOrder[b.pri]??9));
+  if(cSortState==='recent'){
+    // sort by most recent activity log entry
+    return [...cx].sort((a,b)=>{
+      const aLast=a.acts&&a.acts.length?new Date(a.acts[0].time||0).getTime():0;
+      const bLast=b.acts&&b.acts.length?new Date(b.acts[0].time||0).getTime():0;
+      return bLast-aLast;
+    });
+  }
+  if(cSortState==='newest'){
+    return [...cx].sort((a,b)=>new Date(b.created_at||b.created||0)-new Date(a.created_at||a.created||0));
+  }
+  return cx;
 }
 
 // ─── RENDER PIPELINE ───
@@ -2203,13 +2661,39 @@ function connectGCal(){
   document.getElementById('gcal-events').innerHTML='<div style="font-size:11px;color:var(--txm);padding:8px 0;">Google Calendar connection requires your Zapier setup. Once connected, appointments booked via Calendly will appear here automatically. For now, add appointments manually using the form.</div>';
 }
 
+// ─── IMPORT TEMPLATE ───
+function downloadImportTemplate(){
+  const headers='First Name,Last Name,Phone,Email,State,Product,Priority,Type';
+  const sample1='Jane,Smith,(317) 555-0100,jane@email.com,IN,Life Insurance,High,prospect';
+  const sample2='Bob,Jones,(317) 555-0101,,TX,Auto Insurance,Medium,client';
+  const csv=[headers,sample1,sample2].join('\n');
+  const blob=new Blob([csv],{type:'text/csv'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='olivar-contacts-template.csv';
+  a.click();
+}
+
 // ─── IMPORT ───
+function parseCSVLine(line){
+  // Handle quoted fields with commas inside
+  const result=[];let cur='';let inQ=false;
+  for(let i=0;i<line.length;i++){
+    if(line[i]==='"'){inQ=!inQ;}
+    else if(line[i]===','&&!inQ){result.push(cur.trim());cur='';}
+    else{cur+=line[i];}
+  }
+  result.push(cur.trim());
+  return result;
+}
 function handleCSV(input){
   const file=input.files[0];if(!file)return;
   const reader=new FileReader();
   reader.onload=e=>{
     const lines=e.target.result.split('\n').filter(l=>l.trim());
-    document.getElementById('csv-preview').innerHTML=`<div style="font-size:11px;color:var(--g);font-weight:600;">Found ${lines.length} rows. Click Import.</div>`;
+    const dataLines=lines.filter((_,i)=>i===0?!/first.name|last.name/i.test(lines[0]):true);
+    const count=/first.name|last.name/i.test(lines[0])?lines.length-1:lines.length;
+    document.getElementById('csv-preview').innerHTML=`<div style="font-size:11px;color:var(--g);font-weight:600;margin-bottom:4px;">✓ Found ${count} contact(s) ready to import.</div><div style="font-size:10px;color:var(--txl);">Preview: ${parseCSVLine(lines[/first.name|last.name/i.test(lines[0])?1:0]).slice(0,3).join(' | ')}</div>`;
     document.getElementById('csv-preview').dataset.csv=e.target.result;
   };
   reader.readAsText(file);
@@ -2224,26 +2708,81 @@ function doImport(){
   const preview=document.getElementById('csv-preview');
   if(preview.dataset.csv){
     const lines=preview.dataset.csv.split('\n').filter(l=>l.trim());
-    const hasH=/name|first|phone/i.test(lines[0]);
-    for(let i=hasH?1:0;i<lines.length;i++){
-      const c=lines[i].split(',').map(s=>s.trim().replace(/^"|"$/g,''));
-      if(!c[0])continue;
-      const np=c[0].split(' ');
-      DB.contacts.push(makeContact('prospect',{fn:np[0]||'',ln:np.slice(1).join(' '),ph:c[1]||'',st:c[3]||'',prod:c[4]||'',pri:c[5]||'',src:'Imported'}));
+    const hasHeader=/first.?name|last.?name/i.test(lines[0]);
+    // Build column map from header if present
+    let colMap={fn:0,ln:1,ph:2,em:3,st:4,prod:5,pri:6,type:7};
+    if(hasHeader){
+      const h=parseCSVLine(lines[0]).map(s=>s.toLowerCase().replace(/[^a-z]/g,''));
+      h.forEach((col,i)=>{
+        if(/firstname|first/.test(col))colMap.fn=i;
+        else if(/lastname|last/.test(col))colMap.ln=i;
+        else if(/phone|ph|mobile|cell/.test(col))colMap.ph=i;
+        else if(/email|em/.test(col))colMap.em=i;
+        else if(/state|st/.test(col))colMap.st=i;
+        else if(/product|prod/.test(col))colMap.prod=i;
+        else if(/priority|pri/.test(col))colMap.pri=i;
+        else if(/type/.test(col))colMap.type=i;
+      });
+    }
+    for(let i=hasHeader?1:0;i<lines.length;i++){
+      const c=parseCSVLine(lines[i]);
+      const fn=(c[colMap.fn]||'').replace(/^"|"$/g,'').trim();
+      if(!fn)continue;
+      const type=(c[colMap.type]||'prospect').toLowerCase();
+      const contactType=type.includes('client')?'client':'prospect';
+      DB.contacts.push(makeContact(contactType,{
+        fn,
+        ln:(c[colMap.ln]||'').replace(/^"|"$/g,'').trim(),
+        ph:(c[colMap.ph]||'').replace(/^"|"$/g,'').trim(),
+        em:(c[colMap.em]||'').replace(/^"|"$/g,'').trim(),
+        st:(c[colMap.st]||'').replace(/^"|"$/g,'').trim(),
+        prod:(c[colMap.prod]||'').replace(/^"|"$/g,'').trim(),
+        pri:(c[colMap.pri]||'').replace(/^"|"$/g,'').trim(),
+        src:'Imported'
+      }));
       added++;
     }
   }
   const manual=document.getElementById('manual-paste').value.trim();
   if(manual){
-    manual.split('\n').filter(l=>l.trim()).forEach((line,i)=>{
-      const p=line.split(',').map(s=>s.trim());
-      const np=(p[0]||'').split(' ');
-      if(!np[0])return;
-      DB.contacts.push(makeContact('prospect',{fn:np[0],ln:np.slice(1).join(' '),ph:p[1]||'',st:p[2]||'',src:'Imported'}));
+    manual.split('\n').filter(l=>l.trim()).forEach(line=>{
+      const p=parseCSVLine(line);
+      const fn=(p[0]||'').trim();const ln=(p[1]||'').trim();
+      if(!fn)return;
+      DB.contacts.push(makeContact('prospect',{fn,ln,ph:(p[2]||'').trim(),em:(p[3]||'').trim(),st:(p[4]||'').trim(),prod:(p[5]||'').trim(),pri:(p[6]||'').trim(),src:'Imported'}));
       added++;
     });
   }
-  if(added){DB.contacts.slice(-added).forEach(c=>upsertContact(c));renderAll();closeModal('import');alert(added+' contact(s) imported!');document.getElementById('manual-paste').value='';}
+  if(added){
+    DB.contacts.slice(-added).forEach(c=>upsertContact(c));
+    renderAll();closeModal('import');
+    document.getElementById('manual-paste').value='';
+    preview.dataset.csv='';
+    preview.innerHTML='';
+    alert(added+' contact(s) imported successfully!');
+  } else {
+    alert('No contacts found. Make sure your file matches the template format.');
+  }
+}
+
+// ─── BULK DELETE ───
+async function deleteSelectedContacts(){
+  const checked=[...document.querySelectorAll('.contact-cb:checked')].map(cb=>cb.dataset.id);
+  if(!checked.length){alert('Select at least one contact first.');return;}
+  if(!confirm(`Delete ${checked.length} contact(s)? This cannot be undone.`))return;
+  // Delete from Supabase
+  for(const id of checked){
+    await sb.from('contacts').delete().eq('id',id);
+  }
+  // Remove from local DB
+  DB.contacts=DB.contacts.filter(c=>!checked.includes(c.id));
+  renderAll();
+}
+async function deleteAllContacts(){
+  if(!confirm('Delete ALL contacts? This cannot be undone.'))return;
+  await sb.from('contacts').delete().eq('user_id',currentUserId);
+  DB.contacts=[];
+  renderAll();
 }
 
 // ─── ERS BATCH ENTRY ───
@@ -2288,28 +2827,33 @@ function switchLeadTab(el, tab){
   el.style.color='var(--md)';el.style.borderBottomColor='var(--m)';
   document.getElementById('lead-tab-single').style.display=tab==='single'?'block':'none';
   document.getElementById('lead-tab-ers').style.display=tab==='ers'?'block':'none';
-  // populate referral dropdown
+  // pre-populate ERS rows
   if(tab==='ers'){
-    const sel=document.getElementById('ers-ref-contact');
-    sel.innerHTML='<option value="">Select referral source</option>'+
-      DB.contacts.map(c=>`<option value="${c.id}">${c.fn} ${c.ln||''}</option>`).join('');
-    if(!document.getElementById('ers-rows').children.length) addERSRow();
+    if(!document.getElementById('ers-rows').children.length){
+      for(let i=0;i<10;i++) addERSRow();
+    }
   }
 }
 
 function addERSRow(){
-  if(ersRows.length>=15)return;
+  if(ersRows.length>=20)return;
   const id=Date.now()+ersRows.length;
   ersRows.push(id);
   const el=document.getElementById('ers-rows');
   const row=document.createElement('div');
   row.id='ers-row-'+id;
-  row.style.cssText='display:grid;grid-template-columns:2fr 1.5fr 1fr auto;gap:6px;margin-bottom:6px;';
+  row.style.cssText='display:grid;grid-template-columns:2fr 1.5fr 2fr 1fr 1.5fr auto;gap:6px;margin-bottom:5px;';
   row.innerHTML=`
     <input class="fi" placeholder="First Last" style="margin-bottom:0;" id="ers-name-${id}">
-    <input class="fi" placeholder="(317) 555-0000" type="tel" style="margin-bottom:0;" id="ers-ph-${id}">
+    <select class="fs" style="margin-bottom:0;" id="ers-rel-${id}">
+      <option value="">Relationship</option>
+      <option>Spouse</option><option>Parent</option><option>Child</option><option>Sibling</option>
+      <option>Friend</option><option>Coworker</option><option>Neighbor</option><option>Other</option>
+    </select>
+    <input class="fi" placeholder="Referred by who?" style="margin-bottom:0;" id="ers-ref-${id}">
     <select class="fs" style="margin-bottom:0;" id="ers-st-${id}"><option value="">State</option><option>IN</option><option>OH</option><option>IL</option><option>KY</option><option>MI</option><option>TN</option><option>GA</option><option>FL</option><option>TX</option><option>Other</option></select>
-    <button class="btn bred" onclick="removeERSRow(${id})" style="height:34px;">×</button>
+    <input class="fi" placeholder="(317) 555-0000" type="tel" style="margin-bottom:0;" id="ers-ph-${id}">
+    <button class="btn bred" onclick="removeERSRow(${id})" style="height:34px;padding:0 8px;">×</button>
   `;
   el.appendChild(row);
 }
@@ -2322,26 +2866,27 @@ function removeERSRow(id){
 
 function saveERSBatch(){
   const pri=document.getElementById('ers-batch-pri').value;
-  const refId=document.getElementById('ers-ref-contact').value;
-  const refContact=DB.contacts.find(c=>c.id==refId);
-  const refName=refContact?`${refContact.fn} ${refContact.ln||''}`.trim():'';
   let added=0;
   ersRows.forEach(id=>{
     const nameEl=document.getElementById('ers-name-'+id);
     const phEl=document.getElementById('ers-ph-'+id);
     const stEl=document.getElementById('ers-st-'+id);
+    const refEl=document.getElementById('ers-ref-'+id);
+    const relEl=document.getElementById('ers-rel-'+id);
     if(!nameEl)return;
     const name=(nameEl.value||'').trim();
     if(!name)return;
     const parts=name.split(' ');
+    const refName=refEl?refEl.value.trim():'';
+    const relVal=relEl?relEl.value:'';
     const c=makeContact('prospect',{
       fn:parts[0],ln:parts.slice(1).join(' '),
       ph:phEl?phEl.value.trim():'',
       st:stEl?stEl.value:'',
       pri,src:'ERS Referral',stg:'new',ers:true,
-      ersRef:refName
+      ers_ref:refName,ers_rel:relVal
     });
-    c.cn=refName?`Referred by ${refName}`:'';
+    c.cn=refName?`Referred by ${refName}`:''+(relVal?` (${relVal})`:'');
     DB.contacts.push(c);
     added++;
   });
@@ -2354,6 +2899,53 @@ function saveERSBatch(){
   } else {
     alert('Please enter at least one name.');
   }
+}
+
+// ─── ERS TEMPLATE DOWNLOAD & CSV IMPORT ───
+function downloadERSTemplate(){
+  const headers='Name,Relationship,Referred By,State,Phone';
+  const s1='Jane Smith,Spouse,Maria Garcia,IN,(317) 555-0100';
+  const s2='Bob Jones,Friend,Maria Garcia,OH,(317) 555-0101';
+  const s3='Lisa Brown,Coworker,Maria Garcia,TX,(317) 555-0102';
+  const csv=[headers,s1,s2,s3].join('\n');
+  const blob=new Blob([csv],{type:'text/csv'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='olivar-ers-template.csv';
+  a.click();
+}
+function importERSCSV(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const lines=e.target.result.split('\n').map(l=>l.trim()).filter(Boolean);
+    if(!lines.length)return;
+    // skip header if present
+    const start=lines[0].toLowerCase().includes('name')?1:0;
+    const container=document.getElementById('ers-rows');
+    for(let i=start;i<lines.length;i++){
+      const cols=lines[i].split(',').map(s=>s.trim());
+      if(!cols[0])continue;
+      addERSRow();
+      const id=ersRows[ersRows.length-1];
+      const nameEl=document.getElementById('ers-name-'+id);
+      const relEl=document.getElementById('ers-rel-'+id);
+      const refEl=document.getElementById('ers-ref-'+id);
+      const stEl=document.getElementById('ers-st-'+id);
+      const phEl=document.getElementById('ers-ph-'+id);
+      if(nameEl)nameEl.value=cols[0]||'';
+      if(relEl&&cols[1]){
+        for(let o of relEl.options){if(o.text===cols[1]||o.value===cols[1]){relEl.value=o.value;break;}}
+      }
+      if(refEl)refEl.value=cols[2]||'';
+      if(stEl&&cols[3]){
+        for(let o of stEl.options){if(o.text===cols[3]||o.value===cols[3]){stEl.value=o.value;break;}}
+      }
+      if(phEl)phEl.value=cols[4]||'';
+    }
+    input.value='';
+  };
+  reader.readAsText(file);
 }
 
 // ─── COMMISSION AUTO-CALC FROM APPS ───
@@ -2402,7 +2994,8 @@ function renderStats(){
   document.getElementById('ct-clients').textContent=clients;
   document.getElementById('ct-prospects').textContent=prospects;
   document.getElementById('ct-hot').textContent=hot;
-  document.getElementById('nb-c').textContent=DB.contacts.length;
+  document.getElementById('nb-prospects').textContent=prospects;
+  document.getElementById('nb-clients').textContent=clients;
   document.getElementById('nb-a').textContent=DB.applications.length;
   document.getElementById('nb-car').textContent=DB.carriers.length;
   renderAppFollowUps();
@@ -2422,6 +3015,16 @@ function renderAll(){
 // ─── ERS SCRIPT UPDATE ───
 document.addEventListener('change', function(e){
   if(e.target.id==='cd-ers-ref') updateERSScript();
+});
+
+// ─── RE-RENDER ON RESIZE (mobile ↔ desktop card/table switch) ───
+let _resizeTimer;
+window.addEventListener('resize',()=>{
+  clearTimeout(_resizeTimer);
+  _resizeTimer=setTimeout(()=>{
+    const pg=document.querySelector('.page.active');
+    if(pg&&pg.id==='page-contacts')renderContacts();
+  },200);
 });
 
 // ─── PREFILL CARRIERS IF EMPTY ───
@@ -2452,6 +3055,259 @@ async function init(){
 }
 init();
 initSidebarCollapse();
+
+// ════════════════════════════════════════════════
+// ─── BOOKING PAGE ───
+// ════════════════════════════════════════════════
+const GCAL_CLIENT_ID = '764500615154-o0457du9bfv8hlu32ftrs8cvebtlesob.apps.googleusercontent.com';
+const GCAL_SCOPES    = 'https://www.googleapis.com/auth/calendar.events';
+
+let bkMonth = new Date().getMonth();
+let bkYear  = new Date().getFullYear();
+let bkSelDay = null, bkSelTime = null;
+let bkTypeName = 'Initial Consultation', bkTypeDur = '30 min';
+let gcalToken = null;
+let DB_bookings = [];
+
+// Days with availability (Mon–Fri only — override for real calendar)
+const BK_TIMES_30 = ['9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','4:00 PM'];
+const BK_TIMES_20 = ['9:00 AM','9:20 AM','9:40 AM','10:00 AM','10:40 AM','11:00 AM','1:00 PM','1:40 PM','2:00 PM','3:00 PM'];
+const MONTHS_BK   = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAYS_BK     = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+function bkAvailableDays(month,year){
+  // Returns Mon-Fri dates for this month
+  const days=[];
+  const n=new Date(year,month+1,0).getDate();
+  for(let d=1;d<=n;d++){
+    const dow=new Date(year,month,d).getDay();
+    if(dow>=1&&dow<=5)days.push(d);
+  }
+  return days;
+}
+
+function bkRenderCalendar(){
+  document.getElementById('bk-month-label').textContent=`${MONTHS_BK[bkMonth]} ${bkYear}`;
+  const grid=document.getElementById('bk-cal-grid');
+  grid.querySelectorAll('.bk-day,.bk-day-empty').forEach(e=>e.remove());
+  const avail=bkAvailableDays(bkMonth,bkYear);
+  const firstDow=new Date(bkYear,bkMonth,1).getDay();
+  const today=new Date();
+  for(let i=0;i<firstDow;i++){const e=document.createElement('div');e.className='bk-day-empty';grid.appendChild(e);}
+  const n=new Date(bkYear,bkMonth+1,0).getDate();
+  for(let d=1;d<=n;d++){
+    const btn=document.createElement('button');
+    btn.className='bk-day';
+    btn.textContent=d;
+    const isPast=new Date(bkYear,bkMonth,d)<new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    const isAvail=avail.includes(d)&&!isPast;
+    const isToday=d===today.getDate()&&bkMonth===today.getMonth()&&bkYear===today.getFullYear();
+    if(isPast)btn.classList.add('bk-day-off');
+    else if(isAvail)btn.classList.add('bk-day-avail');
+    else btn.classList.add('bk-day-off');
+    if(isToday)btn.classList.add('bk-day-today');
+    if(d===bkSelDay&&isAvail)btn.classList.add('bk-day-sel');
+    if(isAvail)btn.onclick=()=>bkSelectDay(d,btn);
+    grid.appendChild(btn);
+  }
+}
+
+function bkSelectDay(d,btn){
+  bkSelDay=d; bkSelTime=null;
+  document.querySelectorAll('.bk-day').forEach(b=>b.classList.remove('bk-day-sel'));
+  btn.classList.add('bk-day-sel');
+  const wrap=document.getElementById('bk-times-wrap');
+  wrap.style.display='block';
+  const dow=new Date(bkYear,bkMonth,d).getDay();
+  document.getElementById('bk-times-label').textContent=`${DAYS_BK[dow]}, ${MONTHS_BK[bkMonth]} ${d}`;
+  const tGrid=document.getElementById('bk-time-grid');
+  tGrid.innerHTML='';
+  const times=bkTypeDur==='20 min'?BK_TIMES_20:BK_TIMES_30;
+  times.forEach(t=>{
+    const b=document.createElement('button');
+    b.className='bk-time'; b.textContent=t;
+    b.onclick=()=>bkSelectTime(t,b,dow,d);
+    tGrid.appendChild(b);
+  });
+  document.getElementById('bk-confirm').style.display='none';
+}
+
+function bkSelectTime(time,btn,dow,d){
+  bkSelTime=time;
+  document.querySelectorAll('.bk-time').forEach(b=>b.classList.remove('bk-time-sel'));
+  btn.classList.add('bk-time-sel');
+  document.getElementById('bk-sum-date').textContent=`${DAYS_BK[dow]}, ${MONTHS_BK[bkMonth]} ${d}`;
+  document.getElementById('bk-sum-time').textContent=`${time} · ${bkTypeDur} · ${bkTypeName}`;
+  document.getElementById('bk-confirm').style.display='block';
+  document.getElementById('bk-confirm').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function bkSelectType(btn){
+  document.querySelectorAll('.bk-type').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  bkTypeName=btn.querySelector('.bk-type-name').textContent;
+  bkTypeDur=btn.querySelector('.bk-duration').textContent;
+  bkSelDay=null; bkSelTime=null;
+  document.getElementById('bk-times-wrap').style.display='none';
+  document.getElementById('bk-confirm').style.display='none';
+  bkRenderCalendar();
+}
+
+function bkChangeMonth(dir){
+  bkMonth+=dir;
+  if(bkMonth>11){bkMonth=0;bkYear++;}
+  if(bkMonth<0){bkMonth=11;bkYear--;}
+  bkSelDay=null; bkSelTime=null;
+  document.getElementById('bk-times-wrap').style.display='none';
+  document.getElementById('bk-confirm').style.display='none';
+  bkRenderCalendar();
+}
+
+function bkBackToCalendar(){
+  document.getElementById('bk-confirm').style.display='none';
+  bkSelTime=null;
+  document.querySelectorAll('.bk-time').forEach(b=>b.classList.remove('bk-time-sel'));
+}
+
+async function bkConfirm(){
+  const fn=document.getElementById('bk-fn').value.trim();
+  const ln=document.getElementById('bk-ln').value.trim();
+  const em=document.getElementById('bk-em').value.trim();
+  const ph=document.getElementById('bk-ph').value.trim();
+  const notes=document.getElementById('bk-notes').value.trim();
+  if(!fn){alert('Please enter a first name.');return;}
+  if(!em){alert('Please enter an email.');return;}
+
+  const btn=document.getElementById('bk-confirm-btn');
+  btn.textContent='Booking...'; btn.disabled=true;
+
+  // Build event details
+  const dow=new Date(bkYear,bkMonth,bkSelDay).getDay();
+  const dateLabel=`${DAYS_BK[dow]}, ${MONTHS_BK[bkMonth]} ${bkSelDay}, ${bkYear}`;
+  const booking={id:Date.now(),name:`${fn} ${ln}`.trim(),em,ph,type:bkTypeName,duration:bkTypeDur,date:dateLabel,time:bkSelTime,notes,created:new Date().toLocaleString()};
+  DB_bookings.unshift(booking);
+
+  // Save to Supabase leads
+  if(currentUserId){
+    const c=makeContact('prospect',{fn,ln,ph,em,src:'Booking Page',prod:bkTypeName,pri:'hot',stg:'appt',cn:notes||''});
+    DB.contacts.push(c);
+    await upsertContact(c);
+    renderAll();
+  }
+
+  // Build Google Calendar link and auto-open it
+  const gcalLink=bkBuildGCalLink(booking);
+  document.getElementById('bk-gcal-link').href=gcalLink;
+  window.open(gcalLink,'_blank');
+
+  // Show success
+  document.getElementById('bk-cal-section').style.display='none';
+  document.getElementById('bk-confirm').style.display='none';
+  document.getElementById('bk-success').style.display='block';
+  document.getElementById('bk-success-detail').textContent=`${bkTypeName} · ${bkSelTime} · ${dateLabel}`;
+  bkRenderLog();
+  btn.textContent='Confirm Appointment'; btn.disabled=false;
+}
+
+function bkBuildGCalLink(bk){
+  // Parse time to ISO
+  const [time,ampm]=bk.time.split(' ');
+  let [h,m]=time.split(':').map(Number);
+  if(ampm==='PM'&&h!==12)h+=12;
+  if(ampm==='AM'&&h===12)h=0;
+  const start=new Date(bkYear,bkMonth,bkSelDay,h,m);
+  const durMin=parseInt(bk.duration)||30;
+  const end=new Date(start.getTime()+durMin*60000);
+  const fmt=d=>d.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+  const title=encodeURIComponent(`${bk.type} with ${bk.name}`);
+  const details=encodeURIComponent(`Booked via Olivar CRM\nClient: ${bk.name}\nEmail: ${bk.em}\nPhone: ${bk.ph||'—'}\nNotes: ${bk.notes||'—'}`);
+  return`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(start)}/${fmt(end)}&details=${details}`;
+}
+
+async function bkCreateGCalEvent(bk){
+  try{
+    const [time,ampm]=bk.time.split(' ');
+    let [h,m]=time.split(':').map(Number);
+    if(ampm==='PM'&&h!==12)h+=12;
+    if(ampm==='AM'&&h===12)h=0;
+    const start=new Date(bkYear,bkMonth,bkSelDay,h,m);
+    const durMin=parseInt(bk.duration)||30;
+    const end=new Date(start.getTime()+durMin*60000);
+    const event={
+      summary:`${bk.type} with ${bk.name}`,
+      description:`Client: ${bk.name}\nEmail: ${bk.em}\nPhone: ${bk.ph||'—'}\nNotes: ${bk.notes||'—'}\n\nBooked via Olivar CRM`,
+      start:{dateTime:start.toISOString(),timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone},
+      end:{dateTime:end.toISOString(),timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone},
+      attendees:[{email:bk.em,displayName:bk.name}],
+      reminders:{useDefault:false,overrides:[{method:'email',minutes:1440},{method:'popup',minutes:60}]}
+    };
+    const res=await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events',{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+gcalToken,'Content-Type':'application/json'},
+      body:JSON.stringify(event)
+    });
+    return res.ok;
+  }catch(e){console.error('GCal event error:',e);return false;}
+}
+
+function connectGoogleCalendar(){
+  if(!GCAL_CLIENT_ID){
+    alert('To connect Google Calendar:\n\n1. Go to console.cloud.google.com\n2. Create a project → Enable "Google Calendar API"\n3. Create OAuth 2.0 credentials (Web Application)\n4. Add your domain to Authorized Origins\n5. Paste the Client ID into the GCAL_CLIENT_ID constant in the CRM code\n\nSee Settings → Google Calendar for setup guide.');
+    return;
+  }
+  const client=google.accounts.oauth2.initTokenClient({
+    client_id:GCAL_CLIENT_ID,
+    scope:GCAL_SCOPES,
+    callback:(resp)=>{
+      if(resp.error)return;
+      gcalToken=resp.access_token;
+      // Get user email
+      fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{'Authorization':'Bearer '+gcalToken}})
+        .then(r=>r.json()).then(u=>{
+          try{localStorage.setItem('olivar-gcal-token',gcalToken);localStorage.setItem('olivar-gcal-email',u.email);}catch(e){}
+          showGCalConnected(u.email);
+        });
+    }
+  });
+  client.requestAccessToken();
+}
+
+function showGCalConnected(email){
+  document.getElementById('gcal-banner').style.display='none';
+  document.getElementById('gcal-connected-banner').style.display='flex';
+  document.getElementById('gcal-email-label').textContent='· '+email;
+}
+
+function disconnectGoogleCalendar(){
+  gcalToken=null;
+  try{localStorage.removeItem('olivar-gcal-token');localStorage.removeItem('olivar-gcal-email');}catch(e){}
+  document.getElementById('gcal-banner').style.display='flex';
+  document.getElementById('gcal-connected-banner').style.display='none';
+}
+
+function bkReset(){
+  bkSelDay=null; bkSelTime=null;
+  document.getElementById('bk-cal-section').style.display='block';
+  document.getElementById('bk-success').style.display='none';
+  ['bk-fn','bk-ln','bk-em','bk-ph','bk-notes'].forEach(id=>document.getElementById(id).value='');
+  bkRenderCalendar();
+}
+
+function bkRenderLog(){
+  const el=document.getElementById('bk-log');
+  if(!DB_bookings.length){el.innerHTML='<div class="empty"><div class="ei">&#9670;</div><p>No appointments booked yet.</p></div>';return;}
+  el.innerHTML=`<table class="tbl"><thead><tr><th>Name</th><th>Type</th><th>Date</th><th>Time</th><th>Contact</th></tr></thead><tbody>${
+    DB_bookings.map(b=>`<tr><td class="cn">${b.name}</td><td>${b.type}</td><td style="font-size:11px;">${b.date}</td><td>${b.time}</td><td><div style="font-size:11px;">${b.em}</div><div style="font-size:10px;color:var(--txl);">${b.ph||''}</div></td></tr>`).join('')
+  }</tbody></table>`;
+}
+
+function initBooking(){
+  bkRenderCalendar();
+  bkRenderLog();
+}
+
+// init booking when page becomes active
+const _origGoPage=goPage;
 </script>
 </body>
 </html>
