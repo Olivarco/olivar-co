@@ -52,22 +52,39 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 
 /* SIDEBAR */
-.sb{width:210px;background:var(--blk);min-height:100vh;position:fixed;display:flex;flex-direction:column;z-index:100;}
-.sb-top{padding:22px 18px 16px;border-bottom:1px solid var(--dk3);}
-.brand{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:#FFFFFF;letter-spacing:2px;}
-.brand-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--txl);margin-top:2px;}
-.nav{padding:12px 8px;flex:1;overflow-y:auto;}
+.sb{width:210px;background:var(--blk);min-height:100vh;position:fixed;display:flex;flex-direction:column;z-index:100;transition:width .22s ease;}
+.sb-top{padding:22px 18px 16px;border-bottom:1px solid var(--dk3);display:flex;align-items:flex-start;justify-content:space-between;min-height:64px;overflow:hidden;}
+.sb-brand-wrap{overflow:hidden;transition:opacity .15s ease;}
+.brand{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:#FFFFFF;letter-spacing:2px;white-space:nowrap;}
+.brand-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--txl);margin-top:2px;white-space:nowrap;}
+.sb-toggle{background:none;border:none;cursor:pointer;color:#555;padding:2px 0;flex-shrink:0;font-size:15px;line-height:1;transition:color .12s;margin-top:2px;}
+.sb-toggle:hover{color:#aaa;}
+.nav{padding:12px 8px;flex:1;overflow-y:auto;overflow-x:hidden;}
 .ng{margin-bottom:16px;}
-.nl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#4A4A4A;padding:0 10px;margin-bottom:3px;}
-.ni{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:#888;transition:all .12s;position:relative;}
+.nl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#4A4A4A;padding:0 10px;margin-bottom:3px;white-space:nowrap;overflow:hidden;transition:opacity .15s;}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:#888;transition:all .12s;position:relative;white-space:nowrap;overflow:hidden;}
 .ni:hover{background:var(--dk2);color:#ccc;}
 .ni.active{background:#FFFFFF;color:#141414;font-weight:600;}
-.nbadge{margin-left:auto;font-size:9px;font-weight:700;background:#2A2A2A;color:#FFFFFF;padding:1px 5px;border-radius:8px;}
+.ni-icon{flex-shrink:0;width:16px;text-align:center;}
+.ni-label{overflow:hidden;transition:opacity .15s,max-width .22s;max-width:160px;}
+.nbadge{margin-left:auto;font-size:9px;font-weight:700;background:#2A2A2A;color:#FFFFFF;padding:1px 5px;border-radius:8px;flex-shrink:0;transition:opacity .15s;}
 .ni.active .nbadge{background:rgba(0,0,0,.2);color:var(--blk);}
-.sb-foot{padding:12px 18px;border-top:1px solid var(--dk3);}
+.sb-foot{padding:12px 18px;border-top:1px solid var(--dk3);overflow:hidden;transition:padding .22s;}
+
+/* Collapsed sidebar */
+.sb.collapsed{width:52px;}
+.sb.collapsed .sb-brand-wrap{opacity:0;pointer-events:none;max-width:0;}
+.sb.collapsed .nl{opacity:0;}
+.sb.collapsed .ni-label{opacity:0;max-width:0;}
+.sb.collapsed .nbadge{opacity:0;}
+.sb.collapsed .sb-foot{padding:12px 10px;}
+.sb.collapsed .sb-foot .sb-foot-text{display:none;}
+.sb.collapsed .ni{justify-content:center;padding:7px 6px;}
+.sb.collapsed .sb-top{justify-content:center;padding:22px 8px 16px;}
 
 /* TOPBAR */
-.main{margin-left:210px;flex:1;display:flex;flex-direction:column;min-height:100vh;}
+.main{margin-left:210px;flex:1;display:flex;flex-direction:column;min-height:100vh;transition:margin-left .22s ease;}
+.main.sb-collapsed{margin-left:52px;}
 .topbar{background:var(--wh);border-bottom:1px solid var(--bd);padding:0 22px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
 .pt{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--blk);}
 .ps{font-size:11px;color:var(--txl);}
@@ -348,6 +365,143 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
 .ers-highlight{border:2px solid var(--pk);border-radius:10px;padding:14px;margin-bottom:12px;background:var(--pkp);}
 .ers-title{font-size:12px;font-weight:700;color:#C0606A;margin-bottom:3px;}
 .ers-sub{font-size:11px;color:var(--txm);}
+
+/* ── CALL / TEXT BUTTONS ── */
+.btn-call{background:#EBF4EE;color:#2F5238;border:1px solid #B8D9C4;border-radius:5px;padding:2px 7px;font-size:10px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;white-space:nowrap;transition:all .12s;}
+.btn-call:hover{background:#2F5238;color:#fff;}
+.btn-text{background:#EEF3FB;color:#4A72B0;border:1px solid #C0D4F0;border-radius:5px;padding:2px 7px;font-size:10px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;white-space:nowrap;transition:all .12s;}
+.btn-text:hover{background:#4A72B0;color:#fff;}
+
+/* ── HAMBURGER ── */
+.hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;flex-shrink:0;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--txm);border-radius:2px;transition:all .2s;}
+.hamburger:hover span{background:var(--blk);}
+
+/* ── SIDEBAR OVERLAY ── */
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:499;}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  /* Sidebar: completely off-screen by default, slides in when .open */
+  .sb{
+    position:fixed;
+    left:-220px;
+    top:0;
+    transition:left .25s ease;
+    z-index:1000;
+    width:210px;
+  }
+  .sb.open{left:0;}
+  .sb-overlay.open{display:block;}
+
+  /* ── LOCK PAGE WIDTH — nothing wider than the screen ── */
+  html,body{overflow-x:hidden;max-width:100vw;}
+  *{box-sizing:border-box;}
+
+  /* Main: full width, ZERO left margin */
+  .main{margin-left:0 !important;overflow-x:hidden;max-width:100vw;width:100%;}
+
+  /* Hide desktop collapse toggle (hamburger handles nav on mobile) */
+  .sb-toggle{display:none;}
+
+  /* Topbar: hide date, keep title + hamburger */
+  .topbar{padding:0 12px;height:52px;overflow:hidden;}
+  .pt{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60vw;}
+  .ps{display:none;}
+  #today-date{display:none;}
+
+  /* Content: full width, vertical scroll only */
+  .content{padding:12px;overflow-x:hidden;width:100%;}
+  .content>*{width:100%;max-width:100%;overflow-x:hidden;}
+
+  /* Quick add bar: shrink buttons to fit, wrap to next line if needed */
+  .qab{padding:7px 10px;gap:5px;flex-wrap:wrap;overflow-x:hidden;}
+  .qab-lbl{display:none;}
+  .qbtn{font-size:10px;padding:5px 9px;flex-shrink:0;}
+
+  /* ── GRIDS: all single column ── */
+  .g2,.g3,.g4,.g5,
+  .lay,.fr,
+  .comm-summary,
+  #carriers-list.g2,
+  #page-calendar>div,
+  #page-social .lay,
+  #page-stack .g3{grid-template-columns:1fr !important;width:100%;}
+
+  /* Metric bar: 2 wide columns, no overflow */
+  .mbar{grid-template-columns:1fr 1fr !important;width:100%;overflow:hidden;}
+  .ms{border-right:none !important;border-bottom:1px solid var(--dk3);padding:10px 12px;}
+  .ms:last-child{border-bottom:none;}
+  .msl{font-size:9px;}
+  .msv{font-size:16px;}
+  .mss{font-size:9px;}
+
+  /* Cards: full width, no overflow */
+  .card{border-radius:8px;width:100%;overflow:hidden;}
+  .ch{padding:11px 14px 10px;flex-wrap:wrap;gap:6px;}
+
+  /* Pipeline: horizontal scroll inside a contained box */
+  .pipe{
+    display:flex !important;
+    flex-direction:row;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    gap:0;
+    padding:10px 12px;
+    width:100%;
+  }
+  .pipc{min-width:140px;flex-shrink:0;}
+
+  /* Tables: scroll inside wrapper, page doesn't scroll */
+  #contacts-wrap,#apps-wrap,#comm-wrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    width:100%;
+    max-width:100%;
+  }
+  .tbl{min-width:520px;}
+
+  /* Modals: bottom sheet */
+  .mbg{align-items:flex-end;}
+  .modal,.modal.wide,.modal.full{
+    width:100% !important;
+    max-width:100% !important;
+    border-radius:16px 16px 0 0;
+    max-height:92vh;
+    overflow-y:auto;
+  }
+
+  /* Contact detail tabs */
+  .cdtabs{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 14px;}
+  .cdt{white-space:nowrap;}
+
+  /* Calendar */
+  .cal-day{min-height:48px;padding:3px;}
+  .cal-date{font-size:10px;}
+  .cal-event{display:none;}
+  .cal-header{font-size:9px;padding:6px 2px;}
+
+  /* Dial box */
+  .dial-num{font-size:38px;}
+
+  /* Carrier / social tabs */
+  .car-tabs{overflow-x:auto;}
+
+  /* Form rows */
+  .fr{grid-template-columns:1fr !important;}
+
+  /* Lock button */
+  .lock-btn{bottom:10px;right:10px;font-size:9px;padding:5px 10px;}
+
+  /* Stats page */
+  .sv{font-size:22px;}
+
+  /* Prod rows in carrier modal */
+  #prod-rows>div{flex-wrap:wrap;}
+
+  /* Any flex row that might overflow: wrap it */
+  .topbar>div,.ch,.qab{flex-wrap:wrap;}
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -371,39 +525,45 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
   </div>
 </div>
 
+<!-- SIDEBAR OVERLAY -->
+<div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
+
 <!-- LOCK BUTTON -->
 <button class="lock-btn" onclick="lockApp()">&#128274; Lock</button>
 
 <!-- SIDEBAR -->
-<aside class="sb">
+<aside class="sb" id="main-sb">
   <div class="sb-top">
-    <div class="brand">Olivar</div>
-    <div class="brand-sub">Your Business. Your Data.</div>
+    <div class="sb-brand-wrap">
+      <div class="brand">Olivar</div>
+      <div class="brand-sub">Your Business. Your Data.</div>
+    </div>
+    <button class="sb-toggle" onclick="toggleSidebarCollapse()" id="sb-toggle-btn" title="Collapse menu">&#8592;</button>
   </div>
   <nav class="nav">
     <div class="ng">
       <div class="nl">Main</div>
-      <div class="ni active" onclick="goPage('dashboard',this)">&#9675; Dashboard</div>
-      <div class="ni" onclick="goPage('contacts',this)">&#9651; Contacts <span class="nbadge" id="nb-c">0</span></div>
-      <div class="ni" onclick="goPage('pipeline',this)">&#9641; Pipeline</div>
-      <div class="ni" onclick="goPage('calendar',this)">&#9670; Calendar</div>
+      <div class="ni active" onclick="goPage('dashboard',this)" title="Dashboard"><span class="ni-icon">&#9675;</span><span class="ni-label">Dashboard</span></div>
+      <div class="ni" onclick="goPage('contacts',this)" title="Contacts"><span class="ni-icon">&#9651;</span><span class="ni-label">Contacts</span><span class="nbadge" id="nb-c">0</span></div>
+      <div class="ni" onclick="goPage('pipeline',this)" title="Pipeline"><span class="ni-icon">&#9641;</span><span class="ni-label">Pipeline</span></div>
+      <div class="ni" onclick="goPage('calendar',this)" title="Calendar"><span class="ni-icon">&#9670;</span><span class="ni-label">Calendar</span></div>
     </div>
     <div class="ng">
       <div class="nl">Business</div>
-      <div class="ni" onclick="goPage('applications',this)">&#9641; Applications <span class="nbadge" id="nb-a">0</span></div>
-      <div class="ni" onclick="goPage('commissions',this)">&#9651; Commissions</div>
-      <div class="ni" onclick="goPage('social',this)">&#9670; Social Media</div>
+      <div class="ni" onclick="goPage('applications',this)" title="Applications"><span class="ni-icon">&#9641;</span><span class="ni-label">Applications</span><span class="nbadge" id="nb-a">0</span></div>
+      <div class="ni" onclick="goPage('commissions',this)" title="Commissions"><span class="ni-icon">&#9651;</span><span class="ni-label">Commissions</span></div>
+      <div class="ni" onclick="goPage('social',this)" title="Social Media"><span class="ni-icon">&#9670;</span><span class="ni-label">Social Media</span></div>
     </div>
     <div class="ng">
       <div class="nl">Resources</div>
-      <div class="ni" onclick="goPage('carriers',this)">&#9663; Carriers <span class="nbadge" id="nb-car">0</span></div>
-      <div class="ni" onclick="goPage('stack',this)">&#9675; My Stack</div>
+      <div class="ni" onclick="goPage('carriers',this)" title="Carriers"><span class="ni-icon">&#9663;</span><span class="ni-label">Carriers</span><span class="nbadge" id="nb-car">0</span></div>
+      <div class="ni" onclick="goPage('stack',this)" title="My Stack"><span class="ni-icon">&#9675;</span><span class="ni-label">My Stack</span></div>
     </div>
   </nav>
   <div class="sb-foot">
     <div style="display:flex;align-items:center;gap:8px;">
-      <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--m),var(--g));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--blk);flex-shrink:0;">AB</div>
-      <div><div style="font-size:11px;color:#ccc;font-weight:500;">[Your Name]</div><div style="font-size:10px;color:#555;">Licensed Agent</div></div>
+      <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--m),var(--g));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--blk);flex-shrink:0;">AG</div>
+      <div class="sb-foot-text"><div style="font-size:11px;color:#ccc;font-weight:500;">Ariel Gildon</div><div style="font-size:10px;color:#555;">Licensed Agent</div></div>
     </div>
   </div>
 </aside>
@@ -411,9 +571,14 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
 <!-- MAIN -->
 <main class="main">
   <div class="topbar">
-    <div>
-      <div class="pt" id="ptitle">Good morning, Ariel</div>
-      <div class="ps" id="psub">Your business dashboard</div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="hamburger" onclick="handleHamburger()" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div>
+        <div class="pt" id="ptitle">Good morning, Ariel</div>
+        <div class="ps" id="psub">Your business dashboard</div>
+      </div>
     </div>
     <div style="display:flex;align-items:center;gap:8px;">
       <div style="font-size:11px;color:var(--txl);" id="today-date"></div>
@@ -745,6 +910,8 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
       <span class="mh-title" id="cd-name-title">Contact</span>
       <div style="display:flex;gap:7px;align-items:center;">
         <span id="cd-status-badge"></span>
+        <button class="btn-call" id="cd-call-btn" onclick="callContactFromDetail()" style="display:none;">📞 Call</button>
+        <button class="btn-text" id="cd-text-btn" onclick="textContactFromDetail()" style="display:none;">💬 Text</button>
         <button class="btn bp bsm" onclick="saveContact()">Save</button>
         <div class="mclose" onclick="closeModal('contact-detail')">✕</div>
       </div>
@@ -1096,6 +1263,32 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
   </div>
 </div>
 
+<!-- QUICK LOG MODAL -->
+<div class="mbg" id="modal-quick-log">
+  <div class="modal">
+    <div class="mh">
+      <span class="mh-title" id="ql-title">Log Activity</span>
+      <div class="mclose" onclick="closeModal('quick-log')">✕</div>
+    </div>
+    <div class="mb2">
+      <div style="font-size:11px;color:var(--txm);margin-bottom:12px;" id="ql-contact-name"></div>
+      <input type="hidden" id="ql-cid">
+      <div class="fr">
+        <div class="fg">
+          <label class="fl">Type</label>
+          <select class="fs" id="ql-type"><option>Call</option><option>Text</option><option>Voicemail</option><option>Email</option><option>Note</option></select>
+        </div>
+        <div class="fg">
+          <label class="fl">Outcome</label>
+          <select class="fs" id="ql-out"><option>Connected — Interested</option><option>Connected — Not interested</option><option>Left Voicemail</option><option>Sent Text</option><option>No Answer</option><option>Appointment Scheduled</option><option>Policy Issued</option></select>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">Notes <span>(optional)</span></label><textarea class="fta" id="ql-notes" placeholder="What happened, what did they say..."></textarea></div>
+    </div>
+    <div class="mf"><button class="btn bg" onclick="closeModal('quick-log')">Skip</button><button class="btn bp" onclick="saveQuickLog()">Save Log</button></div>
+  </div>
+</div>
+
 <script>
 // ── SUPABASE CONFIG ──
 const SUPABASE_URL='https://sqdfulhkwbzmqyxvoonv.supabase.co';
@@ -1230,6 +1423,81 @@ document.getElementById('dqa').textContent='— '+q.a;
 const today=new Date();
 document.getElementById('today-date').textContent=today.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
 
+// ─── CALL / TEXT / QUICK LOG ───
+function callContact(id,ph,e){
+  e.stopPropagation();
+  if(ph)window.open('tel:'+ph.replace(/\D/g,''));
+  showQuickLog(id,'Call');
+}
+function textContact(id,ph,e){
+  e.stopPropagation();
+  if(ph)window.open('sms:'+ph.replace(/\D/g,''));
+  showQuickLog(id,'Text');
+}
+function showQuickLog(id,type){
+  const c=DB.contacts.find(x=>x.id===id);if(!c)return;
+  document.getElementById('ql-cid').value=id;
+  document.getElementById('ql-title').textContent='Log '+type;
+  document.getElementById('ql-contact-name').textContent=c.fn+' '+(c.ln||'');
+  document.getElementById('ql-type').value=type;
+  document.getElementById('ql-out').value=type==='Text'?'Sent Text':'No Answer';
+  document.getElementById('ql-notes').value='';
+  openModal('quick-log');
+}
+function saveQuickLog(){
+  const id=document.getElementById('ql-cid').value;
+  const c=DB.contacts.find(x=>x.id===id);if(!c)return;
+  c.acts=c.acts||[];
+  c.acts.unshift({id:Date.now(),type:document.getElementById('ql-type').value,out:document.getElementById('ql-out').value,notes:document.getElementById('ql-notes').value.trim(),time:new Date().toLocaleString()});
+  upsertContact(c);
+  closeModal('quick-log');
+}
+
+// ─── NAV TOGGLE ───
+function handleHamburger(){
+  if(window.innerWidth<=900){
+    // Mobile: slide-in overlay
+    document.getElementById('main-sb').classList.toggle('open');
+    document.getElementById('sb-overlay').classList.toggle('open');
+  } else {
+    // Desktop: collapse/expand sidebar
+    toggleSidebarCollapse();
+  }
+}
+function toggleSidebar(){
+  document.getElementById('main-sb').classList.toggle('open');
+  document.getElementById('sb-overlay').classList.toggle('open');
+}
+
+// ─── DESKTOP SIDEBAR COLLAPSE ───
+function toggleSidebarCollapse(){
+  const sb=document.getElementById('main-sb');
+  const main=document.querySelector('.main');
+  const btn=document.getElementById('sb-toggle-btn');
+  const collapsed=sb.classList.toggle('collapsed');
+  main.classList.toggle('sb-collapsed',collapsed);
+  btn.innerHTML=collapsed?'&#8594;':'&#8592;';
+  btn.title=collapsed?'Expand menu':'Collapse menu';
+  try{localStorage.setItem('olivar-sb-collapsed',collapsed?'1':'0');}catch(e){}
+}
+function initSidebarCollapse(){
+  try{
+    if(localStorage.getItem('olivar-sb-collapsed')==='1'){
+      const sb=document.getElementById('main-sb');
+      const main=document.querySelector('.main');
+      const btn=document.getElementById('sb-toggle-btn');
+      sb.classList.add('collapsed');
+      main.classList.add('sb-collapsed');
+      btn.innerHTML='&#8594;';
+      btn.title='Expand menu';
+    }
+  }catch(e){}
+}
+function closeSidebar(){
+  document.querySelector('.sb').classList.remove('open');
+  document.getElementById('sb-overlay').classList.remove('open');
+}
+
 // ─── NAV ───
 const PT={
   dashboard:["Good morning, Ariel","Your business dashboard"],
@@ -1248,6 +1516,7 @@ function goPage(name,el){
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
   const pg=document.getElementById('page-'+name);if(pg)pg.classList.add('active');
   if(el)el.classList.add('active');
+  closeSidebar();
   const t=PT[name];if(t){document.getElementById('ptitle').textContent=t[0];document.getElementById('psub').textContent=t[1];}
   if(name==='contacts')renderContacts();
   if(name==='pipeline')renderPipe();
@@ -1408,7 +1677,23 @@ function openContact(id){
     if(document.getElementById('cd-ers-approach'))document.getElementById('cd-ers-approach').value=c2.ersApproach||'';
     updateERSScript();
   }
+  // show call/text buttons if phone exists
+  const callBtn=document.getElementById('cd-call-btn');
+  const textBtn=document.getElementById('cd-text-btn');
+  if(c.ph){callBtn.style.display='inline-flex';textBtn.style.display='inline-flex';}
+  else{callBtn.style.display='none';textBtn.style.display='none';}
   openModal('contact-detail');
+}
+
+function callContactFromDetail(){
+  const c=DB.contacts.find(x=>x.id===CID);if(!c||!c.ph)return;
+  window.open('tel:'+c.ph.replace(/\D/g,''));
+  showQuickLog(CID,'Call');
+}
+function textContactFromDetail(){
+  const c=DB.contacts.find(x=>x.id===CID);if(!c||!c.ph)return;
+  window.open('sms:'+c.ph.replace(/\D/g,''));
+  showQuickLog(CID,'Text');
 }
 
 function cdTab(el,name){
@@ -1624,7 +1909,7 @@ function renderContacts(filter='all'){
   else if(filter==='ers')cx=cx.filter(c=>c.ers);
   const el=document.getElementById('contacts-wrap');
   if(!cx.length){el.innerHTML='<div class="empty"><div class="ei">&#9651;</div><p>No contacts yet.</p></div>';return;}
-  el.innerHTML=`<table class="tbl"><thead><tr><th>Name</th><th>Phone</th><th>Product</th><th>State</th><th>Priority</th><th>Status</th><th>Source</th><th>Added</th></tr></thead><tbody>${cx.map(c=>`<tr onclick="openContact('${c.id}')"><td><div class="cn">${c.fn} ${c.ln||''}</div><div class="csub">${c.em||c.src||''}</div></td><td>${c.ph||'—'}</td><td>${c.prod||'—'}</td><td>${c.st||'—'}</td><td>${c.pri?`<span class="pd p${c.pri[0]}"></span>${c.pri.charAt(0).toUpperCase()+c.pri.slice(1)}`:'—'}</td><td>${sPill(c)}</td><td>${c.src||'—'}</td><td style="font-size:10px;color:var(--txl);">${c.created||''}</td></tr>`).join('')}</tbody></table>`;
+  el.innerHTML=`<table class="tbl"><thead><tr><th>Name</th><th>Phone</th><th>Product</th><th>State</th><th>Priority</th><th>Status</th><th>Source</th><th>Added</th></tr></thead><tbody>${cx.map(c=>`<tr onclick="openContact('${c.id}')"><td><div class="cn">${c.fn} ${c.ln||''}</div><div class="csub">${c.em||c.src||''}</div></td><td>${c.ph?`<div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;"><span style="font-size:11px;">${c.ph}</span><button class="btn-call" onclick="callContact('${c.id}','${c.ph}',event)">📞 Call</button><button class="btn-text" onclick="textContact('${c.id}','${c.ph}',event)">💬 Text</button></div>`:'—'}</td><td>${c.prod||'—'}</td><td>${c.st||'—'}</td><td>${c.pri?`<span class="pd p${c.pri[0]}"></span>${c.pri.charAt(0).toUpperCase()+c.pri.slice(1)}`:'—'}</td><td>${sPill(c)}</td><td>${c.src||'—'}</td><td style="font-size:10px;color:var(--txl);">${c.created||''}</td></tr>`).join('')}</tbody></table>`;
 }
 function sPill(c){
   if(c.sts==='client'||c.type==='client')return'<span class="pill pg">Active Client</span>';
@@ -2166,6 +2451,7 @@ async function init(){
   else{renderAll();renderCal();}
 }
 init();
+initSidebarCollapse();
 </script>
 </body>
 </html>
