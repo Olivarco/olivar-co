@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olivar | Insurance CRM</title>
+<meta name="description" content="Olivar — Built for agents who mean business.">
+<meta name="theme-color" content="#141414">
+<link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;Olivar&quot;,&quot;short_name&quot;:&quot;Olivar&quot;,&quot;start_url&quot;:&quot;/&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;%23FFFFFF&quot;,&quot;theme_color&quot;:&quot;%23141414&quot;,&quot;icons&quot;:[{&quot;src&quot;:&quot;https://via.placeholder.com/192x192/141414/FFFFFF?text=OL&quot;,&quot;sizes&quot;:&quot;192x192&quot;,&quot;type&quot;:&quot;image/png&quot;}]}">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --m:#C9A227;--ml:#E8C45A;--mp:#FBF5E0;--md:#9A7A1A;
+  --blk:#141414;--dk:#1E1E1E;--dk2:#2A2A2A;--dk3:#363636;
+  --g:#4A7C59;--gl:#6BA882;--gp:#EBF4EE;--gd:#2F5238;
+  --pk:#E8A0A8;--pkp:#FDF0F2;
+  --cr:#FAFAF7;--wh:#fff;
+  --tx:#2C2C2C;--txm:#5A5A5A;--txl:#8A8A8A;
+  --bd:#E4E0D8;--bdl:#D0CAC0;
+  --sh:0 2px 12px rgba(20,20,20,.06);--shm:0 4px 24px rgba(20,20,20,.10);--shl:0 8px 40px rgba(20,20,20,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);display:flex;min-height:100vh;font-size:13px;}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bdl);border-radius:4px;}
+::-webkit-scrollbar-thumb:hover{background:#333333;}
+
+/* ── LOGIN ── */
+#login-screen{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--blk);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px;
+}
+.login-card{width:100%;max-width:380px;text-align:center;}
+.login-logo{font-family:"Cormorant Garamond",serif;font-size:42px;font-weight:700;color:#141414;letter-spacing:3px;margin-bottom:4px;animation:fadeDown .6s ease;}
+.login-tagline{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#999;margin-bottom:40px;animation:fadeDown .7s ease;}
+.login-form{animation:fadeDown .8s ease;}
+.login-label{display:block;text-align:left;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#888;margin-bottom:6px;}
+.login-input{width:100%;padding:13px 16px;background:#FAFAFA;border:1px solid #E0E0E0;border-radius:8px;font-size:14px;font-family:"Outfit",sans-serif;color:#141414;outline:none;transition:border-color .2s;margin-bottom:12px;letter-spacing:.5px;}
+.login-input:focus{border-color:#141414;}
+.login-input::placeholder{color:#BBBBBB;letter-spacing:0;}
+.login-btn{width:100%;padding:13px;background:#141414;color:#FFFFFF;border:none;border-radius:8px;font-size:13px;font-weight:700;font-family:"Outfit",sans-serif;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;margin-top:4px;}
+.login-btn:hover{background:#333333;transform:translateY(-1px);}
+.login-error{font-size:11px;color:#E06060;margin-top:10px;height:16px;}
+.login-footer{margin-top:40px;font-size:10px;color:#BBBBBB;letter-spacing:1.5px;}
+.login-divider{width:40px;height:1px;background:linear-gradient(90deg,transparent,#141414,transparent);margin:20px auto;}
+.lock-btn{position:fixed;bottom:16px;right:16px;background:var(--blk);border:1px solid var(--dk3);color:#666;font-size:10px;font-weight:600;padding:6px 12px;border-radius:20px;cursor:pointer;z-index:5000;letter-spacing:1px;text-transform:uppercase;transition:all .2s;}
+.lock-btn:hover{border-color:#FFFFFF;color:#FFFFFF;}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+
+/* SIDEBAR */
+.sb{width:210px;background:var(--blk);min-height:100vh;position:fixed;display:flex;flex-direction:column;z-index:100;}
+.sb-top{padding:22px 18px 16px;border-bottom:1px solid var(--dk3);}
+.brand{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:#FFFFFF;letter-spacing:2px;}
+.brand-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--txl);margin-top:2px;}
+.nav{padding:12px 8px;flex:1;overflow-y:auto;}
+.ng{margin-bottom:16px;}
+.nl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#4A4A4A;padding:0 10px;margin-bottom:3px;}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:#888;transition:all .12s;position:relative;}
+.ni:hover{background:var(--dk2);color:#ccc;}
+.ni.active{background:#FFFFFF;color:#141414;font-weight:600;}
+.nbadge{margin-left:auto;font-size:9px;font-weight:700;background:#2A2A2A;color:#FFFFFF;padding:1px 5px;border-radius:8px;}
+.ni.active .nbadge{background:rgba(0,0,0,.2);color:var(--blk);}
+.sb-foot{padding:12px 18px;border-top:1px solid var(--dk3);}
+
+/* TOPBAR */
+.main{margin-left:210px;flex:1;display:flex;flex-direction:column;min-height:100vh;}
+.topbar{background:var(--wh);border-bottom:1px solid var(--bd);padding:0 22px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.pt{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--blk);}
+.ps{font-size:11px;color:var(--txl);}
+
+/* QUICK ADD BAR */
+.qab{background:var(--blk);padding:8px 22px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.qab-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#4A4A4A;margin-right:2px;}
+.qbtn{padding:5px 12px;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:'Outfit',sans-serif;transition:all .12s;}
+.qb-lead{background:#141414;color:#FFFFFF;}
+.qb-lead:hover{background:#333333;}
+.qb-ers{background:var(--pk);color:var(--blk);}
+.qb-ers:hover{background:#F0B0B8;}
+.qb-client{background:var(--g);color:var(--wh);}
+.qb-client:hover{background:var(--gd);}
+.qb-carrier{background:var(--dk2);color:var(--ml);border:1px solid var(--dk3);}
+.qb-carrier:hover{border-color:var(--m);}
+.qb-imp{background:transparent;color:#666;border:1px solid var(--dk3);}
+.qb-imp:hover{border-color:#666;color:#999;}
+
+.content{padding:20px 22px;flex:1;}
+.page{display:none;}
+.page.active{display:block;animation:fu .15s ease;}
+@keyframes fu{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* BUTTONS */
+.btn{padding:6px 13px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:'Outfit',sans-serif;transition:all .12s;display:inline-flex;align-items:center;gap:5px;}
+.bp{background:#141414;color:#FFFFFF;}
+.bp:hover{background:#333333;}
+.bg{background:transparent;border:1px solid var(--bd);color:var(--txm);}
+.bg:hover{border-color:var(--m);color:var(--blk);}
+.bgrn{background:var(--g);color:var(--wh);}
+.bgrn:hover{background:var(--gd);}
+.bpk{background:var(--pk);color:var(--blk);}
+.bpk:hover{background:#F0B0B8;}
+.bred{background:transparent;border:1px solid #E0A0A0;color:#C05050;font-size:10px;padding:3px 8px;}
+.bred:hover{background:#FCF0F0;}
+.bsm{padding:4px 9px;font-size:10px;}
+
+/* CARDS */
+.card{background:var(--wh);border:1px solid var(--bd);border-radius:10px;box-shadow:var(--sh);overflow:hidden;}
+.ch{padding:13px 18px 11px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;}
+.ct{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;color:var(--blk);}
+.clink{font-size:11px;color:#141414;cursor:pointer;font-weight:600;text-decoration:underline;text-underline-offset:2px;}
+
+/* STATS */
+.stat{background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:15px 17px;box-shadow:var(--sh);transition:transform .12s;}
+.stat:hover{transform:translateY(-2px);}
+.sl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--txl);margin-bottom:5px;}
+.sv{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--blk);line-height:1;}
+.ss{font-size:10px;color:var(--txl);margin-top:3px;}
+
+/* LAYOUT */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.lay{display:grid;grid-template-columns:1fr 290px;gap:12px;}
+.col{display:flex;flex-direction:column;gap:12px;}
+.mb12{margin-bottom:12px;}
+.mb16{margin-bottom:16px;}
+.mb20{margin-bottom:20px;}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;}
+.tbl th{text-align:left;font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--txl);padding:8px 13px;border-bottom:1px solid var(--bd);background:var(--cr);font-weight:500;}
+.tbl td{padding:10px 13px;border-bottom:1px solid var(--bd);vertical-align:middle;font-size:12px;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:#F5F5F5;cursor:pointer;}
+.cn{font-weight:600;color:var(--blk);font-size:13px;}
+.csub{font-size:10px;color:var(--txl);margin-top:1px;}
+
+/* PILLS */
+.pill{display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:600;}
+.pg{background:var(--gp);color:var(--g);}
+.pm{background:#F0F0F0;color:#333333;}
+.pb{background:#EEF3FB;color:#4A72B0;}
+.pgr{background:#F0F0F0;color:#777;}
+.ppk{background:var(--pkp);color:#C0606A;}
+.phot{background:#FCF0F0;color:#C05050;}
+
+/* PRIORITY DOT */
+.pd{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:3px;vertical-align:middle;}
+.ph{background:#E06060;}
+.pw{background:var(--m);}
+.pc2{background:#6A9ED8;}
+
+/* PIPELINE */
+.pipe{display:grid;grid-template-columns:repeat(5,1fr);gap:0;padding:12px;overflow-x:auto;}
+.pipc{padding:0 5px;min-width:130px;}
+.slbl{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 7px;border-radius:5px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;}
+.snew .slbl{background:#EEF3FB;color:#4A72B0;}
+.scon .slbl{background:var(--mp);color:var(--md);}
+.sapp .slbl{background:var(--gp);color:var(--gd);}
+.spro .slbl{background:#F3EEFC;color:#7A4FB0;}
+.sclo .slbl{background:#EEFAF3;color:#2D7A50;}
+.dc{background:var(--cr);border:1px solid var(--bd);border-radius:6px;padding:8px 9px;margin-bottom:5px;cursor:pointer;transition:all .12s;}
+.dc:hover{border-color:var(--m);transform:translateY(-1px);}
+.dn2{font-size:11px;font-weight:600;color:var(--blk);margin-bottom:1px;}
+.dp2{font-size:10px;color:var(--txl);margin-bottom:4px;}
+.dm2{display:flex;align-items:center;justify-content:space-between;}
+.dv2{font-size:10px;font-weight:700;color:var(--md);}
+.da2{font-size:9px;color:var(--txl);}
+
+/* QUOTE */
+.qs{background:var(--blk);border-radius:10px;padding:16px 20px;margin-bottom:12px;position:relative;overflow:hidden;}
+.qs::before{content:'"';position:absolute;top:-10px;left:10px;font-family:'Cormorant Garamond',serif;font-size:80px;color:var(--m);opacity:.15;line-height:1;}
+.qt{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--ml);line-height:1.5;position:relative;z-index:1;}
+.qauth{font-size:10px;color:#555;margin-top:4px;}
+
+/* MBAR */
+.mbar{display:grid;grid-template-columns:repeat(5,1fr);background:var(--blk);border-radius:10px;overflow:hidden;margin-bottom:12px;}
+.ms{padding:13px 15px;border-right:1px solid var(--dk3);}
+.ms:last-child{border-right:none;}
+.ms:hover{background:var(--dk2);}
+.msl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#555;margin-bottom:4px;}
+.msv{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ml);line-height:1;}
+.mss{font-size:10px;color:#4A4A4A;margin-top:2px;}
+
+/* DIAL COUNTER */
+.dial-box{background:var(--blk);border-radius:10px;padding:16px;text-align:center;}
+.dial-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--ml);line-height:1;}
+.dial-lbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#555;margin-bottom:10px;}
+.dial-btns{display:flex;gap:8px;justify-content:center;margin-top:10px;}
+.dial-btn{width:40px;height:40px;border-radius:50%;border:none;font-size:20px;font-weight:700;cursor:pointer;transition:all .12s;display:flex;align-items:center;justify-content:center;}
+.dial-plus{background:var(--m);color:var(--blk);}
+.dial-plus:hover{background:var(--ml);transform:scale(1.1);}
+.dial-minus{background:var(--dk2);color:#888;}
+.dial-minus:hover{background:var(--dk3);}
+.dial-reset{background:transparent;color:#555;font-size:11px;border:1px solid var(--dk3);border-radius:20px;padding:4px 10px;cursor:pointer;margin-top:6px;}
+.dial-reset:hover{border-color:#888;}
+
+/* TOP 5 */
+.t5-item{display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .1s;}
+.t5-item:last-child{border-bottom:none;}
+.t5-item:hover{background:var(--mp);}
+.t5-check{width:18px;height:18px;border-radius:5px;border:2px solid var(--bdl);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .12s;}
+.t5-check.done{background:var(--g);border-color:var(--g);}
+.t5-check.done::after{content:'✓';color:white;font-size:10px;font-weight:700;}
+.t5-lbl{font-size:12px;flex:1;line-height:1.4;}
+.t5-lbl.done{text-decoration:line-through;color:var(--txl);}
+.t5-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;}
+
+/* TASKS */
+.task-item{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--bd);}
+.task-item:last-child{border-bottom:none;}
+.task-check2{width:14px;height:14px;border-radius:3px;border:2px solid var(--bdl);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;}
+.task-check2.done{background:var(--m);border-color:var(--m);}
+.task-check2.done::after{content:'✓';color:var(--blk);font-size:8px;font-weight:700;}
+.task-lbl2{font-size:12px;flex:1;}
+.task-lbl2.done{text-decoration:line-through;color:var(--txl);}
+.task-del{font-size:14px;color:var(--txl);cursor:pointer;padding:0 3px;}
+.task-del:hover{color:#E06060;}
+
+/* CALENDAR */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--bd);}
+.cal-header{background:var(--blk);color:var(--ml);font-size:10px;font-weight:600;letter-spacing:1px;text-align:center;padding:8px 4px;}
+.cal-day{background:var(--wh);min-height:70px;padding:5px;cursor:pointer;transition:background .1s;position:relative;}
+.cal-day:hover{background:var(--mp);}
+.cal-day.today{background:var(--mp);}
+.cal-day.today .cal-date{background:var(--m);color:var(--blk);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.cal-day.other-month{background:var(--cr);}
+.cal-day.other-month .cal-date{color:var(--txl);}
+.cal-date{font-size:11px;font-weight:600;color:var(--blk);margin-bottom:3px;}
+.cal-event{font-size:9px;padding:1px 4px;border-radius:3px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;}
+.ce-appt{background:var(--gp);color:var(--gd);}
+.ce-task{background:var(--mp);color:var(--md);}
+.ce-gcal{background:#EEF3FB;color:#4A72B0;}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--bd);}
+.cal-month{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--blk);}
+.cal-nav-btn{background:transparent;border:1px solid var(--bd);border-radius:5px;padding:4px 10px;cursor:pointer;font-size:12px;color:var(--txm);}
+.cal-nav-btn:hover{border-color:var(--m);color:var(--blk);}
+
+/* SOCIAL MEDIA */
+.sm-post{background:var(--cr);border:1px solid var(--bd);border-radius:8px;padding:12px;margin-bottom:8px;}
+.sm-post-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.sm-platform{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;}
+.sp-ig{background:#FDF0FF;color:#9B4DB0;}
+.sp-fb{background:#EEF3FB;color:#4A72B0;}
+.sp-li{background:#EEF8FF;color:#0A66C2;}
+.sp-tk{background:#F0F0F0;color:#333;}
+.sm-content{font-size:12px;color:var(--txm);line-height:1.4;margin-bottom:8px;}
+.sm-date{font-size:10px;color:var(--txl);}
+
+/* APPLICATION WORKFLOW */
+.app-step{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd);}
+.app-step:last-child{border-bottom:none;}
+.app-step-num{width:22px;height:22px;border-radius:50%;background:var(--m);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--blk);flex-shrink:0;margin-top:1px;}
+.app-step-num.done{background:var(--g);}
+.app-step-title{font-size:12px;font-weight:600;color:var(--blk);margin-bottom:2px;}
+.app-step-desc{font-size:11px;color:var(--txm);}
+
+/* MODAL */
+.mbg{position:fixed;inset:0;background:rgba(20,20,20,.55);z-index:200;display:none;align-items:center;justify-content:center;}
+.mbg.open{display:flex;}
+.modal{background:var(--wh);border-radius:12px;width:560px;max-height:92vh;overflow-y:auto;box-shadow:var(--shl);}
+.modal.wide{width:740px;}
+.modal.full{width:96vw;max-width:1000px;}
+.mh{padding:18px 20px 13px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--wh);z-index:10;}
+.mh-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--blk);}
+.mclose{width:22px;height:22px;border-radius:50%;background:var(--cr);border:1px solid var(--bd);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--txl);}
+.mclose:hover{background:var(--bd);}
+.mb2{padding:16px 20px;}
+.mf{padding:12px 20px 18px;border-top:1px solid var(--bd);display:flex;gap:7px;justify-content:flex-end;}
+
+/* CONTACT DETAIL TABS */
+.cdtabs{display:flex;gap:0;border-bottom:1px solid var(--bd);padding:0 20px;overflow-x:auto;}
+.cdt{padding:9px 12px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:all .12s;}
+.cdt:hover{color:var(--blk);}
+.cdt.active{color:var(--md);border-bottom-color:var(--m);font-weight:600;}
+.cdtc{display:none;padding:16px 20px;}
+.cdtc.active{display:block;}
+
+/* CARRIER TABS */
+.car-tabs{display:flex;gap:0;border-bottom:1px solid var(--bd);padding:0 18px;}
+.cartab{padding:8px 12px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;}
+.cartab:hover{color:var(--blk);}
+.cartab.active{color:var(--md);border-bottom-color:var(--m);font-weight:600;}
+.cartabc{display:none;padding:14px 18px;}
+.cartabc.active{display:block;}
+
+/* CARRIER DETAIL - product table */
+.prod-table{width:100%;border-collapse:collapse;margin-top:8px;}
+.prod-table th{text-align:left;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);padding:6px 10px;background:var(--cr);border-bottom:1px solid var(--bd);border-top:1px solid var(--bd);}
+.prod-table td{padding:8px 10px;border-bottom:1px solid var(--bd);font-size:11px;vertical-align:top;}
+.prod-table tr:last-child td{border-bottom:none;}
+
+/* WORKFLOW STEPS */
+.wf-step{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd);}
+.wf-step:last-child{border-bottom:none;}
+.wf-num{width:21px;height:21px;border-radius:50%;background:var(--m);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--blk);flex-shrink:0;margin-top:1px;}
+.wf-title{font-size:12px;font-weight:600;color:var(--blk);margin-bottom:2px;}
+.wf-desc{font-size:11px;color:var(--txm);line-height:1.5;}
+.wf-tag{font-size:10px;color:var(--txl);margin-top:3px;}
+
+/* POLICY CARD */
+.pol-card{background:var(--cr);border:1px solid var(--bd);border-radius:7px;padding:11px;margin-bottom:7px;}
+.pol-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.pol-carrier{font-size:12px;font-weight:700;color:var(--blk);}
+.pol-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.pfl{font-size:9px;color:var(--txl);margin-bottom:2px;}
+.pfv{font-size:11px;font-weight:600;color:var(--blk);}
+
+/* DOCUMENT AREA */
+.doc-item{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--bd);}
+.doc-item:last-child{border-bottom:none;}
+.doc-icon{width:32px;height:32px;border-radius:7px;background:var(--mp);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.doc-name{font-size:12px;font-weight:600;color:var(--blk);margin-bottom:1px;}
+.doc-meta{font-size:10px;color:var(--txl);}
+
+/* UPLOAD AREA */
+.upload-area{border:2px dashed var(--bd);border-radius:8px;padding:24px;text-align:center;cursor:pointer;transition:all .12s;}
+.upload-area:hover{border-color:var(--m);background:var(--mp);}
+
+/* FORM */
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px;}
+.fg{margin-bottom:9px;}
+.fl{display:block;font-size:10px;font-weight:600;color:var(--tx);margin-bottom:3px;}
+.fl span{color:var(--txl);font-weight:400;}
+.fi,.fs,.fta{width:100%;padding:7px 10px;border:1px solid var(--bd);border-radius:6px;font-size:12px;font-family:'Outfit',sans-serif;color:var(--blk);background:var(--cr);outline:none;transition:border-color .12s;}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--m);background:var(--wh);}
+.fta{resize:vertical;min-height:60px;}
+.fsec{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--txl);margin:14px 0 7px;padding-bottom:5px;border-bottom:1px solid var(--bd);}
+
+/* COMMISSION */
+.comm-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px;background:var(--blk);border-radius:8px;margin-bottom:12px;}
+.cs2{text-align:center;}
+.cs2-lbl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#555;margin-bottom:4px;}
+.cs2-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ml);}
+.cs2-val.green{color:#6BA882;}
+.cs2-val.pink{color:var(--pk);}
+
+/* EMPTY */
+.empty{text-align:center;padding:32px 16px;color:var(--txl);}
+.empty .ei{font-size:26px;margin-bottom:7px;}
+.empty p{font-size:12px;}
+
+/* ERS FORM HIGHLIGHT */
+.ers-highlight{border:2px solid var(--pk);border-radius:10px;padding:14px;margin-bottom:12px;background:var(--pkp);}
+.ers-title{font-size:12px;font-weight:700;color:#C0606A;margin-bottom:3px;}
+.ers-sub{font-size:11px;color:var(--txm);}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">Olivar</div>
+    <div class="login-tagline">Built for agents who mean business.</div>
+    <div class="login-divider"></div>
+    <div class="login-form">
+      <label class="login-label">Email</label>
+      <input class="login-input" type="email" id="login-email" value="hello@olivarco.com" placeholder="Your email" style="margin-bottom:12px;">
+      <label class="login-label">Password</label>
+      <div style="position:relative;"><input class="login-input" type="password" id="login-pw" placeholder="Enter your password" onkeydown="if(event.key==='Enter')doLogin()" style="margin-bottom:0;padding-right:48px;"><button onclick="togglePW()" style="position:absolute;right:12px;top:13px;background:none;border:none;color:#666;cursor:pointer;font-size:12px;font-family:Outfit,sans-serif;" id="pw-toggle">Show</button></div>
+      <button class="login-btn" onclick="doLogin()">Enter Dashboard</button>
+      <div class="login-error" id="login-err"></div>
+    </div>
+    <div class="login-footer">Olivar &copy; 2026 &nbsp;&middot;&nbsp; OA Technologies</div>
+  </div>
+</div>
+
+<!-- LOCK BUTTON -->
+<button class="lock-btn" onclick="lockApp()">&#128274; Lock</button>
+
+<!-- SIDEBAR -->
+<aside class="sb">
+  <div class="sb-top">
+    <div class="brand">Olivar</div>
+    <div class="brand-sub">Your Business. Your Data.</div>
+  </div>
+  <nav class="nav">
+    <div class="ng">
+      <div class="nl">Main</div>
+      <div class="ni active" onclick="goPage('dashboard',this)">&#9675; Dashboard</div>
+      <div class="ni" onclick="goPage('contacts',this)">&#9651; Contacts <span class="nbadge" id="nb-c">0</span></div>
+      <div class="ni" onclick="goPage('pipeline',this)">&#9641; Pipeline</div>
+      <div class="ni" onclick="goPage('calendar',this)">&#9670; Calendar</div>
+    </div>
+    <div class="ng">
+      <div class="nl">Business</div>
+      <div class="ni" onclick="goPage('applications',this)">&#9641; Applications <span class="nbadge" id="nb-a">0</span></div>
+      <div class="ni" onclick="goPage('commissions',this)">&#9651; Commissions</div>
+      <div class="ni" onclick="goPage('social',this)">&#9670; Social Media</div>
+    </div>
+    <div class="ng">
+      <div class="nl">Resources</div>
+      <div class="ni" onclick="goPage('carriers',this)">&#9663; Carriers <span class="nbadge" id="nb-car">0</span></div>
+      <div class="ni" onclick="goPage('stack',this)">&#9675; My Stack</div>
+    </div>
+  </nav>
+  <div class="sb-foot">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--m),var(--g));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--blk);flex-shrink:0;">AB</div>
+      <div><div style="font-size:11px;color:#ccc;font-weight:500;">[Your Name]</div><div style="font-size:10px;color:#555;">Licensed Agent</div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div>
+      <div class="pt" id="ptitle">Good morning, Ariel</div>
+      <div class="ps" id="psub">Your business dashboard</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="font-size:11px;color:var(--txl);" id="today-date"></div>
+    </div>
+  </div>
+
+  <!-- QUICK ADD BAR -->
+  <div class="qab">
+    <span class="qab-lbl">Quick Add</span>
+    <button class="qbtn qb-lead" onclick="openModal('new-lead')">+ New Prospect</button>
+    <button class="qbtn qb-client" onclick="openModal('new-client')">+ New Client</button>
+    <button class="qbtn qb-carrier" onclick="openModal('new-carrier')">+ New Carrier</button>
+    <button class="qbtn" style="background:var(--dk2);color:var(--ml);border:1px solid var(--dk3);" onclick="quickAddTask()">+ New Task</button>
+    <button class="qbtn qb-imp" onclick="openModal('import')">&#8679; Import</button>
+  </div>
+
+  <div class="content">
+
+  <!-- ═══ DASHBOARD ═══ -->
+  <div class="page active" id="page-dashboard">
+    <div class="qs">
+      <div class="qt" id="dq"></div>
+      <div class="qauth" id="dqa"></div>
+    </div>
+
+    <div class="mbar mb12">
+      <div class="ms"><div class="msl">Monthly Revenue</div><div class="msv" id="s-rev">$0</div><div class="mss">Commissions paid</div></div>
+      <div class="ms"><div class="msl">Active Leads</div><div class="msv" id="s-leads">0</div><div class="mss">In pipeline</div></div>
+      <div class="ms"><div class="msl">Active Clients</div><div class="msv" id="s-clients">0</div></div>
+      <div class="ms"><div class="msl">Open Applications</div><div class="msv" id="s-apps">0</div><div class="mss">Needs follow-up</div></div>
+      <div class="ms"><div class="msl">Carriers</div><div class="msv" id="s-cars">0</div></div>
+    </div>
+
+    <div class="lay mb12">
+      <div>
+        <!-- TOP 5 INCOME ACTIVITIES -->
+        <div class="card mb12">
+          <div class="ch">
+            <span class="ct">Daily Top 5 Income Activities</span>
+            <span class="clink" onclick="resetTop5()">Reset</span>
+          </div>
+          <div id="top5-list">
+            <div class="t5-item" onclick="toggleT5(this)">
+              <div class="t5-check"></div>
+              <div class="t5-lbl">
+                <strong>Make 20+ dials</strong> — <span id="dial-inline">0</span>/20 today
+              </div>
+              <span class="t5-badge" style="background:var(--pkp);color:#C0606A;">Income</span>
+            </div>
+            <div class="t5-item" onclick="toggleT5(this)">
+              <div class="t5-check"></div>
+              <div class="t5-lbl"><strong>Text all new ERS leads</strong> — text first, same day</div>
+              <span class="t5-badge" style="background:var(--pkp);color:#C0606A;">Income</span>
+            </div>
+            <div class="t5-item" onclick="toggleT5(this)">
+              <div class="t5-check"></div>
+              <div class="t5-lbl"><strong>Follow up on open applications</strong> — <span id="apps-count-inline">0</span> pending today</div>
+              <span class="t5-badge" style="background:var(--mp);color:var(--md);">Income</span>
+            </div>
+            <div class="t5-item" onclick="toggleT5(this)">
+              <div class="t5-check"></div>
+              <div class="t5-lbl"><strong>Post on social media</strong> — stay visible, build trust</div>
+              <span class="t5-badge" style="background:var(--gp);color:var(--gd);">Growth</span>
+            </div>
+            <div class="t5-item" onclick="toggleT5(this)">
+              <div class="t5-check"></div>
+              <div class="t5-lbl"><strong>Review pipeline</strong> — update stages, set follow-up dates</div>
+              <span class="t5-badge" style="background:var(--gp);color:var(--gd);">Growth</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PIPELINE SNAPSHOT -->
+        <div class="card">
+          <div class="ch"><span class="ct">Pipeline</span><span class="clink" onclick="goPage('pipeline',null)">Full View →</span></div>
+          <div class="pipe" id="dash-pipe">
+            <div class="pipc snew"><div class="slbl">New <span id="dc-new">0</span></div><div id="dpc-new"></div></div>
+            <div class="pipc scon"><div class="slbl">Contacted <span id="dc-con">0</span></div><div id="dpc-con"></div></div>
+            <div class="pipc sapp"><div class="slbl">Appt Set <span id="dc-app">0</span></div><div id="dpc-app"></div></div>
+            <div class="pipc spro"><div class="slbl">Proposal <span id="dc-pro">0</span></div><div id="dpc-pro"></div></div>
+            <div class="pipc sclo"><div class="slbl">Closed <span id="dc-clo">0</span></div><div id="dpc-clo"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COL -->
+      <div class="col">
+        <!-- DIAL COUNTER -->
+        <div class="dial-box">
+          <div class="dial-lbl">Dials Today</div>
+          <div class="dial-num" id="dial-count">0</div>
+          <div style="font-size:10px;color:#555;">Goal: 20</div>
+          <div class="dial-btns">
+            <button class="dial-btn dial-minus" onclick="changeDial(-1)">−</button>
+            <button class="dial-btn dial-plus" onclick="changeDial(1)">+</button>
+          </div>
+          <button class="dial-reset" onclick="resetDial()">Reset</button>
+        </div>
+
+        <!-- MY TASKS -->
+        <div class="card">
+          <div class="ch"><span class="ct">My Tasks</span><span class="clink" onclick="addTaskPrompt()">+ Add</span></div>
+          <div id="task-list"></div>
+          <div style="padding:10px 14px;border-top:1px solid var(--bd);">
+            <input class="fi" id="task-input" placeholder="Add a task and press Enter..." onkeydown="if(event.key==='Enter')addTask()" style="font-size:11px;">
+          </div>
+        </div>
+
+        <!-- APP FOLLOW-UPS -->
+        <div class="card">
+          <div class="ch"><span class="ct">Applications Needing Action</span><span class="clink" onclick="goPage('applications',null)">All →</span></div>
+          <div id="app-followups">
+            <div class="empty"><div class="ei">&#9641;</div><p>No open applications</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CONTACTS ═══ -->
+  <div class="page" id="page-contacts">
+    <div class="g4 mb12">
+      <div class="stat"><div class="sl">Total</div><div class="sv" id="ct-total">0</div></div>
+      <div class="stat"><div class="sl">Clients</div><div class="sv" id="ct-clients">0</div></div>
+      <div class="stat"><div class="sl">Prospects</div><div class="sv" id="ct-prospects">0</div></div>
+      <div class="stat"><div class="sl">Hot Leads</div><div class="sv" id="ct-hot" style="color:#E06060;">0</div></div>
+    </div>
+    <div class="card">
+      <div class="ch">
+        <span class="ct">All Contacts</span>
+        <div style="display:flex;gap:6px;">
+          <button class="btn bg bsm" onclick="openModal('import')">Import</button>
+          <button class="btn bp bsm" onclick="openModal('new-lead')">+ Prospect</button>
+          <button class="btn bgrn bsm" onclick="openModal('new-client')">+ Client</button>
+        </div>
+      </div>
+      <div style="display:flex;gap:0;border-bottom:1px solid var(--bd);padding:0 16px;">
+        <div class="cdt active" style="padding:8px 12px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;" onclick="filterC('all',this)">All</div>
+        <div class="cdt" style="padding:8px 12px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;" onclick="filterC('client',this)">Clients</div>
+        <div class="cdt" style="padding:8px 12px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;" onclick="filterC('prospect',this)">Prospects</div>
+        <div class="cdt" style="padding:8px 12px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;" onclick="filterC('hot',this)">Hot</div>
+        <div class="cdt" style="padding:8px 12px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;" onclick="filterC('ers',this)">ERS</div>
+      </div>
+      <div id="contacts-wrap">
+        <div class="empty"><div class="ei">&#9651;</div><p>No contacts yet. Use Quick Add above.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PIPELINE ═══ -->
+  <div class="page" id="page-pipeline">
+    <div class="card">
+      <div class="ch"><span class="ct">Sales Pipeline</span><button class="btn bp bsm" onclick="openModal('new-lead')">+ Prospect</button></div>
+      <div class="pipe" id="full-pipe">
+        <div class="pipc snew"><div class="slbl">New Lead <span id="fp-new">0</span></div><div id="fpc-new"></div></div>
+        <div class="pipc scon"><div class="slbl">Contacted <span id="fp-con">0</span></div><div id="fpc-con"></div></div>
+        <div class="pipc sapp"><div class="slbl">Appt Set <span id="fp-app">0</span></div><div id="fpc-app"></div></div>
+        <div class="pipc spro"><div class="slbl">Proposal <span id="fp-pro">0</span></div><div id="fpc-pro"></div></div>
+        <div class="pipc sclo"><div class="slbl">Closed <span id="fp-clo">0</span></div><div id="fpc-clo"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CALENDAR ═══ -->
+  <div class="page" id="page-calendar">
+    <div style="display:grid;grid-template-columns:1fr 320px;gap:12px;">
+      <div>
+        <div class="card mb12">
+          <div class="cal-nav">
+            <button class="cal-nav-btn" onclick="changeMonth(-1)">&#8592;</button>
+            <div class="cal-month" id="cal-month-label"></div>
+            <button class="cal-nav-btn" onclick="changeMonth(1)">&#8594;</button>
+          </div>
+          <div style="padding:0 12px 12px;">
+            <div class="cal-grid">
+              <div class="cal-header">SUN</div><div class="cal-header">MON</div><div class="cal-header">TUE</div>
+              <div class="cal-header">WED</div><div class="cal-header">THU</div><div class="cal-header">FRI</div><div class="cal-header">SAT</div>
+            </div>
+            <div class="cal-grid" id="cal-body"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="ch"><span class="ct">Book Appointment</span></div>
+          <div style="padding:14px;">
+            <div style="font-size:11px;color:var(--txm);line-height:1.5;margin-bottom:10px;">Your Calendly booking page is live. Share your link or open it below to book appointments.</div>
+            <button class="btn bp" style="width:100%;justify-content:center;margin-bottom:8px;" onclick="window.open('https://calendly.com','_blank')">Open Calendly Booking ↗</button>
+            <div style="font-size:10px;color:var(--txl);text-align:center;margin-bottom:10px;">calendly.com/[your-link]</div>
+            <div style="border-top:1px solid var(--bd);padding-top:10px;margin-top:4px;">
+              <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--txl);margin-bottom:6px;">Calendly Sync</div>
+              <div style="font-size:11px;color:var(--txm);line-height:1.5;">Once Zapier is set up, new Calendly bookings will automatically appear on this calendar and create a contact in your CRM.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><span class="ct">Add to Calendar</span></div>
+          <div style="padding:14px;">
+            <div class="fg"><label class="fl">Title</label><input class="fi" id="cal-title" placeholder="Appointment title"></div>
+            <div class="fg"><label class="fl">Date</label><input class="fi" id="cal-date" type="date"></div>
+            <div class="fr">
+              <div class="fg"><label class="fl">Start</label><input class="fi" id="cal-start" type="time"></div>
+              <div class="fg"><label class="fl">End</label><input class="fi" id="cal-end" type="time"></div>
+            </div>
+            <div class="fg"><label class="fl">Contact <span>(optional)</span></label><input class="fi" id="cal-contact" placeholder="Client or prospect name"></div>
+            <div class="fg"><label class="fl">Type</label><select class="fs" id="cal-type"><option value="appt">Appointment</option><option value="task">Task / Reminder</option></select></div>
+            <button class="btn bp" style="width:100%;justify-content:center;margin-top:4px;" onclick="addCalEvent()">Add to Calendar</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><span class="ct">Google Calendar</span></div>
+          <div style="padding:14px;">
+            <div style="font-size:11px;color:var(--txm);margin-bottom:8px;">Connect Google Calendar to pull in your existing appointments automatically.</div>
+            <a class="btn bp" style="width:100%;justify-content:center;display:flex;text-decoration:none;" href="https://calendar.google.com" target="_blank">Open Google Calendar ↗</a>
+            <div style="font-size:10px;color:var(--txl);margin-top:8px;line-height:1.5;">Full sync available once Zapier backend is connected. Appointments will appear here automatically.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ APPLICATIONS ═══ -->
+  <div class="page" id="page-applications">
+    <div class="card mb12" style="border-left:3px solid var(--m);">
+      <div style="padding:12px 16px;">
+        <div style="font-size:11px;font-weight:600;color:var(--blk);margin-bottom:3px;">Application Workflow — 7 Steps</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">
+          <span class="pill pm">1. App Submitted</span>
+          <span style="color:var(--txl);align-self:center;">→</span>
+          <span class="pill pb">2. Pending Docs</span>
+          <span style="color:var(--txl);align-self:center;">→</span>
+          <span class="pill pb">3. Phone Interview</span>
+          <span style="color:var(--txl);align-self:center;">→</span>
+          <span class="pill pb">4. In Underwriting</span>
+          <span style="color:var(--txl);align-self:center;">→</span>
+          <span class="pill pg">5. Approved</span>
+          <span style="color:var(--txl);align-self:center;">→</span>
+          <span class="pill pg">6. Policy Delivered</span>
+          <span style="color:var(--txl);align-self:center;">→</span>
+          <span class="pill pg">7. Issued & Paid</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ct">Application Tracker</span><button class="btn bp bsm" onclick="openModal('new-app')">+ Application</button></div>
+      <div id="apps-wrap"><div class="empty"><div class="ei">&#9641;</div><p>No applications yet.</p></div></div>
+    </div>
+  </div>
+
+  <!-- ═══ COMMISSIONS ═══ -->
+  <div class="page" id="page-commissions">
+    <div style="font-size:11px;color:var(--txm);margin-bottom:12px;padding:10px 14px;background:var(--mp);border-radius:8px;border-left:3px solid var(--m);">Commissions calculate automatically from your applications. When an application is marked <strong>Approved</strong> or <strong>Issued</strong>, it appears here using the carrier commission rate. Update the rate on each carrier record to keep calculations accurate.</div>
+    <div class="comm-summary mb12">
+      <div class="cs2"><div class="cs2-lbl">Expected Total</div><div class="cs2-val" id="comm-expected">$0</div></div>
+      <div class="cs2"><div class="cs2-lbl">Received</div><div class="cs2-val green" id="comm-received">$0</div></div>
+      <div class="cs2"><div class="cs2-lbl">Still Pending</div><div class="cs2-val pink" id="comm-pending">$0</div></div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ct">Commission Dashboard</span><span class="clink" onclick="goPage('applications',null)">View Applications →</span></div>
+      <div id="comm-wrap"><div class="empty"><div class="ei">&#9651;</div><p>No approved applications yet. Commissions will appear here automatically when an application is marked Approved or Issued.</p></div></div>
+    </div>
+  </div>
+
+  <!-- ═══ SOCIAL MEDIA ═══ -->
+  <div class="page" id="page-social">
+    <div class="lay">
+      <div>
+        <div class="card mb12">
+          <div class="ch"><span class="ct">Content Calendar</span><button class="btn bp bsm" onclick="openModal('new-post')">+ New Post</button></div>
+          <div id="social-posts"><div class="empty"><div class="ei">&#9670;</div><p>No posts scheduled yet. Add your first post!</p></div></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="ch"><span class="ct">Buffer</span></div>
+          <div style="padding:14px;">
+            <div style="font-size:11px;color:var(--txm);line-height:1.5;margin-bottom:10px;">Click "Send to Buffer" on any post to open Buffer with the content pre-filled and ready to schedule.</div>
+            <button class="btn bp" style="width:100%;justify-content:center;" onclick="window.open('https://buffer.com','_blank')">Open Buffer ↗</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><span class="ct">Content Ideas</span></div>
+          <div style="padding:12px;">
+            <div style="font-size:11px;color:var(--txm);line-height:1.7;">
+              &#9670; Living benefits — most people don't know<br>
+              &#9670; Life insurance myths busted<br>
+              &#9670; Why work coverage isn't enough<br>
+              &#9670; Final expense — the gift you leave<br>
+              &#9670; Client success story (with permission)<br>
+              &#9670; Why I became an agent<br>
+              &#9670; Mortgage protection explained<br>
+              &#9670; IUL vs 401k<br>
+              &#9670; Policy anniversary post<br>
+              &#9670; Behind the scenes of your day
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CARRIERS ═══ -->
+  <div class="page" id="page-carriers">
+    <div class="g2 mb12" id="carriers-list">
+      <div class="empty" style="grid-column:1/-1;"><div class="ei">&#9663;</div><p>No carriers yet. Click + New Carrier to add your first one.</p></div>
+    </div>
+  </div>
+
+  <!-- ═══ STACK ═══ -->
+  <div class="page" id="page-stack">
+    <div style="margin-bottom:14px;"><div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--blk);margin-bottom:3px;">Your Tech Stack</div><div style="font-size:11px;color:var(--txl);">Total: <strong style="color:var(--g);">$29/month</strong> vs $97/month for GoHighLevel. Saving <strong style="color:var(--g);">$816/year.</strong></div></div>
+    <div class="g3">
+      <div style="background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:16px;box-shadow:var(--sh);"><div style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--blk);margin-bottom:3px;">Notion</div><div style="font-size:11px;color:var(--txm);line-height:1.5;margin-bottom:8px;">CRM database, pipeline, client records, carriers. Your data — export anytime.</div><div style="font-size:11px;font-weight:600;color:var(--g);">● Connected</div><div style="font-size:10px;color:var(--txl);margin-top:2px;">Free forever</div></div>
+      <div style="background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:16px;box-shadow:var(--sh);"><div style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--blk);margin-bottom:3px;">Calendly</div><div style="font-size:11px;color:var(--txm);line-height:1.5;margin-bottom:8px;">Appointment booking. Live at calendly.com/[your-link]</div><div style="font-size:11px;font-weight:600;color:var(--g);">● Connected</div><div style="font-size:10px;color:var(--txl);margin-top:2px;">Free plan</div></div>
+      <div style="background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:16px;box-shadow:var(--sh);"><div style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--blk);margin-bottom:3px;">Brevo</div><div style="font-size:11px;color:var(--txm);line-height:1.5;margin-bottom:8px;">Email automation sequences and landing pages.</div><div style="font-size:11px;font-weight:600;color:var(--md);">● Needs setup</div><div style="font-size:10px;color:var(--txl);margin-top:2px;">Free up to 300 emails/day</div></div>
+      <div style="background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:16px;box-shadow:var(--sh);"><div style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--blk);margin-bottom:3px;">JustCall</div><div style="font-size:11px;color:var(--txm);line-height:1.5;margin-bottom:8px;">Power dialer, SMS, voicemail drops, local presence. Ready when you buy leads.</div><div style="font-size:11px;font-weight:600;color:var(--md);">● Needs setup</div><div style="font-size:10px;color:var(--txl);margin-top:2px;">$29/month</div></div>
+      <div style="background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:16px;box-shadow:var(--sh);"><div style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--blk);margin-bottom:3px;">Zapier</div><div style="font-size:11px;color:var(--txm);line-height:1.5;margin-bottom:8px;">Connects everything. Calendly → Notion → Brevo → JustCall automatically.</div><div style="font-size:11px;font-weight:600;color:var(--md);">● Needs setup</div><div style="font-size:10px;color:var(--txl);margin-top:2px;">Free tier</div></div>
+      <div style="background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:16px;box-shadow:var(--sh);"><div style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--blk);margin-bottom:3px;">Google Business</div><div style="font-size:11px;color:var(--txm);line-height:1.5;margin-bottom:8px;">Local search + review hub. Review requests auto-fire via JustCall after every policy.</div><div style="font-size:11px;font-weight:600;color:var(--md);">● Set up today</div><div style="font-size:10px;color:var(--txl);margin-top:2px;">Free forever</div></div>
+    </div>
+  </div>
+
+  </div><!-- /content -->
+</main>
+
+<!-- ═══ CONTACT DETAIL MODAL ═══ -->
+<div class="mbg" id="modal-contact-detail">
+  <div class="modal full">
+    <div class="mh">
+      <span class="mh-title" id="cd-name-title">Contact</span>
+      <div style="display:flex;gap:7px;align-items:center;">
+        <span id="cd-status-badge"></span>
+        <button class="btn bp bsm" onclick="saveContact()">Save</button>
+        <div class="mclose" onclick="closeModal('contact-detail')">✕</div>
+      </div>
+    </div>
+    <div class="cdtabs" id="cd-tabs">
+      <div class="cdt active" onclick="cdTab(this,'info')">Basic Info</div>
+      <div class="cdt" onclick="cdTab(this,'underwriting')">Underwriting</div>
+      <div class="cdt" onclick="cdTab(this,'callnotes')">Call Notes</div>
+      <div class="cdt" onclick="cdTab(this,'ers')">ERS Info</div>
+      <div class="cdt" onclick="cdTab(this,'application')">Application</div>
+      <div class="cdt" onclick="cdTab(this,'documents')">Documents</div>
+      <div class="cdt" onclick="cdTab(this,'docusign')">DocuSign</div>
+      <div class="cdt" id="cd-policies-tab" onclick="cdTab(this,'policies')" style="display:none;">Policies</div>
+      <div class="cdt" onclick="cdTab(this,'workflow')">Workflow</div>
+      <div class="cdt" onclick="cdTab(this,'activity')">Activity Log</div>
+    </div>
+
+    <!-- BASIC INFO -->
+    <div class="cdtc active" id="cdt-info">
+      <div class="fr"><div class="fg"><label class="fl">First Name</label><input class="fi" id="cd-fn"></div><div class="fg"><label class="fl">Last Name <span>(optional)</span></label><input class="fi" id="cd-ln"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Phone <span>(optional)</span></label><input class="fi" id="cd-ph" type="tel"></div><div class="fg"><label class="fl">Email <span>(optional)</span></label><input class="fi" id="cd-em" type="email"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">State</label><select class="fs" id="cd-st"><option value="">Select</option><option>IN</option><option>OH</option><option>IL</option><option>KY</option><option>MI</option><option>TN</option><option>GA</option><option>FL</option><option>TX</option><option>Other</option></select></div><div class="fg"><label class="fl">Lead Source</label><select class="fs" id="cd-src"><option value="">Select</option><option>ERS Referral</option><option>Bought Lead</option><option>Referral</option><option>Calendly Booking</option><option>Social Media</option><option>Landing Page</option></select></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Priority</label><select class="fs" id="cd-pri" onchange="updateWF()"><option value="">Select</option><option value="hot">Hot</option><option value="warm">Warm</option><option value="cold">Cold</option></select></div><div class="fg"><label class="fl">Status</label><select class="fs" id="cd-sts"><option value="prospect">Prospect</option><option value="client">Active Client</option><option value="follow-up">Follow-Up Needed</option><option value="cold">Cold</option><option value="not-interested">Not Interested</option></select></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Product Interest</label><select class="fs" id="cd-prod"><option value="">Select</option><option>Life Insurance</option><option>Mortgage Protection</option><option>Final Expense</option><option>Retirement / IUL</option><option>Whole Life</option><option>Term Life</option><option>Bundle</option><option>Annuity</option></select></div><div class="fg"><label class="fl">Pipeline Stage</label><select class="fs" id="cd-stg"><option value="new">New Lead</option><option value="contact">Contacted</option><option value="appt">Appointment Set</option><option value="proposal">Proposal Sent</option><option value="closed">Closed</option></select></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Best Time to Reach</label><input class="fi" id="cd-bt" placeholder="e.g. Evenings after 6pm"></div><div class="fg"><label class="fl">Next Follow-Up Date</label><input class="fi" id="cd-fu" type="date"></div></div>
+    </div>
+
+    <!-- UNDERWRITING -->
+    <div class="cdtc" id="cdt-underwriting">
+      <div style="font-size:11px;color:var(--txm);margin-bottom:10px;padding:8px 10px;background:var(--mp);border-radius:6px;">Fill this out during your live call. Nothing is required — add what you can.</div>
+      <div class="fr"><div class="fg"><label class="fl">Age</label><input class="fi" id="cd-age" type="number" placeholder="Age"></div><div class="fg"><label class="fl">Smoker / Tobacco</label><select class="fs" id="cd-smk"><option value="">Select</option><option>Non-smoker</option><option>Smoker</option><option>Former smoker (quit 1+ yr)</option><option>Tobacco user</option></select></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Height</label><input class="fi" id="cd-ht" placeholder="e.g. 5'8"></div><div class="fg"><label class="fl">Weight</label><input class="fi" id="cd-wt" placeholder="e.g. 180 lbs"></div></div>
+      <div class="fg"><label class="fl">Health Conditions</label><input class="fi" id="cd-cond" placeholder="e.g. Diabetes Type 2, High Blood Pressure, COPD..."></div>
+      <div class="fg"><label class="fl">Medications</label><input class="fi" id="cd-meds" placeholder="e.g. Metformin, Lisinopril..."></div>
+      <div class="fr"><div class="fg"><label class="fl">Coverage Amount Needed</label><input class="fi" id="cd-cov" placeholder="e.g. $250,000"></div><div class="fg"><label class="fl">Monthly Budget</label><input class="fi" id="cd-bud" placeholder="e.g. $100/month"></div></div>
+      <div class="fsec">Primary Beneficiary</div>
+      <div class="fr"><div class="fg"><label class="fl">Beneficiary Name</label><input class="fi" id="cd-bn" placeholder="Full name"></div><div class="fg"><label class="fl">Relationship</label><input class="fi" id="cd-br" placeholder="e.g. Spouse, Child"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Beneficiary DOB</label><input class="fi" id="cd-bd" type="date"></div><div class="fg"><label class="fl">Beneficiary SSN (last 4)</label><input class="fi" id="cd-bssn" placeholder="Last 4 digits only"></div></div>
+      <div class="fsec">Secondary Beneficiary (optional)</div>
+      <div class="fr"><div class="fg"><label class="fl">Name</label><input class="fi" id="cd-bn2" placeholder="Full name"></div><div class="fg"><label class="fl">Relationship</label><input class="fi" id="cd-br2" placeholder="Relationship"></div></div>
+      <div class="fg"><label class="fl">Additional UW Notes</label><textarea class="fta" id="cd-uwn" placeholder="Build chart notes, health details, underwriting considerations..."></textarea></div>
+    </div>
+
+    <!-- CALL NOTES -->
+    <div class="cdtc" id="cdt-callnotes">
+      <div style="font-size:11px;color:var(--txm);margin-bottom:8px;">Free-form notes from live conversations. Jot anything here during a call — no structure required.</div>
+      <textarea class="fta" id="cd-cn" style="min-height:320px;width:100%;" placeholder="Notes from calls, things to remember, what they told you, follow-up context..."></textarea>
+    </div>
+
+    <!-- ERS INFO -->
+    <div class="cdtc" id="cdt-ers">
+      <div style="background:var(--pkp);border-left:3px solid var(--pk);border-radius:6px;padding:10px 12px;margin-bottom:14px;">
+        <div style="font-size:12px;font-weight:600;color:#C0606A;margin-bottom:3px;">ERS Referral Info</div>
+        <div style="font-size:11px;color:var(--txm);">Fill this out during your initial call if this prospect came through ERS. The referring contact will be linked to this record.</div>
+      </div>
+      <div class="fg">
+        <label class="fl">Referred By <span>(existing contact)</span></label>
+        <select class="fs" id="cd-ers-ref">
+          <option value="">Select referring contact</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label class="fl">Relationship to Referral</label>
+        <input class="fi" id="cd-ers-rel" placeholder="e.g. Spouse, coworker, neighbor, family friend">
+      </div>
+      <div class="fg">
+        <label class="fl">What Did the Referring Contact Say?</label>
+        <textarea class="fta" id="cd-ers-what" placeholder="What did they say about this person? Any context that will help you in the initial call..."></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">Did They Know They Were Being Referred?</label>
+        <select class="fs" id="cd-ers-knew">
+          <option value="">Select</option>
+          <option value="yes">Yes — they're expecting my call</option>
+          <option value="no">No — they don't know yet</option>
+          <option value="maybe">Not sure</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label class="fl">Best Approach</label>
+        <textarea class="fta" id="cd-ers-approach" placeholder="How should you approach this person based on what the referral told you? Any sensitivities, best time to call, specific needs mentioned..."></textarea>
+      </div>
+      <div style="margin-top:10px;padding:10px;background:var(--mp);border-radius:6px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--md);margin-bottom:4px;">Day 1 Script — ERS Text</div>
+        <div style="font-size:11px;color:var(--txm);line-height:1.6;" id="ers-script-preview">"Hi [Name]! This is Ariel Gildon, a licensed life insurance broker. I was speaking with [Referral Name] and they mentioned you might be interested in learning more about protecting your family. I'd love to help — when's a good time to chat for about 10 minutes?"</div>
+      </div>
+    </div>
+
+    <!-- APPLICATION -->
+    <div class="cdtc" id="cdt-application">
+      <div id="cd-app-content">
+        <div class="card mb12" style="border-left:3px solid var(--m);">
+          <div style="padding:12px 16px;">
+            <div style="font-size:11px;font-weight:600;color:var(--blk);margin-bottom:8px;">Application Workflow — click status to update</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap;" id="app-workflow-steps">
+              <span class="pill pm" style="cursor:pointer;" onclick="setAppStatus('submitted')">1. Submitted</span><span style="color:var(--txl);align-self:center;font-size:10px;">→</span>
+              <span class="pill pb" style="cursor:pointer;" onclick="setAppStatus('docs')">2. Pending Docs</span><span style="color:var(--txl);align-self:center;font-size:10px;">→</span>
+              <span class="pill pb" style="cursor:pointer;" onclick="setAppStatus('interview')">3. Phone Interview</span><span style="color:var(--txl);align-self:center;font-size:10px;">→</span>
+              <span class="pill pb" style="cursor:pointer;" onclick="setAppStatus('underwriting')">4. Underwriting</span><span style="color:var(--txl);align-self:center;font-size:10px;">→</span>
+              <span class="pill pg" style="cursor:pointer;" onclick="setAppStatus('approved')">5. Approved</span><span style="color:var(--txl);align-self:center;font-size:10px;">→</span>
+              <span class="pill pg" style="cursor:pointer;" onclick="setAppStatus('delivered')">6. Delivered</span><span style="color:var(--txl);align-self:center;font-size:10px;">→</span>
+              <span class="pill pg" style="cursor:pointer;" onclick="setAppStatus('issued')">7. Issued & Paid</span>
+            </div>
+            <div id="app-step-checklist" style="margin-top:10px;"></div>
+          </div>
+        </div>
+        <div class="fr"><div class="fg"><label class="fl">Carrier</label><input class="fi" id="cd-acar" placeholder="Carrier name"></div><div class="fg"><label class="fl">Product</label><select class="fs" id="cd-aprod"><option value="">Select</option><option>Life Insurance</option><option>Final Expense</option><option>Mortgage Protection</option><option>IUL</option><option>Whole Life</option><option>Term Life</option><option>Annuity</option></select></div></div>
+        <div class="fr"><div class="fg"><label class="fl">Monthly Premium</label><input class="fi" id="cd-aprem" placeholder="$0.00"></div><div class="fg"><label class="fl">Face Amount</label><input class="fi" id="cd-aface" placeholder="$0.00"></div></div>
+        <div class="fr"><div class="fg"><label class="fl">Commission Rate %</label><input class="fi" id="cd-acomm" placeholder="e.g. 80" type="number"></div><div class="fg"><label class="fl">Date Submitted</label><input class="fi" id="cd-adate" type="date"></div></div>
+        <div class="fr"><div class="fg"><label class="fl">Application Status</label><select class="fs" id="cd-asts" onchange="checkApproval()"><option value="">Not Started</option><option value="submitted">App Submitted</option><option value="docs">Pending Documents</option><option value="interview">Phone Interview Scheduled</option><option value="underwriting">In Underwriting</option><option value="approved">Approved</option><option value="delivered">Policy Delivered</option><option value="issued">Issued & Paid</option><option value="declined">Declined</option></select></div><div class="fg"><label class="fl">Next Action Date</label><input class="fi" id="cd-anext" type="date"></div></div>
+        <div class="fg"><label class="fl">Documents Needed</label><input class="fi" id="cd-adocs" placeholder="e.g. ID, voided check, medical records..."></div>
+        <div class="fg"><label class="fl">Underwriting Notes</label><textarea class="fta" id="cd-auwn" placeholder="What came back from underwriting, conditions, ratings..."></textarea></div>
+        <div class="fsec">Upload Application Document</div>
+        <div class="upload-area" onclick="document.getElementById('app-doc-input').click()">
+          <div style="font-size:20px;margin-bottom:6px;">&#8679;</div>
+          <div style="font-size:12px;font-weight:600;color:var(--blk);">Upload application PDF or document</div>
+          <div style="font-size:10px;color:var(--txl);margin-top:3px;">PDF, DOC, JPG — click to browse</div>
+          <input type="file" id="app-doc-input" style="display:none;" onchange="handleAppDoc(this)">
+        </div>
+        <div id="app-doc-list" style="margin-top:8px;"></div>
+      </div>
+    </div>
+
+    <!-- DOCUMENTS -->
+    <div class="cdtc" id="cdt-documents">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div style="font-size:11px;color:var(--txm);">All documents for this contact. Documents uploaded here are available whether they're a prospect or client.</div>
+        <button class="btn bp bsm" onclick="document.getElementById('doc-upload-input').click()">+ Upload</button>
+        <input type="file" id="doc-upload-input" style="display:none;" multiple onchange="handleDocUpload(this)">
+      </div>
+      <div id="docs-list">
+        <div class="empty"><div class="ei">&#9641;</div><p>No documents yet. Upload any file — applications, IDs, policy docs, receipts.</p></div>
+      </div>
+    </div>
+
+    <!-- DOCUSIGN -->
+    <div class="cdtc" id="cdt-docusign">
+      <div style="font-size:11px;color:var(--txm);margin-bottom:14px;padding:10px;background:var(--mp);border-radius:6px;">Send documents for electronic signature via DocuSign. The client receives an email with a secure signing link.</div>
+      <div class="fg"><label class="fl">Document to Sign</label><select class="fs" id="ds-doc"><option value="">Select document type</option><option>Client Consent / Authorization Form</option><option>Policy Delivery Receipt</option><option>HIPAA Authorization</option><option>Beneficiary Change Form</option><option>Premium Change Authorization</option><option>Other</option></select></div>
+      <div class="fr"><div class="fg"><label class="fl">Recipient Name</label><input class="fi" id="ds-name" placeholder="Signer's full name"></div><div class="fg"><label class="fl">Recipient Email</label><input class="fi" id="ds-email" placeholder="Signer's email"></div></div>
+      <div class="fg"><label class="fl">Message to Recipient <span>(optional)</span></label><textarea class="fta" id="ds-msg" placeholder="Hi [Name], please review and sign the attached document at your earliest convenience..."></textarea></div>
+      <button class="btn bp" style="width:100%;justify-content:center;margin-top:4px;" onclick="sendDocuSign()">Send via DocuSign ↗</button>
+      <div id="ds-log" style="margin-top:14px;"></div>
+    </div>
+
+    <!-- POLICIES (unlocks on approval) -->
+    <div class="cdtc" id="cdt-policies">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div style="font-size:11px;color:var(--txm);">Add all active policies. This section unlocked when application status is Approved or Issued.</div>
+        <button class="btn bgrn bsm" onclick="addPolForm()">+ Add Policy</button>
+      </div>
+      <div id="pol-list"></div>
+    </div>
+
+    <!-- WORKFLOW -->
+    <div class="cdtc" id="cdt-workflow">
+      <div id="wf-content"><div class="empty"><div class="ei">&#9670;</div><p>Set a priority (Hot, Warm, or Cold) in Basic Info to see this contact's follow-up workflow.</p></div></div>
+    </div>
+
+    <!-- ACTIVITY LOG -->
+    <div class="cdtc" id="cdt-activity">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="font-size:11px;color:var(--txm);">Log every call, text, and appointment.</div>
+        <button class="btn bp bsm" onclick="showActForm()">+ Log Activity</button>
+      </div>
+      <div id="act-form" style="display:none;background:var(--cr);border:1px solid var(--bd);border-radius:8px;padding:12px;margin-bottom:10px;">
+        <div class="fr"><div class="fg"><label class="fl">Type</label><select class="fs" id="act-type"><option>Call</option><option>Text</option><option>Voicemail</option><option>Appointment</option><option>Email</option><option>Note</option></select></div><div class="fg"><label class="fl">Outcome</label><select class="fs" id="act-out"><option>Connected — Interested</option><option>Connected — Not interested</option><option>Left Voicemail</option><option>Sent Text</option><option>No Answer</option><option>Appointment Scheduled</option><option>Policy Issued</option></select></div></div>
+        <div class="fg"><label class="fl">Notes</label><textarea class="fta" id="act-notes" placeholder="What happened..."></textarea></div>
+        <div style="display:flex;gap:7px;margin-top:7px;"><button class="btn bp bsm" onclick="saveAct()">Save</button><button class="btn bg bsm" onclick="document.getElementById('act-form').style.display='none'">Cancel</button></div>
+      </div>
+      <div id="act-list"><div class="empty"><div class="ei">&#9675;</div><p>No activity logged yet.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ERS LEAD MODAL -->
+<div class="mbg" id="modal-ers">
+  <div class="modal">
+    <div class="mh"><span class="mh-title">New ERS Lead</span><div class="mclose" onclick="closeModal('ers')">✕</div></div>
+    <div class="mb2">
+      <div class="ers-highlight">
+        <div class="ers-title">ERS Referral — Text First, Same Day</div>
+        <div class="ers-sub">This person has already expressed interest. A follow-up workflow will be automatically assigned based on the priority you set below.</div>
+      </div>
+      <div class="fr"><div class="fg"><label class="fl">First Name <span style="color:#E06060;">*</span></label><input class="fi" id="ers-fn"></div><div class="fg"><label class="fl">Last Name</label><input class="fi" id="ers-ln"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Phone</label><input class="fi" id="ers-ph" type="tel"></div><div class="fg"><label class="fl">State</label><select class="fs" id="ers-st"><option value="">Select</option><option>IN</option><option>OH</option><option>IL</option><option>KY</option><option>MI</option><option>TN</option><option>GA</option><option>FL</option><option>TX</option><option>Other</option></select></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Product Interest</label><select class="fs" id="ers-prod"><option value="">Select</option><option>Life Insurance</option><option>Mortgage Protection</option><option>Final Expense</option><option>Retirement / IUL</option><option>Bundle</option></select></div><div class="fg"><label class="fl">Priority <span style="color:#E06060;">*</span></label><select class="fs" id="ers-pri"><option value="hot">Hot — Contact today</option><option value="warm">Warm — Contact this week</option><option value="cold">Cold — Plant and nurture</option></select></div></div>
+      <div class="fg"><label class="fl">Referred By <span>(optional)</span></label><input class="fi" id="ers-ref" placeholder="Who referred this person?"></div>
+      <div class="fg"><label class="fl">Notes <span>(optional)</span></label><textarea class="fta" id="ers-notes" placeholder="Any info you have about this person, their situation, what they said..."></textarea></div>
+    </div>
+    <div class="mf"><button class="btn bg" onclick="closeModal('ers')">Cancel</button><button class="btn bpk" onclick="saveERS()">Save ERS Lead + Start Workflow</button></div>
+  </div>
+</div>
+
+<!-- NEW LEAD MODAL -->
+<div class="mbg" id="modal-new-lead">
+  <div class="modal wide">
+    <div class="mh">
+      <span class="mh-title" id="lead-modal-title">New Prospect</span>
+      <div class="mclose" onclick="closeModal('new-lead')">✕</div>
+    </div>
+    <div style="display:flex;gap:0;border-bottom:1px solid var(--bd);padding:0 20px;">
+      <div class="cdt active" style="padding:8px 14px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;" onclick="switchLeadTab(this,'single')">Single Lead</div>
+      <div class="cdt" style="padding:8px 14px;font-size:11px;font-weight:500;color:var(--txl);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;" onclick="switchLeadTab(this,'ers')">ERS Batch Entry</div>
+    </div>
+
+    <!-- SINGLE LEAD TAB -->
+    <div id="lead-tab-single" style="padding:16px 20px;">
+      <div style="font-size:11px;color:var(--txm);margin-bottom:10px;">Only first name required. Add what you have — update the rest later.</div>
+      <div class="fr"><div class="fg"><label class="fl">First Name <span style="color:#E06060;">*</span></label><input class="fi" id="nl-fn"></div><div class="fg"><label class="fl">Last Name</label><input class="fi" id="nl-ln"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Phone</label><input class="fi" id="nl-ph" type="tel"></div><div class="fg"><label class="fl">State</label><select class="fs" id="nl-st"><option value="">Select</option><option>IN</option><option>OH</option><option>IL</option><option>KY</option><option>MI</option><option>TN</option><option>GA</option><option>FL</option><option>TX</option><option>Other</option></select></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Product Interest</label><select class="fs" id="nl-prod"><option value="">Select</option><option>Life Insurance</option><option>Mortgage Protection</option><option>Final Expense</option><option>Retirement / IUL</option><option>Bundle</option></select></div><div class="fg"><label class="fl">Priority</label><select class="fs" id="nl-pri"><option value="">Select</option><option value="hot">Hot</option><option value="warm">Warm</option><option value="cold">Cold</option></select></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Lead Source</label><select class="fs" id="nl-src"><option value="">Select</option><option>Bought Lead</option><option>Referral</option><option>Calendly</option><option>Social Media</option><option>Landing Page</option></select></div><div class="fg"><label class="fl">Pipeline Stage</label><select class="fs" id="nl-stg"><option value="new">New Lead</option><option value="contact">Contacted</option><option value="appt">Appointment Set</option></select></div></div>
+      <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:12px;padding-top:12px;border-top:1px solid var(--bd);">
+        <button class="btn bg" onclick="closeModal('new-lead')">Cancel</button>
+        <button class="btn bp" onclick="saveProspect()">Save Lead</button>
+      </div>
+    </div>
+
+    <!-- ERS BATCH TAB -->
+    <div id="lead-tab-ers" style="display:none;padding:16px 20px;">
+      <div style="background:var(--pkp);border-left:3px solid var(--pk);border-radius:6px;padding:10px 12px;margin-bottom:12px;">
+        <div style="font-size:12px;font-weight:600;color:#C0606A;margin-bottom:3px;">ERS Batch Entry — Text First, Same Day</div>
+        <div style="font-size:11px;color:var(--txm);">Add multiple ERS leads at once. All will be created as prospects with ERS Referral as the source and your selected priority + workflow applied automatically.</div>
+      </div>
+      <div class="fr">
+        <div class="fg"><label class="fl">Referred By <span>(existing contact)</span></label><select class="fs" id="ers-ref-contact"><option value="">Select referral source</option></select></div>
+        <div class="fg"><label class="fl">Priority for All</label><select class="fs" id="ers-batch-pri"><option value="hot">Hot — Contact today</option><option value="warm">Warm — Contact this week</option><option value="cold">Cold — Nurture</option></select></div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1.5fr 1fr auto;gap:6px;margin-bottom:6px;padding:0 2px;">
+        <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);font-weight:600;">Name</div>
+        <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);font-weight:600;">Phone</div>
+        <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);font-weight:600;">State</div>
+        <div></div>
+      </div>
+      <div id="ers-rows"></div>
+      <button class="btn bg bsm" onclick="addERSRow()" style="margin-top:8px;">+ Add Row</button>
+      <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:12px;padding-top:12px;border-top:1px solid var(--bd);">
+        <button class="btn bg" onclick="closeModal('new-lead')">Cancel</button>
+        <button class="btn bpk" onclick="saveERSBatch()">Save All ERS Leads</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEW CLIENT MODAL -->
+<div class="mbg" id="modal-new-client">
+  <div class="modal">
+    <div class="mh"><span class="mh-title">New Client</span><div class="mclose" onclick="closeModal('new-client')">✕</div></div>
+    <div class="mb2">
+      <div style="font-size:11px;color:var(--txm);margin-bottom:10px;">Policy has been issued. Add what you have — nothing is required except a name.</div>
+      <div class="fr"><div class="fg"><label class="fl">First Name <span style="color:#E06060;">*</span></label><input class="fi" id="nc-fn"></div><div class="fg"><label class="fl">Last Name</label><input class="fi" id="nc-ln"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Phone</label><input class="fi" id="nc-ph"></div><div class="fg"><label class="fl">Email</label><input class="fi" id="nc-em" type="email"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Carrier</label><input class="fi" id="nc-car" placeholder="e.g. Mutual of Omaha"></div><div class="fg"><label class="fl">Product</label><select class="fs" id="nc-prod"><option value="">Select</option><option>Life Insurance</option><option>Mortgage Protection</option><option>Final Expense</option><option>IUL</option><option>Whole Life</option><option>Term Life</option></select></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Monthly Premium</label><input class="fi" id="nc-prem" placeholder="$0.00"></div><div class="fg"><label class="fl">Issue Date</label><input class="fi" id="nc-date" type="date"></div></div>
+    </div>
+    <div class="mf"><button class="btn bg" onclick="closeModal('new-client')">Cancel</button><button class="btn bgrn" onclick="saveClient()">Save Client</button></div>
+  </div>
+</div>
+
+<!-- NEW CARRIER MODAL -->
+<div class="mbg" id="modal-new-carrier">
+  <div class="modal wide">
+    <div class="mh"><span class="mh-title">Add Carrier</span><div class="mclose" onclick="closeModal('new-carrier')">✕</div></div>
+    <div class="mb2">
+      <div style="font-size:11px;color:var(--txm);margin-bottom:10px;">Only carrier name is required. Update portal and quote links when you have them.</div>
+      <div class="fsec">Agent Info</div>
+      <div class="fr"><div class="fg"><label class="fl">Carrier Name <span style="color:#E06060;">*</span></label><input class="fi" id="car-name"></div><div class="fg"><label class="fl">Agent Support Phone</label><input class="fi" id="car-aph" placeholder="Phone agents call for help"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">My Writing Number</label><input class="fi" id="car-writing" placeholder="Your agent writing number"></div><div class="fg"><label class="fl">Commission Rate %</label><input class="fi" id="car-commrate" type="number" placeholder="e.g. 80"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Agent Portal URL</label><input class="fi" id="car-ap" placeholder="https://..."></div><div class="fg"><label class="fl">Client Portal URL</label><input class="fi" id="car-cp" placeholder="https://..."></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Quote Tool URL</label><input class="fi" id="car-qt" placeholder="https://..."></div><div class="fg"><label class="fl">Contracting Status</label><select class="fs" id="car-cs"><option value="">Select</option><option value="active">Active & Contracted</option><option value="pending">Pending Contracting</option><option value="inactive">Not Active</option></select></div></div>
+      <div class="fsec">Products & Underwriting</div>
+      <div class="fg"><label class="fl">Products Offered</label><input class="fi" id="car-prods" placeholder="e.g. Life, Final Expense, Mortgage Protection, IUL"></div>
+      <div class="fg"><label class="fl">State Availability</label><input class="fi" id="car-states" placeholder="e.g. IN, OH, IL, KY or All States"></div>
+      <div class="fg"><label class="fl">Field Underwriting Notes</label><textarea class="fta" id="car-uw" placeholder="Phone interview required, build chart, health conditions that qualify, hard declines, Direct Express accepted, age limits..."></textarea></div>
+      <div id="car-prods-table" style="margin-top:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;"><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--txl);">Product Guidelines Table</div><button class="btn bg bsm" onclick="addProdRow()">+ Add Product</button></div>
+        <div id="prod-rows"></div>
+      </div>
+    </div>
+    <div class="mf"><button class="btn bg" onclick="closeModal('new-carrier')">Cancel</button><button class="btn bp" onclick="saveCarrier()">Save Carrier</button></div>
+  </div>
+</div>
+
+<!-- NEW APP MODAL -->
+<div class="mbg" id="modal-new-app">
+  <div class="modal">
+    <div class="mh"><span class="mh-title">Add Application</span><div class="mclose" onclick="closeModal('new-app')">✕</div></div>
+    <div class="mb2">
+      <div class="fr"><div class="fg"><label class="fl">Client Name</label><input class="fi" id="app-name"></div><div class="fg"><label class="fl">Carrier</label><input class="fi" id="app-car"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Product</label><select class="fs" id="app-prod"><option>Life Insurance</option><option>Final Expense</option><option>Mortgage Protection</option><option>IUL</option><option>Whole Life</option><option>Term Life</option><option>Annuity</option></select></div><div class="fg"><label class="fl">Monthly Premium</label><input class="fi" id="app-prem" placeholder="$0.00"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Commission Rate %</label><input class="fi" id="app-comm" placeholder="e.g. 80" type="number"></div><div class="fg"><label class="fl">Date Submitted</label><input class="fi" id="app-date" type="date"></div></div>
+      <div class="fg"><label class="fl">Status</label><select class="fs" id="app-sts"><option value="submitted">App Submitted</option><option value="docs">Pending Documents</option><option value="interview">Phone Interview</option><option value="underwriting">In Underwriting</option><option value="approved">Approved</option><option value="issued">Issued & Paid</option></select></div>
+      <div class="fg"><label class="fl">Notes</label><textarea class="fta" id="app-notes" placeholder="Underwriting notes, docs needed..."></textarea></div>
+    </div>
+    <div class="mf"><button class="btn bg" onclick="closeModal('new-app')">Cancel</button><button class="btn bp" onclick="saveApp()">Save</button></div>
+  </div>
+</div>
+
+<!-- NEW COMMISSION MODAL -->
+<div class="mbg" id="modal-new-comm">
+  <div class="modal">
+    <div class="mh"><span class="mh-title">Log Commission</span><div class="mclose" onclick="closeModal('new-comm')">✕</div></div>
+    <div class="mb2">
+      <div class="fr"><div class="fg"><label class="fl">Client Name</label><input class="fi" id="cm-name"></div><div class="fg"><label class="fl">Carrier</label><input class="fi" id="cm-car"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Product</label><input class="fi" id="cm-prod"></div><div class="fg"><label class="fl">Monthly Premium</label><input class="fi" id="cm-prem" placeholder="$0.00"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Commission Rate %</label><input class="fi" id="cm-rate" type="number" placeholder="e.g. 80" oninput="calcComm()"></div><div class="fg"><label class="fl">Months Paid Upfront</label><input class="fi" id="cm-months" type="number" placeholder="e.g. 6 or 12" oninput="calcComm()"></div></div>
+      <div style="background:var(--mp);border-radius:6px;padding:10px;margin-bottom:10px;" id="comm-calc-preview">
+        <div style="font-size:10px;color:var(--txl);">Expected commission will calculate here</div>
+      </div>
+      <div class="fr"><div class="fg"><label class="fl">Actual Received</label><input class="fi" id="cm-actual" placeholder="$0.00"></div><div class="fg"><label class="fl">Status</label><select class="fs" id="cm-sts"><option value="pending">Pending</option><option value="paid">Paid</option><option value="partial">Partial</option><option value="chargeback">Chargeback</option></select></div></div>
+      <div class="fg"><label class="fl">Date</label><input class="fi" id="cm-date" type="date"></div>
+    </div>
+    <div class="mf"><button class="btn bg" onclick="closeModal('new-comm')">Cancel</button><button class="btn bp" onclick="saveComm()">Save</button></div>
+  </div>
+</div>
+
+<!-- NEW POST MODAL -->
+<div class="mbg" id="modal-new-post">
+  <div class="modal">
+    <div class="mh"><span class="mh-title">New Social Post</span><div class="mclose" onclick="closeModal('new-post')">✕</div></div>
+    <div class="mb2">
+      <div class="fr"><div class="fg"><label class="fl">Platform</label><select class="fs" id="post-platform"><option value="ig">Instagram</option><option value="fb">Facebook</option><option value="li">LinkedIn</option><option value="tk">TikTok</option></select></div><div class="fg"><label class="fl">Scheduled Date</label><input class="fi" id="post-date" type="date"></div></div>
+      <div class="fg"><label class="fl">Content</label><textarea class="fta" id="post-content" style="min-height:100px;" placeholder="Write your post here..."></textarea></div>
+      <div class="fg"><label class="fl">Caption / Hashtags</label><textarea class="fta" id="post-caption" placeholder="#lifeinsurance #insuranceagent #protectyourfamily..."></textarea></div>
+    </div>
+    <div class="mf"><button class="btn bg" onclick="closeModal('new-post')">Cancel</button><button class="btn bp" onclick="savePost()">Save Post</button></div>
+  </div>
+</div>
+
+<!-- IMPORT MODAL -->
+<div class="mbg" id="modal-import">
+  <div class="modal">
+    <div class="mh"><span class="mh-title">Import Contacts</span><div class="mclose" onclick="closeModal('import')">✕</div></div>
+    <div class="mb2">
+      <div class="upload-area" onclick="document.getElementById('csv-input').click()" id="drop-area" ondragover="event.preventDefault();this.style.borderColor='var(--m)'" ondragleave="this.style.borderColor='var(--bd)'" ondrop="handleDrop(event)">
+        <div style="font-size:22px;margin-bottom:6px;">&#8679;</div>
+        <div style="font-size:12px;font-weight:600;color:var(--blk);">Drop CSV file or click to browse</div>
+        <div style="font-size:10px;color:var(--txl);margin-top:3px;">Columns: First Name, Last Name, Phone, Email, State, Product, Priority</div>
+        <input type="file" id="csv-input" accept=".csv" style="display:none;" onchange="handleCSV(this)">
+      </div>
+      <div id="csv-preview" style="margin-top:10px;"></div>
+      <div style="margin-top:14px;border-top:1px solid var(--bd);padding-top:12px;">
+        <div style="font-size:11px;font-weight:600;color:var(--blk);margin-bottom:6px;">Or paste manually (one per line):</div>
+        <textarea class="fta" id="manual-paste" placeholder="First Last, Phone, State&#10;John Smith, (317) 555-0123, IN"></textarea>
+      </div>
+    </div>
+    <div class="mf"><button class="btn bg" onclick="closeModal('import')">Cancel</button><button class="btn bp" onclick="doImport()">Import</button></div>
+  </div>
+</div>
+
+<script>
+// ── SUPABASE CONFIG ──
+const SUPABASE_URL='https://sqdfulhkwbzmqyxvoonv.supabase.co';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNxZGZ1bGhrd2J6bXF5eHZvb252Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc0NzI5MjUsImV4cCI6MjA5MzA0ODkyNX0.lucDaybimVIsLjM4oSmqPOs6iMqBtuw2prcjm2yN7g8';
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+let currentUserId=null;
+const SESSION_TIMEOUT=15*60*1000;
+let sessionTimer;
+
+async function doLogin(){
+  const email=document.getElementById('login-email').value.trim();
+  const pw=document.getElementById('login-pw').value;
+  const {data,error}=await sb.auth.signInWithPassword({email,password:pw});
+  if(error){
+    const err=document.getElementById('login-err');
+    err.textContent='Incorrect email or password.';
+    const inp=document.getElementById('login-pw');
+    inp.style.animation='shake .4s ease';
+    setTimeout(()=>{inp.style.animation='';inp.value='';},400);
+    setTimeout(()=>{err.textContent='';},3000);
+  } else {
+    await postLogin(data.user.id);
+  }
+}
+
+async function postLogin(userId){
+  currentUserId=userId;
+  document.getElementById('login-screen').style.display='none';
+  await loadData();
+  startSession();
+  document.getElementById('dial-count').textContent=DB.dialCount||0;
+  document.getElementById('dial-inline').textContent=DB.dialCount||0;
+  renderAll();
+  renderCal();
+}
+
+function startSession(){
+  clearTimeout(sessionTimer);
+  sessionTimer=setTimeout(lockApp,SESSION_TIMEOUT);
+  document.addEventListener('mousemove',resetSession);
+  document.addEventListener('keydown',resetSession);
+  document.addEventListener('touchstart',resetSession);
+}
+function resetSession(){clearTimeout(sessionTimer);sessionTimer=setTimeout(lockApp,SESSION_TIMEOUT);}
+function togglePW(){const inp=document.getElementById('login-pw');const btn=document.getElementById('pw-toggle');if(inp.type==='password'){inp.type='text';btn.textContent='Hide';}else{inp.type='password';btn.textContent='Show';}}
+
+async function lockApp(){
+  clearTimeout(sessionTimer);
+  document.removeEventListener('mousemove',resetSession);
+  document.removeEventListener('keydown',resetSession);
+  document.removeEventListener('touchstart',resetSession);
+  await sb.auth.signOut();
+  currentUserId=null;
+  DB.contacts=[];
+  DB.applications=[];
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('login-pw').value='';
+}
+
+// ─── DATA ───
+let DB={contacts:[],carriers:[],applications:[],commissions:[],posts:[],calEvents:[],tasks:[],dialCount:0};
+let CID=null;
+let editPols=[],editActs=[];
+let calYear=new Date().getFullYear(),calMonth=new Date().getMonth();
+let prodRows=[];
+let ersRows=[];
+
+function svLocal(){try{localStorage.setItem('olivar-local',JSON.stringify({carriers:DB.carriers,tasks:DB.tasks,posts:DB.posts,calEvents:DB.calEvents,dialCount:DB.dialCount,commissions:DB.commissions||[]}));}catch(e){}}
+function ldLocal(){try{const d=localStorage.getItem('olivar-local');if(d){const p=JSON.parse(d);DB.carriers=p.carriers||[];DB.tasks=p.tasks||[];DB.posts=p.posts||[];DB.calEvents=p.calEvents||[];DB.dialCount=p.dialCount||0;DB.commissions=p.commissions||[];}}catch(e){}}
+
+function contactToRow(c){
+  const row={...c};
+  row.ers_ref=c.ersRef||null;row.ers_ref_id=c.ersRefId||null;
+  row.ers_rel=c.ersRel||null;row.ers_what=c.ersWhat||null;
+  row.ers_knew=c.ersKnew||null;row.ers_approach=c.ersApproach||null;
+  row.ds_log=c.dsLog||[];
+  delete row.ersRef;delete row.ersRefId;delete row.ersRel;
+  delete row.ersWhat;delete row.ersKnew;delete row.ersApproach;delete row.dsLog;
+  delete row.created_at;
+  return row;
+}
+function rowToContact(row){
+  const c={...row};
+  c.ersRef=row.ers_ref||'';c.ersRefId=row.ers_ref_id||'';
+  c.ersRel=row.ers_rel||'';c.ersWhat=row.ers_what||'';
+  c.ersKnew=row.ers_knew||'';c.ersApproach=row.ers_approach||'';
+  c.dsLog=row.ds_log||[];
+  return c;
+}
+
+async function loadData(){
+  ldLocal();
+  const [{data:contacts},{data:deals}]=await Promise.all([
+    sb.from('contacts').select('*').order('created_at',{ascending:false}),
+    sb.from('deals').select('*').order('created_at',{ascending:false})
+  ]);
+  DB.contacts=(contacts||[]).map(rowToContact);
+  DB.applications=deals||[];
+  if(!DB.carriers||DB.carriers.length===0){DB.carriers=DEFAULT_CARRIERS;svLocal();}
+}
+
+async function upsertContact(c){
+  if(!currentUserId)return;
+  const row=contactToRow(c);
+  const {error}=await sb.from('contacts').upsert({...row,user_id:currentUserId});
+  if(error)console.error('Contact save error:',error);
+}
+async function upsertApp(app){
+  if(!currentUserId)return;
+  const {error}=await sb.from('deals').upsert({...app,user_id:currentUserId});
+  if(error)console.error('App save error:',error);
+}
+
+// ─── QUOTES ───
+const QS=[
+  {t:"Every day you work is a day your clients' families are protected. That's not a job — that's a calling.",a:"Daily reminder"},
+  {t:"The close is not the finish line. The close is the starting line of a relationship that can last a lifetime.",a:"Daily reminder"},
+  {t:"You are not just an insurance agent. You are a one-stop financial ecosystem for every client you serve.",a:"Daily reminder"},
+  {t:"Not every seed grows — but every seed planted matters. Keep showing up.",a:"Daily reminder"},
+  {t:"A woman who knows her worth doesn't negotiate her value. She sets the standard.",a:"Unknown"},
+  {t:"The biggest adventure you can take is to live the life of your dreams.",a:"Oprah Winfrey"},
+  {t:"I am deliberate and afraid of nothing.",a:"Audre Lorde"},
+  {t:"Success isn't about how much money you make. It's about the difference you make in people's lives.",a:"Michelle Obama"},
+  {t:"You don't have to be fearless. Just take the next step anyway.",a:"Daily reminder"},
+  {t:"The work you do today is the protection someone's family will feel for decades.",a:"Daily reminder"},
+  {t:"Every no is a redirect. Every yes is a life changed.",a:"Daily reminder"},
+  {t:"Your vision is sacred. Protect it, nurture it, and work it like it's already done.",a:"Unknown"}
+];
+const q=QS[new Date().getDay()%QS.length];
+document.getElementById('dq').textContent='"'+q.t+'"';
+document.getElementById('dqa').textContent='— '+q.a;
+const today=new Date();
+document.getElementById('today-date').textContent=today.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+
+// ─── NAV ───
+const PT={
+  dashboard:["Good morning, Ariel","Your business dashboard"],
+  contacts:["Contacts","All your leads and clients"],
+  pipeline:["Sales Pipeline","Prospect to closed policy"],
+  calendar:["Calendar","Appointments and schedule"],
+  applications:["Applications","Track every app from submit to issued"],
+  commissions:["Commissions","Expected vs received"],
+  social:["Social Media","Content calendar and Buffer"],
+  carriers:["Carrier Hub","Your carrier quick-reference"],
+  stack:["My Stack","$29/month total"]
+};
+
+function goPage(name,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  const pg=document.getElementById('page-'+name);if(pg)pg.classList.add('active');
+  if(el)el.classList.add('active');
+  const t=PT[name];if(t){document.getElementById('ptitle').textContent=t[0];document.getElementById('psub').textContent=t[1];}
+  if(name==='contacts')renderContacts();
+  if(name==='pipeline')renderPipe();
+  if(name==='applications')renderApps();
+  if(name==='commissions')renderCommsFromApps();
+  if(name==='carriers')renderCarriers();
+  if(name==='social')renderSocial();
+  if(name==='calendar')renderCal();
+}
+
+// ─── MODAL ───
+function openModal(n){const m=document.getElementById('modal-'+n);if(m)m.classList.add('open');}
+function closeModal(n){const m=document.getElementById('modal-'+n);if(m)m.classList.remove('open');}
+document.querySelectorAll('.mbg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
+
+// ─── DIAL ───
+function changeDial(n){
+  DB.dialCount=Math.max(0,(DB.dialCount||0)+n);
+  svLocal();
+  document.getElementById('dial-count').textContent=DB.dialCount;
+  document.getElementById('dial-inline').textContent=DB.dialCount;
+}
+function resetDial(){DB.dialCount=0;svLocal();document.getElementById('dial-count').textContent=0;document.getElementById('dial-inline').textContent=0;}
+
+// ─── TOP 5 ───
+function toggleT5(row){
+  const c=row.querySelector('.t5-check');
+  const l=row.querySelector('.t5-lbl');
+  c.classList.toggle('done');
+  l.classList.toggle('done');
+}
+function resetTop5(){
+  document.querySelectorAll('.t5-check').forEach(c=>c.classList.remove('done'));
+  document.querySelectorAll('.t5-lbl').forEach(l=>l.classList.remove('done'));
+}
+
+// ─── TASKS ───
+function addTask(){
+  const inp=document.getElementById('task-input');
+  const txt=inp.value.trim();
+  if(!txt)return;
+  DB.tasks=DB.tasks||[];
+  DB.tasks.push({id:Date.now(),text:txt,done:false});
+  inp.value='';
+  svLocal();
+  renderTasks();
+}
+function addTaskPrompt(){document.getElementById('task-input').focus();}
+function toggleTaskItem(id){
+  const t=DB.tasks.find(x=>x.id===id);
+  if(t)t.done=!t.done;
+  svLocal();renderTasks();
+}
+function deleteTask(id){
+  DB.tasks=DB.tasks.filter(x=>x.id!==id);
+  svLocal();renderTasks();
+}
+function renderTasks(){
+  const el=document.getElementById('task-list');
+  DB.tasks=DB.tasks||[];
+  if(!DB.tasks.length){el.innerHTML='<div style="padding:10px 14px;font-size:11px;color:var(--txl);">No tasks yet. Add one below.</div>';return;}
+  el.innerHTML=DB.tasks.map(t=>`
+    <div class="task-item">
+      <div class="task-check2${t.done?' done':''}" onclick="toggleTaskItem(${t.id})"></div>
+      <div class="task-lbl2${t.done?' done':''}">${t.text}</div>
+      <div class="task-del" onclick="deleteTask(${t.id})">×</div>
+    </div>
+  `).join('');
+}
+
+// ─── SAVE CONTACTS ───
+function makeContact(type,data){
+  return{id:crypto.randomUUID(),type,
+    fn:data.fn||'',ln:data.ln||'',ph:data.ph||'',em:data.em||'',
+    st:data.st||'',src:data.src||'',pri:data.pri||'',sts:data.sts||'prospect',
+    prod:data.prod||'',stg:data.stg||'new',bt:'',fu:'',
+    age:'',smk:'',ht:'',wt:'',cond:'',meds:'',cov:'',bud:'',
+    bn:'',br:'',bd:'',bssn:'',bn2:'',br2:'',uwn:'',cn:'',
+    acar:data.acar||'',aprod:data.aprod||'',aprem:data.aprem||'',aface:'',acomm:'',adate:'',asts:'',anext:'',adocs:'',auwn:'',
+    pols:[],acts:[],docs:[],dsLog:[],
+    ers:data.ers||false,ersRef:data.ersRef||'',ersRefId:'',ersRel:'',ersWhat:'',ersKnew:'',ersApproach:'',
+    created:new Date().toLocaleDateString()
+  };
+}
+
+function saveERS(){
+  const fn=document.getElementById('ers-fn').value.trim();
+  if(!fn){alert('First name required.');return;}
+  const c=makeContact('prospect',{fn,ln:document.getElementById('ers-ln').value.trim(),ph:document.getElementById('ers-ph').value.trim(),st:document.getElementById('ers-st').value,prod:document.getElementById('ers-prod').value,pri:document.getElementById('ers-pri').value,src:'ERS Referral',stg:'new',ers:true,ersRef:document.getElementById('ers-ref').value.trim()});
+  c.cn=document.getElementById('ers-notes').value.trim();
+  DB.contacts.push(c);
+  upsertContact(c);
+  closeModal('ers');
+  ['ers-fn','ers-ln','ers-ph','ers-ref','ers-notes'].forEach(id=>document.getElementById(id).value='');
+  renderAll();
+}
+
+function saveProspect(){
+  const fn=document.getElementById('nl-fn').value.trim();
+  if(!fn){alert('First name required.');return;}
+  const c=makeContact('prospect',{fn,ln:document.getElementById('nl-ln').value.trim(),ph:document.getElementById('nl-ph').value.trim(),st:document.getElementById('nl-st').value,prod:document.getElementById('nl-prod').value,pri:document.getElementById('nl-pri').value,src:document.getElementById('nl-src').value,stg:document.getElementById('nl-stg').value});
+  DB.contacts.push(c);upsertContact(c);
+  closeModal('new-lead');
+  ['nl-fn','nl-ln','nl-ph'].forEach(id=>document.getElementById(id).value='');
+  ['nl-st','nl-prod','nl-pri','nl-src'].forEach(id=>document.getElementById(id).value='');
+  renderAll();
+}
+
+function saveClient(){
+  const fn=document.getElementById('nc-fn').value.trim();
+  if(!fn){alert('First name required.');return;}
+  const c=makeContact('client',{fn,ln:document.getElementById('nc-ln').value.trim(),ph:document.getElementById('nc-ph').value.trim(),em:document.getElementById('nc-em').value.trim(),acar:document.getElementById('nc-car').value.trim(),aprod:document.getElementById('nc-prod').value,aprem:document.getElementById('nc-prem').value.trim(),sts:'client',stg:'closed'});
+  if(c.acar){
+    c.pols=[{id:Date.now(),carrier:c.acar,product:c.aprod,premium:c.aprem,coverage:'',pnum:'',issued:document.getElementById('nc-date').value,renewal:'',status:'Active',bn:'',br:''}];
+  }
+  DB.contacts.push(c);upsertContact(c);
+  closeModal('new-client');
+  ['nc-fn','nc-ln','nc-ph','nc-em','nc-car','nc-prem'].forEach(id=>document.getElementById(id).value='');
+  ['nc-prod','nc-date'].forEach(id=>document.getElementById(id).value='');
+  renderAll();
+}
+
+// ─── CONTACT DETAIL ───
+function openContact(id){
+  const c=DB.contacts.find(x=>x.id===id);if(!c)return;
+  CID=id;
+  editPols=JSON.parse(JSON.stringify(c.pols||[]));
+  editActs=JSON.parse(JSON.stringify(c.acts||[]));
+  document.getElementById('cd-name-title').textContent=(c.fn+' '+(c.ln||'')).trim();
+  const sb=document.getElementById('cd-status-badge');
+  sb.innerHTML=c.sts==='client'?'<span class="pill pg">Active Client</span>':c.ers?'<span class="pill ppk">ERS Lead</span>':'<span class="pill pb">Prospect</span>';
+  const fields={fn:c.fn,ln:c.ln,ph:c.ph,em:c.em,st:c.st,src:c.src,pri:c.pri,sts:c.sts,prod:c.prod,stg:c.stg,bt:c.bt,fu:c.fu,age:c.age,smk:c.smk,ht:c.ht,wt:c.wt,cond:c.cond,meds:c.meds,cov:c.cov,bud:c.bud,bn:c.bn,br:c.br,bd:c.bd,bssn:c.bssn,bn2:c.bn2,br2:c.br2,uwn:c.uwn,cn:c.cn,acar:c.acar,aprod:c.aprod,aprem:c.aprem,aface:c.aface,acomm:c.acomm,adate:c.adate,asts:c.asts,anext:c.anext,adocs:c.adocs,auwn:c.auwn};
+  Object.entries(fields).forEach(([k,v])=>{const el=document.getElementById('cd-'+k);if(el&&v!==undefined)el.value=v||'';});
+  document.getElementById('cd-aface').value=c.aface||'';
+  // policies tab visibility
+  const polTab=document.getElementById('cd-policies-tab');
+  polTab.style.display=(c.sts==='client'||['approved','delivered','issued'].includes(c.asts))?'block':'none';
+  renderPolList();
+  renderActList();
+  updateWF();
+  renderDocsList(c);
+  renderDSLog(c);
+  renderAppDocList(c);
+  // reset tabs
+  document.querySelectorAll('.cdtabs .cdt').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.cdtc').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.cdtabs .cdt').classList.add('active');
+  document.querySelector('.cdtc').classList.add('active');
+  populateERSRefDropdown();
+  // load ERS fields
+  const ersFields=['cd-ers-ref','cd-ers-rel','cd-ers-what','cd-ers-knew','cd-ers-approach'];
+  const c2=DB.contacts.find(x=>x.id===id);
+  if(c2){
+    if(document.getElementById('cd-ers-ref'))document.getElementById('cd-ers-ref').value=c2.ersRefId||'';
+    if(document.getElementById('cd-ers-rel'))document.getElementById('cd-ers-rel').value=c2.ersRel||'';
+    if(document.getElementById('cd-ers-what'))document.getElementById('cd-ers-what').value=c2.ersWhat||'';
+    if(document.getElementById('cd-ers-knew'))document.getElementById('cd-ers-knew').value=c2.ersKnew||'';
+    if(document.getElementById('cd-ers-approach'))document.getElementById('cd-ers-approach').value=c2.ersApproach||'';
+    updateERSScript();
+  }
+  openModal('contact-detail');
+}
+
+function cdTab(el,name){
+  el.closest('.cdtabs').querySelectorAll('.cdt').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.cdtc').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('cdt-'+name).classList.add('active');
+}
+
+function saveContact(){
+  const c=DB.contacts.find(x=>x.id===CID);if(!c)return;
+  const fields=['fn','ln','ph','em','st','src','pri','sts','prod','stg','bt','fu','age','smk','ht','wt','cond','meds','cov','bud','bn','br','bd','bssn','bn2','br2','uwn','cn','acar','aprod','aprem','aface','acomm','adate','asts','anext','adocs','auwn'];
+  fields.forEach(k=>{const el=document.getElementById('cd-'+k);if(el)c[k]=el.value;});
+  c.pols=editPols;
+  c.acts=editActs;
+  if(c.sts==='client')c.type='client';
+  if(['approved','delivered','issued'].includes(c.asts))c.type='client';
+  // save ERS fields
+  const ersRef=document.getElementById('cd-ers-ref');
+  if(ersRef){
+    c.ersRefId=ersRef.value;
+    const refC=DB.contacts.find(x=>x.id==ersRef.value);
+    c.ersRef=refC?`${refC.fn} ${refC.ln||''}`.trim():'';
+  }
+  const ersRel=document.getElementById('cd-ers-rel');if(ersRel)c.ersRel=ersRel.value;
+  const ersWhat=document.getElementById('cd-ers-what');if(ersWhat)c.ersWhat=ersWhat.value;
+  const ersKnew=document.getElementById('cd-ers-knew');if(ersKnew)c.ersKnew=ersKnew.value;
+  const ersApproach=document.getElementById('cd-ers-approach');if(ersApproach)c.ersApproach=ersApproach.value;
+  if(c.ersRefId)c.ers=true;
+  upsertContact(c);renderAll();
+  closeModal('contact-detail');
+}
+
+function checkApproval(){
+  const sts=document.getElementById('cd-asts').value;
+  const polTab=document.getElementById('cd-policies-tab');
+  polTab.style.display=['approved','delivered','issued'].includes(sts)?'block':'none';
+}
+
+// ─── POLICIES ───
+function addPolForm(){
+  editPols.push({id:Date.now(),carrier:'',product:'',coverage:'',premium:'',pnum:'',issued:'',renewal:'',status:'Active',bn:'',br:''});
+  renderPolList();
+}
+function removePol(i){editPols.splice(i,1);renderPolList();}
+function renderPolList(){
+  const el=document.getElementById('pol-list');
+  if(!editPols.length){el.innerHTML='<div class="empty"><div class="ei">&#9641;</div><p>No policies yet. Click "Add Policy" above.</p></div>';return;}
+  el.innerHTML=editPols.map((p,i)=>`
+    <div class="pol-card">
+      <div class="pol-header"><div class="pol-carrier">${p.carrier||'New Policy'}</div><button class="btn bred" onclick="removePol(${i})">Remove</button></div>
+      <div class="pol-grid">
+        <div class="fg"><label class="fl">Carrier</label><input class="fi" value="${p.carrier}" oninput="editPols[${i}].carrier=this.value;this.closest('.pol-card').querySelector('.pol-carrier').textContent=this.value||'New Policy'" placeholder="Carrier name"></div>
+        <div class="fg"><label class="fl">Product</label><select class="fs" onchange="editPols[${i}].product=this.value">${['Life Insurance','Mortgage Protection','Final Expense','IUL','Whole Life','Term Life','Annuity'].map(o=>`<option${p.product===o?' selected':''}>${o}</option>`).join('')}</select></div>
+        <div class="fg"><label class="fl">Coverage Amount</label><input class="fi" value="${p.coverage}" oninput="editPols[${i}].coverage=this.value" placeholder="e.g. $250,000"></div>
+        <div class="fg"><label class="fl">Monthly Premium</label><input class="fi" value="${p.premium}" oninput="editPols[${i}].premium=this.value" placeholder="$0.00"></div>
+        <div class="fg"><label class="fl">Policy Number</label><input class="fi" value="${p.pnum}" oninput="editPols[${i}].pnum=this.value" placeholder="Policy number"></div>
+        <div class="fg"><label class="fl">Status</label><select class="fs" onchange="editPols[${i}].status=this.value">${['Active','Pending','Lapsed','Cancelled'].map(o=>`<option${p.status===o?' selected':''}>${o}</option>`).join('')}</select></div>
+        <div class="fg"><label class="fl">Issue Date</label><input class="fi" type="date" value="${p.issued}" oninput="editPols[${i}].issued=this.value"></div>
+        <div class="fg"><label class="fl">Renewal Date</label><input class="fi" type="date" value="${p.renewal}" oninput="editPols[${i}].renewal=this.value"></div>
+        <div class="fg"><label class="fl">Beneficiary Name</label><input class="fi" value="${p.bn}" oninput="editPols[${i}].bn=this.value" placeholder="Full name"></div>
+        <div class="fg"><label class="fl">Beneficiary Relationship</label><input class="fi" value="${p.br}" oninput="editPols[${i}].br=this.value" placeholder="e.g. Spouse, Child"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── ACTIVITY ───
+function showActForm(){document.getElementById('act-form').style.display='block';}
+function saveAct(){
+  editActs.unshift({id:Date.now(),type:document.getElementById('act-type').value,out:document.getElementById('act-out').value,notes:document.getElementById('act-notes').value.trim(),time:new Date().toLocaleString()});
+  document.getElementById('act-notes').value='';
+  document.getElementById('act-form').style.display='none';
+  renderActList();
+}
+function renderActList(){
+  const el=document.getElementById('act-list');
+  if(!editActs.length){el.innerHTML='<div class="empty"><div class="ei">&#9675;</div><p>No activity logged yet.</p></div>';return;}
+  el.innerHTML=editActs.map(a=>`<div style="background:var(--cr);border:1px solid var(--bd);border-radius:6px;padding:9px 11px;margin-bottom:6px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;"><div style="font-size:11px;font-weight:600;color:var(--blk);">${a.type} — ${a.out}</div><div style="font-size:10px;color:var(--txl);">${a.time}</div></div>${a.notes?`<div style="font-size:11px;color:var(--txm);">${a.notes}</div>`:''}</div>`).join('');
+}
+
+// ─── DOCUMENTS ───
+function handleDocUpload(input){
+  const c=DB.contacts.find(x=>x.id===CID);if(!c)return;
+  c.docs=c.docs||[];
+  Array.from(input.files).forEach(f=>{
+    c.docs.push({id:Date.now()+Math.random(),name:f.name,size:Math.round(f.size/1024)+'KB',type:f.type,added:new Date().toLocaleDateString()});
+  });
+  upsertContact(c);renderDocsList(c);
+  input.value='';
+}
+function renderDocsList(c){
+  const el=document.getElementById('docs-list');
+  c.docs=c.docs||[];
+  if(!c.docs.length){el.innerHTML='<div class="empty"><div class="ei">&#9641;</div><p>No documents yet. Click + Upload to add files.</p></div>';return;}
+  el.innerHTML=c.docs.map(d=>`<div class="doc-item"><div class="doc-icon">&#9641;</div><div style="flex:1;"><div class="doc-name">${d.name}</div><div class="doc-meta">${d.size} · Added ${d.added}</div></div><button class="btn bg bsm" onclick="deleteDoc('${d.id}')">Remove</button></div>`).join('');
+}
+function deleteDoc(id){
+  const c=DB.contacts.find(x=>x.id===CID);if(!c)return;
+  c.docs=c.docs.filter(d=>d.id!=id);
+  upsertContact(c);renderDocsList(c);
+}
+function handleAppDoc(input){
+  const c=DB.contacts.find(x=>x.id===CID);if(!c)return;
+  c.docs=c.docs||[];
+  Array.from(input.files).forEach(f=>{
+    c.docs.push({id:Date.now()+Math.random(),name:f.name+' (Application)',size:Math.round(f.size/1024)+'KB',type:f.type,added:new Date().toLocaleDateString(),isApp:true});
+  });
+  upsertContact(c);renderAppDocList(c);renderDocsList(c);
+  input.value='';
+}
+function renderAppDocList(c){
+  const el=document.getElementById('app-doc-list');
+  if(!el)return;
+  const appDocs=(c.docs||[]).filter(d=>d.isApp);
+  if(!appDocs.length){el.innerHTML='';return;}
+  el.innerHTML=appDocs.map(d=>`<div class="doc-item" style="margin-top:6px;"><div class="doc-icon">&#9641;</div><div style="flex:1;"><div class="doc-name">${d.name}</div><div class="doc-meta">${d.size} · ${d.added}</div></div></div>`).join('');
+}
+
+// ─── DOCUSIGN ───
+function sendDocuSign(){
+  const c=DB.contacts.find(x=>x.id===CID);if(!c)return;
+  const doc=document.getElementById('ds-doc').value;
+  const name=document.getElementById('ds-name').value.trim();
+  const email=document.getElementById('ds-email').value.trim();
+  if(!doc||!email){alert('Select a document type and enter recipient email.');return;}
+  c.dsLog=c.dsLog||[];
+  c.dsLog.unshift({id:Date.now(),doc,name,email,sent:new Date().toLocaleString(),status:'Sent'});
+  upsertContact(c);renderDSLog(c);
+  // open docusign
+  window.open('https://www.docusign.com','_blank');
+  document.getElementById('ds-doc').value='';
+  document.getElementById('ds-name').value='';
+  document.getElementById('ds-email').value='';
+  document.getElementById('ds-msg').value='';
+}
+function renderDSLog(c){
+  const el=document.getElementById('ds-log');if(!el)return;
+  c.dsLog=c.dsLog||[];
+  if(!c.dsLog.length)return;
+  el.innerHTML='<div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--txl);margin-bottom:7px;">Sent Documents</div>'+c.dsLog.map(d=>`<div style="background:var(--cr);border:1px solid var(--bd);border-radius:6px;padding:9px 11px;margin-bottom:6px;"><div style="font-size:11px;font-weight:600;color:var(--blk);">${d.doc}</div><div style="font-size:10px;color:var(--txl);margin-top:2px;">To: ${d.name||d.email} · Sent: ${d.sent}</div></div>`).join('');
+}
+
+// ─── APP STATUS CHECKLIST ───
+const APP_CHECKLISTS={
+  submitted:['Text client: "Your application has been submitted to [Carrier]!"','Log submission date in system','Set follow-up reminder for 3 days','Upload application document if available'],
+  docs:['Contact client for missing documents','List needed: ID, voided check, medical records','Set 24hr follow-up if docs not received','Update carrier portal with document status'],
+  interview:['Confirm phone interview date/time with client','Send client reminder text day before','Brief client on what to expect','Call carrier if interview not scheduled within 48hrs'],
+  underwriting:['Check carrier portal every 2-3 days','Note any additional requirements from underwriter','Keep client updated on timeline','Estimated timeline: 3-10 business days'],
+  approved:['Call client immediately with good news!','Schedule policy delivery appointment','Prepare policy documents','Commission will calculate automatically'],
+  delivered:['Review policy with client page by page','Confirm beneficiary information is correct','Collect signed delivery receipt','Send to DocuSign if remote delivery'],
+  issued:['Policy is active — client is protected','Send thank you text/note to client','Request Google review via JustCall','Set 30-day check-in reminder','Ask for referral!']
+};
+
+function setAppStatus(sts){
+  document.getElementById('cd-asts').value=sts;
+  checkApproval();
+  renderAppChecklist(sts);
+}
+
+function renderAppChecklist(sts){
+  const el=document.getElementById('app-step-checklist');
+  if(!el||!sts||!APP_CHECKLISTS[sts])return;
+  const items=APP_CHECKLISTS[sts];
+  const stslabels={submitted:'App Submitted',docs:'Pending Documents',interview:'Phone Interview',underwriting:'In Underwriting',approved:'Approved',delivered:'Policy Delivered',issued:'Issued & Paid'};
+  el.innerHTML=`<div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--txl);margin-bottom:6px;">Next Steps — ${stslabels[sts]||sts}</div>`+
+    items.map((item,i)=>`<div style="display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid var(--bd);" onclick="this.querySelector('.app-check').classList.toggle('done');this.querySelector('.app-lbl').classList.toggle('done')" style="cursor:pointer;">
+      <div class="app-check" style="width:14px;height:14px;border-radius:3px;border:2px solid var(--bdl);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .12s;cursor:pointer;"></div>
+      <div class="app-lbl" style="font-size:11px;color:var(--txm);line-height:1.4;">${item}</div>
+    </div>`).join('');
+}
+
+// ─── WORKFLOW ───
+const WFS={
+  hot:{label:'Hot Lead — Move fast. Ready now.',color:'#FCF0F0',tc:'#C05050',
+    steps:[
+      {d:'Day 1',t:'Text immediately — same day',desc:'Text: "Hi [Name]! This is Ariel Gildon, a licensed life insurance broker. I saw you were interested in getting your family protected and I\'d love to help! I have availability today or tomorrow — what works best for you?"<br><br>If no response in 2 hours: send a second text with urgency.',tag:'Set Follow-Up: Day 2'},
+      {d:'Day 2',t:'Text + Call',desc:'Text first. If no response in 1 hour → call. If no answer → warm voicemail.',tag:'Set Follow-Up: Day 4'},
+      {d:'Day 4',t:'Text',desc:'"Hi [Name]. I know life gets busy! I still have options ready for you whenever you\'re free. Even 10 minutes could protect your family for life."',tag:'Set Follow-Up: Day 7'},
+      {d:'Day 7',t:'Text + Final Call',desc:'Last reach out for the week. One more call attempt if text goes unanswered.',tag:'No response? Drop to Warm · Set Follow-Up: Day 14'}
+    ]},
+  warm:{label:'Warm Lead — Steady and consistent.',color:'#FBF5E0',tc:'#9A7A1A',
+    steps:[
+      {d:'Day 1',t:'Text — same day',desc:'"Hi [Name]! This is Ariel Gildon. I saw you were interested in learning more about life insurance. I\'d love to help — when\'s a good time to chat for 10 minutes?"',tag:'Set Follow-Up: Day 3'},
+      {d:'Day 3',t:'Text only',desc:'"Hey [Name]! Ariel here. I work with 13 carriers so I can find you the best rate for your budget. Takes only 10 mins. Want to connect today or tomorrow?"',tag:'Set Follow-Up: Day 7'},
+      {d:'Day 7',t:'Text + One call attempt',desc:'Text first. If no response in a few hours → one call attempt.',tag:'Set Follow-Up: Day 14'},
+      {d:'Day 14',t:'Text + Final call',desc:'"Hey [Name], I want to respect your time. If life insurance isn\'t a priority right now, totally okay. But if you ever want to explore options, I\'m here. — Ariel"',tag:'No response? Drop to Cold · Set Follow-Up: Day 30'}
+    ]},
+  cold:{label:'Cold Lead — Plant seeds. Let them come to you.',color:'#EBF4EE',tc:'#2F5238',
+    steps:[
+      {d:'Day 1',t:'One soft text',desc:'"Hi [Name]! This is Ariel Gildon. I know timing matters when it comes to protecting your family. Whenever you\'re ready, I\'m here to help — no pressure."',tag:'Set Follow-Up: Day 14'},
+      {d:'Day 14',t:'Soft check-in',desc:'"Hey [Name]. Just checking in — has anything changed for you regarding life insurance? No rush, just here when you need me. — Ariel"',tag:'Set Follow-Up: Day 30'},
+      {d:'Day 30',t:'Re-engagement',desc:'"Hi [Name]. Ariel Gildon here. Life insurance is one of those things where the right time matters. If that time is now, I\'d love to connect."',tag:'Set Follow-Up: Day 60'},
+      {d:'Day 60',t:'Final touch',desc:'"Hey [Name]. Last check-in for a while. I work with 13 carriers and can find options for most budgets. If you\'re ever ready, I\'m one text away. — Ariel"',tag:'No response? Mark Not Interested.'}
+    ]}
+};
+
+function updateWF(){
+  const pri=document.getElementById('cd-pri').value;
+  const el=document.getElementById('wf-content');
+  if(!pri||!WFS[pri]){el.innerHTML='<div class="empty"><div class="ei">&#9670;</div><p>Set priority in Basic Info to see the follow-up workflow.</p></div>';return;}
+  const w=WFS[pri];
+  el.innerHTML=`<div style="background:${w.color};border-radius:7px;padding:10px 12px;margin-bottom:12px;"><div style="font-size:12px;font-weight:600;color:${w.tc};">${w.label}</div><div style="font-size:11px;color:var(--txm);margin-top:2px;">ERS Rule: Text first. Always. Calls start Day 7 only if texts are unanswered.</div></div>
+  <div style="background:var(--cr);border:1px solid var(--bd);border-radius:8px;">${w.steps.map((s,i)=>`<div class="wf-step"><div class="wf-num">${i+1}</div><div><div class="wf-title">${s.d} — ${s.t}</div><div class="wf-desc">${s.desc}</div><div class="wf-tag">${s.tag}</div></div></div>`).join('')}</div>`;
+}
+
+// ─── RENDER CONTACTS ───
+function renderContacts(filter='all'){
+  let cx=DB.contacts;
+  if(filter==='client')cx=cx.filter(c=>c.sts==='client'||c.type==='client');
+  else if(filter==='prospect')cx=cx.filter(c=>c.sts!=='client'&&c.type!=='client');
+  else if(filter==='hot')cx=cx.filter(c=>c.pri==='hot');
+  else if(filter==='ers')cx=cx.filter(c=>c.ers);
+  const el=document.getElementById('contacts-wrap');
+  if(!cx.length){el.innerHTML='<div class="empty"><div class="ei">&#9651;</div><p>No contacts yet.</p></div>';return;}
+  el.innerHTML=`<table class="tbl"><thead><tr><th>Name</th><th>Phone</th><th>Product</th><th>State</th><th>Priority</th><th>Status</th><th>Source</th><th>Added</th></tr></thead><tbody>${cx.map(c=>`<tr onclick="openContact('${c.id}')"><td><div class="cn">${c.fn} ${c.ln||''}</div><div class="csub">${c.em||c.src||''}</div></td><td>${c.ph||'—'}</td><td>${c.prod||'—'}</td><td>${c.st||'—'}</td><td>${c.pri?`<span class="pd p${c.pri[0]}"></span>${c.pri.charAt(0).toUpperCase()+c.pri.slice(1)}`:'—'}</td><td>${sPill(c)}</td><td>${c.src||'—'}</td><td style="font-size:10px;color:var(--txl);">${c.created||''}</td></tr>`).join('')}</tbody></table>`;
+}
+function sPill(c){
+  if(c.sts==='client'||c.type==='client')return'<span class="pill pg">Active Client</span>';
+  if(c.ers)return'<span class="pill ppk">ERS Lead</span>';
+  if(c.pri==='hot')return'<span class="pill phot">Hot Prospect</span>';
+  return'<span class="pill pb">Prospect</span>';
+}
+function filterC(f,el){
+  document.querySelectorAll('#page-contacts .cdt').forEach(t=>{t.style.color='var(--txl)';t.style.borderBottomColor='transparent';});
+  el.style.color='var(--md)';el.style.borderBottomColor='var(--m)';
+  renderContacts(f);
+}
+
+// ─── RENDER PIPELINE ───
+function renderPipe(){
+  const stages=['new','contact','appt','proposal','closed'];
+  const sMap={'new':'new','contact':'con','appt':'app','proposal':'pro','closed':'clo'};
+  stages.forEach(s=>{
+    const cx=DB.contacts.filter(c=>c.stg===s);
+    const html=cx.length?cx.map(c=>`<div class="dc" onclick="openContact('${c.id}')"><div class="dn2"><span class="pd p${c.pri?c.pri[0]:'c'}"></span>${c.fn} ${c.ln||''}</div><div class="dp2">${c.prod||'—'}</div><div class="dm2"><span class="dv2">${c.bud||'—'}</span><span class="da2">${c.created||''}</span></div></div>`).join(''):'<div style="font-size:10px;color:var(--txl);padding:6px;text-align:center;">Empty</div>';
+    ['dc-','fp-'].forEach(pre=>{const cnt=document.getElementById(pre+sMap[s]);if(cnt)cnt.textContent=cx.length;});
+    ['dpc-','fpc-'].forEach(pre=>{const col=document.getElementById(pre+sMap[s]);if(col)col.innerHTML=html;});
+  });
+}
+
+// ─── APPS ───
+function saveApp(){
+  const name=document.getElementById('app-name').value.trim();if(!name)return;
+  const prem=parseFloat(document.getElementById('app-prem').value.replace(/[$,]/g,''))||0;
+  const rate=parseFloat(document.getElementById('app-comm').value)||0;
+  const expected=prem*(rate/100)*12;
+  const app={id:crypto.randomUUID(),name,car:document.getElementById('app-car').value.trim(),prod:document.getElementById('app-prod').value,prem:document.getElementById('app-prem').value.trim(),rate,expected:expected.toFixed(0),date:document.getElementById('app-date').value,sts:document.getElementById('app-sts').value,notes:document.getElementById('app-notes').value.trim()};
+  DB.applications.push(app);
+  upsertApp(app);closeModal('new-app');renderApps();renderAppFollowUps();renderCommsFromApps();
+}
+function renderApps(){
+  const el=document.getElementById('apps-wrap');
+  if(!DB.applications.length){el.innerHTML='<div class="empty"><div class="ei">&#9641;</div><p>No applications yet.</p></div>';return;}
+  const sm={submitted:'pm',docs:'ppk',interview:'pb',underwriting:'pb',approved:'pg',delivered:'pg',issued:'pg',declined:'pgr'};
+  const sl2={submitted:'App Submitted',docs:'Pending Docs',interview:'Phone Interview',underwriting:'In Underwriting',approved:'Approved',delivered:'Policy Delivered',issued:'Issued & Paid',declined:'Declined'};
+  el.innerHTML=`<table class="tbl"><thead><tr><th>Client</th><th>Carrier</th><th>Product</th><th>Premium</th><th>Comm %</th><th>Expected</th><th>Status</th><th>Date</th></tr></thead><tbody>${DB.applications.map(a=>`<tr><td class="cn">${a.name}</td><td>${a.car||'—'}</td><td>${a.prod}</td><td>${a.prem||'—'}</td><td>${a.rate?a.rate+'%':'—'}</td><td style="font-weight:600;color:var(--md);">${a.expected?'$'+Number(a.expected).toLocaleString():'—'}</td><td><span class="pill ${sm[a.sts]||'pgr'}">${sl2[a.sts]||a.sts}</span></td><td style="font-size:10px;color:var(--txl);">${a.date||'—'}</td></tr>`).join('')}</tbody></table>`;
+}
+function renderAppFollowUps(){
+  const el=document.getElementById('app-followups');
+  const open=DB.applications.filter(a=>!['issued','declined'].includes(a.sts));
+  document.getElementById('s-apps').textContent=open.length;
+  document.getElementById('apps-count-inline').textContent=open.length;
+  if(!open.length){el.innerHTML='<div class="empty"><div class="ei">&#9641;</div><p>No open applications</p></div>';return;}
+  el.innerHTML=open.slice(0,4).map(a=>`<div style="padding:9px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:12px;font-weight:600;color:var(--blk);">${a.name}</div><div style="font-size:10px;color:var(--txl);">${a.car||'—'} · ${a.prod}</div></div><span class="pill pm" style="font-size:9px;">${a.sts||'—'}</span></div>`).join('');
+}
+
+// ─── COMMISSIONS ───
+function calcComm(){
+  const prem=parseFloat(document.getElementById('cm-prem').value.replace(/[$,]/g,''))||0;
+  const rate=parseFloat(document.getElementById('cm-rate').value)||0;
+  const months=parseFloat(document.getElementById('cm-months').value)||12;
+  const exp=(prem*(rate/100)*months).toFixed(2);
+  document.getElementById('comm-calc-preview').innerHTML=`<div style="font-size:11px;color:var(--md);font-weight:600;">Expected: $${Number(exp).toLocaleString()} <span style="font-size:10px;color:var(--txl);">($${prem}/mo × ${rate}% × ${months} months)</span></div>`;
+}
+function saveComm(){
+  const name=document.getElementById('cm-name').value.trim();if(!name)return;
+  const prem=parseFloat(document.getElementById('cm-prem').value.replace(/[$,]/g,''))||0;
+  const rate=parseFloat(document.getElementById('cm-rate').value)||0;
+  const months=parseFloat(document.getElementById('cm-months').value)||12;
+  const expected=(prem*(rate/100)*months).toFixed(2);
+  DB.commissions.push({id:Date.now(),name,car:document.getElementById('cm-car').value.trim(),prod:document.getElementById('cm-prod').value.trim(),prem:document.getElementById('cm-prem').value.trim(),rate,months,expected,actual:document.getElementById('cm-actual').value.trim(),sts:document.getElementById('cm-sts').value,date:document.getElementById('cm-date').value});
+  svLocal();closeModal('new-comm');renderComms();
+}
+function renderComms(){
+  const el=document.getElementById('comm-wrap');
+  if(!DB.commissions.length){el.innerHTML='<div class="empty"><div class="ei">&#9651;</div><p>No commissions logged yet.</p></div>';return;}
+  let totalExp=0,totalRec=0;
+  DB.commissions.forEach(c=>{totalExp+=parseFloat(c.expected)||0;if(c.sts==='paid')totalRec+=parseFloat(c.actual||c.expected)||0;});
+  document.getElementById('comm-expected').textContent='$'+totalExp.toLocaleString(undefined,{maximumFractionDigits:0});
+  document.getElementById('comm-received').textContent='$'+totalRec.toLocaleString(undefined,{maximumFractionDigits:0});
+  document.getElementById('comm-pending').textContent='$'+(totalExp-totalRec).toLocaleString(undefined,{maximumFractionDigits:0});
+  document.getElementById('s-rev').textContent='$'+totalRec.toLocaleString(undefined,{maximumFractionDigits:0});
+  el.innerHTML=`<table class="tbl"><thead><tr><th>Client</th><th>Carrier</th><th>Product</th><th>Premium</th><th>Rate</th><th>Expected</th><th>Received</th><th>Status</th></tr></thead><tbody>${DB.commissions.map(c=>`<tr><td class="cn">${c.name}</td><td>${c.car||'—'}</td><td>${c.prod||'—'}</td><td>${c.prem||'—'}</td><td>${c.rate?c.rate+'%':'—'}</td><td style="color:var(--md);font-weight:600;">$${Number(c.expected).toLocaleString(undefined,{maximumFractionDigits:0})}</td><td style="color:var(--g);font-weight:600;">${c.actual?'$'+Number(c.actual.replace(/[$,]/g,'')).toLocaleString(undefined,{maximumFractionDigits:0}):'—'}</td><td><span class="pill ${c.sts==='paid'?'pg':c.sts==='chargeback'?'ppk':'pm'}">${c.sts}</span></td></tr>`).join('')}</tbody></table>`;
+}
+
+// ─── CARRIERS ───
+function addProdRow(){
+  prodRows.push({product:'',minAge:'',maxAge:'',coverage:'',guidelines:''});
+  renderProdRows();
+}
+function renderProdRows(){
+  const el=document.getElementById('prod-rows');
+  if(!prodRows.length){el.innerHTML='<div style="font-size:11px;color:var(--txl);padding:6px 0;">No products added yet.</div>';return;}
+  el.innerHTML=prodRows.map((r,i)=>`<div style="display:grid;grid-template-columns:2fr 1fr 1fr 2fr 3fr auto;gap:6px;margin-bottom:6px;align-items:start;">
+    <input class="fi" value="${r.product}" oninput="prodRows[${i}].product=this.value" placeholder="Product type">
+    <input class="fi" value="${r.minAge}" oninput="prodRows[${i}].minAge=this.value" placeholder="Min age">
+    <input class="fi" value="${r.maxAge}" oninput="prodRows[${i}].maxAge=this.value" placeholder="Max age">
+    <input class="fi" value="${r.coverage}" oninput="prodRows[${i}].coverage=this.value" placeholder="Coverage range">
+    <input class="fi" value="${r.guidelines}" oninput="prodRows[${i}].guidelines=this.value" placeholder="Key guidelines / notes">
+    <button class="btn bred" onclick="prodRows.splice(${i},1);renderProdRows()">×</button>
+  </div>`).join('');
+}
+function saveCarrier(){
+  const name=document.getElementById('car-name').value.trim();if(!name){alert('Carrier name required.');return;}
+  const modal=document.getElementById('modal-new-carrier');
+  const editId=modal.dataset.editId;
+  const data={
+    name,
+    aph:document.getElementById('car-aph').value.trim(),
+    writing:document.getElementById('car-writing').value.trim(),
+    ap:document.getElementById('car-ap').value.trim(),
+    cp:document.getElementById('car-cp').value.trim(),
+    qt:document.getElementById('car-qt').value.trim(),
+    cs:document.getElementById('car-cs').value,
+    prods:document.getElementById('car-prods').value.trim(),
+    states:document.getElementById('car-states').value.trim(),
+    uw:document.getElementById('car-uw').value.trim(),
+    commRate:parseFloat(document.getElementById('car-commrate').value)||0,
+    prodRows:JSON.parse(JSON.stringify(prodRows))
+  };
+  if(editId){
+    // editing existing carrier
+    const idx=DB.carriers.findIndex(c=>c.id==editId);
+    if(idx!==-1){DB.carriers[idx]={...DB.carriers[idx],...data};}
+    modal.dataset.editId='';
+    document.querySelector('#modal-new-carrier .mh-title').textContent='Add Carrier';
+  } else {
+    DB.carriers.push({id:Date.now(),...data});
+  }
+  prodRows=[];
+  svLocal();closeModal('new-carrier');
+  ['car-name','car-aph','car-writing','car-ap','car-cp','car-qt','car-prods','car-states','car-uw','car-commrate'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('car-cs').value='';
+  document.getElementById('prod-rows').innerHTML='';
+  renderCarriers();
+}
+function renderCarriers(){
+  const el=document.getElementById('carriers-list');
+  if(!DB.carriers.length){el.innerHTML='<div class="empty" style="grid-column:1/-1;"><div class="ei">&#9663;</div><p>No carriers yet. Add your first carrier above.</p></div>';return;}
+  el.innerHTML=DB.carriers.map(c=>`
+    <div class="card">
+      <div class="car-tabs">
+        <div class="cartab active" onclick="carTab(this,'agt-${c.id}')">Agent Info</div>
+        <div class="cartab" onclick="carTab(this,'det-${c.id}')">Details & Underwriting</div>
+      </div>
+      <div class="cartabc active" id="agt-${c.id}">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <div style="font-size:14px;font-weight:700;color:var(--blk);">${c.name} <span class="pill ${c.cs==='active'?'pg':c.cs==='pending'?'pm':'pgr'}" style="font-size:9px;">${c.cs||'—'}</span></div>
+          <button class="btn bg bsm" onclick="editCarrier(${c.id})">Edit</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+          <div>
+            <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);margin-bottom:3px;">Agent Support Phone</div>
+            <div style="font-size:12px;font-weight:600;color:var(--blk);">${c.aph||'<span style="color:var(--txl);font-weight:400;">Not set — click Edit</span>'}</div>
+          </div>
+          <div>
+            <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);margin-bottom:3px;">My Writing Number</div>
+            <div style="font-size:12px;font-weight:600;color:var(--blk);">${c.writing||'<span style="color:var(--txl);font-weight:400;">Not set — click Edit</span>'}</div>
+          </div>
+          <div>
+            <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);margin-bottom:3px;">Commission Rate</div>
+            <div style="font-size:12px;font-weight:600;color:var(--md);">${c.commRate?c.commRate+'%':'<span style="color:var(--txl);font-weight:400;">Not set</span>'}</div>
+          </div>
+          <div>
+            <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txl);margin-bottom:3px;">States</div>
+            <div style="font-size:11px;color:var(--blk);">${c.states||'—'}</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          ${c.ap?`<a class="btn bp bsm" href="${c.ap}" target="_blank">Agent Portal ↗</a>`:'<button class="btn bg bsm" onclick="editCarrier('+c.id+')">+ Agent Portal</button>'}
+          ${c.cp?`<a class="btn bgrn bsm" href="${c.cp}" target="_blank">Client Portal ↗</a>`:'<button class="btn bg bsm" onclick="editCarrier('+c.id+')">+ Client Portal</button>'}
+          ${c.qt?`<a class="btn bg bsm" href="${c.qt}" target="_blank">Quote Tool ↗</a>`:'<button class="btn bg bsm" onclick="editCarrier('+c.id+')">+ Quote Link</button>'}
+        </div>
+      </div>
+      <div class="cartabc" id="det-${c.id}">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--txl);">Products</div>
+          <button class="btn bg bsm" onclick="editCarrier(${c.id})">Edit Details</button>
+        </div>
+        <div style="font-size:12px;color:var(--blk);margin-bottom:10px;">${c.prods||'—'}</div>
+        ${c.uw?`<div style="margin-bottom:10px;"><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--txl);margin-bottom:4px;">Field Underwriting Notes</div><div style="font-size:11px;color:var(--txm);line-height:1.5;background:var(--mp);padding:8px;border-radius:5px;">${c.uw}</div></div>`:''}
+        ${c.prodRows&&c.prodRows.length?`<div><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--txl);margin-bottom:4px;">Product Guidelines</div><table class="prod-table"><thead><tr><th>Product</th><th>Min Age</th><th>Max Age</th><th>Coverage</th><th>Guidelines</th></tr></thead><tbody>${c.prodRows.map(r=>`<tr><td>${r.product}</td><td>${r.minAge}</td><td>${r.maxAge}</td><td>${r.coverage}</td><td>${r.guidelines}</td></tr>`).join('')}</tbody></table></div>`:''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function editCarrier(id){
+  const c=DB.carriers.find(x=>x.id===id);
+  if(!c)return;
+  // populate edit modal fields
+  document.getElementById('car-name').value=c.name||'';
+  document.getElementById('car-aph').value=c.aph||'';
+  document.getElementById('car-writing').value=c.writing||'';
+  document.getElementById('car-ap').value=c.ap||'';
+  document.getElementById('car-cp').value=c.cp||'';
+  document.getElementById('car-qt').value=c.qt||'';
+  document.getElementById('car-cs').value=c.cs||'';
+  document.getElementById('car-prods').value=c.prods||'';
+  document.getElementById('car-states').value=c.states||'';
+  document.getElementById('car-uw').value=c.uw||'';
+  document.getElementById('car-commrate').value=c.commRate||'';
+  prodRows=JSON.parse(JSON.stringify(c.prodRows||[]));
+  renderProdRows();
+  // store editing id
+  document.getElementById('modal-new-carrier').dataset.editId=id;
+  document.querySelector('#modal-new-carrier .mh-title').textContent='Edit Carrier';
+  openModal('new-carrier');
+}
+function carTab(el,id){
+  const card=el.closest('.card');
+  card.querySelectorAll('.cartab').forEach(t=>t.classList.remove('active'));
+  card.querySelectorAll('.cartabc').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+// ─── SOCIAL ───
+function savePost(){
+  const content=document.getElementById('post-content').value.trim();if(!content)return;
+  const plMap={ig:'Instagram',fb:'Facebook',li:'LinkedIn',tk:'TikTok'};
+  const pl=document.getElementById('post-platform').value;
+  DB.posts.push({id:Date.now(),platform:pl,plLabel:plMap[pl],date:document.getElementById('post-date').value,content,caption:document.getElementById('post-caption').value.trim()});
+  svLocal();closeModal('new-post');renderSocial();
+}
+function renderSocial(){
+  const el=document.getElementById('social-posts');
+  if(!DB.posts.length){el.innerHTML='<div class="empty"><div class="ei">&#9670;</div><p>No posts scheduled. Add your first post!</p></div>';return;}
+  const pcls={ig:'sp-ig',fb:'sp-fb',li:'sp-li',tk:'sp-tk'};
+  el.innerHTML=DB.posts.sort((a,b)=>new Date(a.date)-new Date(b.date)).map(p=>`
+    <div class="sm-post">
+      <div class="sm-post-header">
+        <span class="sm-platform ${pcls[p.platform]||''}">${p.plLabel}</span>
+        <div style="display:flex;gap:6px;">
+          <button class="btn bg bsm" onclick="sendToBuffer('${p.id}')">Send to Buffer ↗</button>
+          <button class="btn bred" onclick="deletePost('${p.id}')">Remove</button>
+        </div>
+      </div>
+      <div class="sm-content">${p.content}</div>
+      ${p.caption?`<div style="font-size:10px;color:var(--txl);margin-bottom:4px;">${p.caption}</div>`:''}
+      <div class="sm-date">${p.date?new Date(p.date+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}):'No date set'}</div>
+    </div>
+  `).join('');
+}
+function sendToBuffer(id){
+  const p=DB.posts.find(x=>x.id==id);if(!p)return;
+  const text=encodeURIComponent(p.content+(p.caption?'\n\n'+p.caption:''));
+  window.open(`https://buffer.com/add?text=${text}`,'_blank');
+}
+function deletePost(id){DB.posts=DB.posts.filter(x=>x.id!=id);svLocal();renderSocial();}
+
+// ─── CALENDAR ───
+function renderCal(){
+  const label=new Date(calYear,calMonth,1).toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  document.getElementById('cal-month-label').textContent=label;
+  const body=document.getElementById('cal-body');
+  const firstDay=new Date(calYear,calMonth,1).getDay();
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  const daysInPrev=new Date(calYear,calMonth,0).getDate();
+  const todayStr=new Date().toISOString().split('T')[0];
+  let html='';
+  let day=1,nextDay=1;
+  for(let i=0;i<42;i++){
+    if(i<firstDay){
+      const d=daysInPrev-firstDay+i+1;
+      html+=`<div class="cal-day other-month"><div class="cal-date">${d}</div></div>`;
+    } else if(day<=daysInMonth){
+      const dateStr=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+      const isToday=dateStr===todayStr;
+      const events=(DB.calEvents||[]).filter(e=>e.date===dateStr);
+      html+=`<div class="cal-day${isToday?' today':''}" onclick="calDayClick('${dateStr}')">
+        <div class="cal-date">${day}</div>
+        ${events.map(e=>`<div class="cal-event ${e.type==='task'?'ce-task':e.gcal?'ce-gcal':'ce-appt'}">${e.title}</div>`).join('')}
+      </div>`;
+      day++;
+    } else {
+      html+=`<div class="cal-day other-month"><div class="cal-date">${nextDay++}</div></div>`;
+    }
+  }
+  body.innerHTML=html;
+}
+function changeMonth(n){calMonth+=n;if(calMonth>11){calMonth=0;calYear++;}if(calMonth<0){calMonth=11;calYear--;}renderCal();}
+function addCalEvent(){
+  const title=document.getElementById('cal-title').value.trim();
+  const date=document.getElementById('cal-date').value;
+  if(!title||!date){alert('Title and date required.');return;}
+  DB.calEvents=DB.calEvents||[];
+  DB.calEvents.push({id:Date.now(),title,date,start:document.getElementById('cal-start').value,end:document.getElementById('cal-end').value,contact:document.getElementById('cal-contact').value.trim(),type:document.getElementById('cal-type').value});
+  svLocal();renderCal();
+  document.getElementById('cal-title').value='';
+  document.getElementById('cal-date').value='';
+  document.getElementById('cal-contact').value='';
+}
+function calDayClick(date){document.getElementById('cal-date').value=date;}
+function connectGCal(){
+  document.getElementById('gcal-events').innerHTML='<div style="font-size:11px;color:var(--txm);padding:8px 0;">Google Calendar connection requires your Zapier setup. Once connected, appointments booked via Calendly will appear here automatically. For now, add appointments manually using the form.</div>';
+}
+
+// ─── IMPORT ───
+function handleCSV(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const lines=e.target.result.split('\n').filter(l=>l.trim());
+    document.getElementById('csv-preview').innerHTML=`<div style="font-size:11px;color:var(--g);font-weight:600;">Found ${lines.length} rows. Click Import.</div>`;
+    document.getElementById('csv-preview').dataset.csv=e.target.result;
+  };
+  reader.readAsText(file);
+}
+function handleDrop(e){
+  e.preventDefault();
+  const file=e.dataTransfer.files[0];
+  if(file){const input=document.getElementById('csv-input');const dt=new DataTransfer();dt.items.add(file);input.files=dt.files;handleCSV(input);}
+}
+function doImport(){
+  let added=0;
+  const preview=document.getElementById('csv-preview');
+  if(preview.dataset.csv){
+    const lines=preview.dataset.csv.split('\n').filter(l=>l.trim());
+    const hasH=/name|first|phone/i.test(lines[0]);
+    for(let i=hasH?1:0;i<lines.length;i++){
+      const c=lines[i].split(',').map(s=>s.trim().replace(/^"|"$/g,''));
+      if(!c[0])continue;
+      const np=c[0].split(' ');
+      DB.contacts.push(makeContact('prospect',{fn:np[0]||'',ln:np.slice(1).join(' '),ph:c[1]||'',st:c[3]||'',prod:c[4]||'',pri:c[5]||'',src:'Imported'}));
+      added++;
+    }
+  }
+  const manual=document.getElementById('manual-paste').value.trim();
+  if(manual){
+    manual.split('\n').filter(l=>l.trim()).forEach((line,i)=>{
+      const p=line.split(',').map(s=>s.trim());
+      const np=(p[0]||'').split(' ');
+      if(!np[0])return;
+      DB.contacts.push(makeContact('prospect',{fn:np[0],ln:np.slice(1).join(' '),ph:p[1]||'',st:p[2]||'',src:'Imported'}));
+      added++;
+    });
+  }
+  if(added){DB.contacts.slice(-added).forEach(c=>upsertContact(c));renderAll();closeModal('import');alert(added+' contact(s) imported!');document.getElementById('manual-paste').value='';}
+}
+
+// ─── ERS BATCH ENTRY ───
+function quickAddTask(){
+  const taskInput=document.getElementById('task-input');
+  if(taskInput){
+    // scroll to dashboard task area
+    goPage('dashboard',document.querySelector('.ni'));
+    setTimeout(()=>{
+      taskInput.focus();
+      taskInput.scrollIntoView({behavior:'smooth',block:'center'});
+    },150);
+  }
+}
+
+function populateERSRefDropdown(){
+  const sel=document.getElementById('cd-ers-ref');
+  if(!sel)return;
+  sel.innerHTML='<option value="">Select referring contact</option>'+
+    DB.contacts
+      .filter(c=>c.id!==CID)
+      .map(c=>`<option value="${c.id}">${c.fn} ${c.ln||''}${c.ph?' — '+c.ph:''}</option>`)
+      .join('');
+  // set existing value
+  const contact=DB.contacts.find(x=>x.id===CID);
+  if(contact&&contact.ersRefId)sel.value=contact.ersRefId;
+}
+
+function updateERSScript(){
+  const sel=document.getElementById('cd-ers-ref');
+  const preview=document.getElementById('ers-script-preview');
+  if(!sel||!preview)return;
+  const refContact=DB.contacts.find(c=>c.id==sel.value);
+  const refName=refContact?`${refContact.fn} ${refContact.ln||''}`.trim():'[Referral Name]';
+  preview.textContent=`"Hi [Name]! This is Ariel Gildon, a licensed life insurance broker. I was speaking with ${refName} and they mentioned you might be interested in learning more about protecting your family. I'd love to help — when's a good time to chat for about 10 minutes?"`;
+}
+
+function switchLeadTab(el, tab){
+  document.querySelectorAll('#modal-new-lead .cdt').forEach(t=>{
+    t.style.color='var(--txl)';t.style.borderBottomColor='transparent';
+  });
+  el.style.color='var(--md)';el.style.borderBottomColor='var(--m)';
+  document.getElementById('lead-tab-single').style.display=tab==='single'?'block':'none';
+  document.getElementById('lead-tab-ers').style.display=tab==='ers'?'block':'none';
+  // populate referral dropdown
+  if(tab==='ers'){
+    const sel=document.getElementById('ers-ref-contact');
+    sel.innerHTML='<option value="">Select referral source</option>'+
+      DB.contacts.map(c=>`<option value="${c.id}">${c.fn} ${c.ln||''}</option>`).join('');
+    if(!document.getElementById('ers-rows').children.length) addERSRow();
+  }
+}
+
+function addERSRow(){
+  if(ersRows.length>=15)return;
+  const id=Date.now()+ersRows.length;
+  ersRows.push(id);
+  const el=document.getElementById('ers-rows');
+  const row=document.createElement('div');
+  row.id='ers-row-'+id;
+  row.style.cssText='display:grid;grid-template-columns:2fr 1.5fr 1fr auto;gap:6px;margin-bottom:6px;';
+  row.innerHTML=`
+    <input class="fi" placeholder="First Last" style="margin-bottom:0;" id="ers-name-${id}">
+    <input class="fi" placeholder="(317) 555-0000" type="tel" style="margin-bottom:0;" id="ers-ph-${id}">
+    <select class="fs" style="margin-bottom:0;" id="ers-st-${id}"><option value="">State</option><option>IN</option><option>OH</option><option>IL</option><option>KY</option><option>MI</option><option>TN</option><option>GA</option><option>FL</option><option>TX</option><option>Other</option></select>
+    <button class="btn bred" onclick="removeERSRow(${id})" style="height:34px;">×</button>
+  `;
+  el.appendChild(row);
+}
+
+function removeERSRow(id){
+  ersRows=ersRows.filter(r=>r!==id);
+  const el=document.getElementById('ers-row-'+id);
+  if(el)el.remove();
+}
+
+function saveERSBatch(){
+  const pri=document.getElementById('ers-batch-pri').value;
+  const refId=document.getElementById('ers-ref-contact').value;
+  const refContact=DB.contacts.find(c=>c.id==refId);
+  const refName=refContact?`${refContact.fn} ${refContact.ln||''}`.trim():'';
+  let added=0;
+  ersRows.forEach(id=>{
+    const nameEl=document.getElementById('ers-name-'+id);
+    const phEl=document.getElementById('ers-ph-'+id);
+    const stEl=document.getElementById('ers-st-'+id);
+    if(!nameEl)return;
+    const name=(nameEl.value||'').trim();
+    if(!name)return;
+    const parts=name.split(' ');
+    const c=makeContact('prospect',{
+      fn:parts[0],ln:parts.slice(1).join(' '),
+      ph:phEl?phEl.value.trim():'',
+      st:stEl?stEl.value:'',
+      pri,src:'ERS Referral',stg:'new',ers:true,
+      ersRef:refName
+    });
+    c.cn=refName?`Referred by ${refName}`:'';
+    DB.contacts.push(c);
+    added++;
+  });
+  if(added){
+    DB.contacts.slice(-added).forEach(c=>upsertContact(c));renderAll();
+    closeModal('new-lead');
+    ersRows=[];
+    document.getElementById('ers-rows').innerHTML='';
+    alert(added+' ERS lead(s) added with '+pri+' priority workflow!');
+  } else {
+    alert('Please enter at least one name.');
+  }
+}
+
+// ─── COMMISSION AUTO-CALC FROM APPS ───
+function renderCommsFromApps(){
+  const el=document.getElementById('comm-wrap');
+  const approvedApps=DB.applications.filter(a=>['approved','delivered','issued'].includes(a.sts));
+  if(!approvedApps.length){
+    el.innerHTML='<div class="empty"><div class="ei">&#9651;</div><p>No approved applications yet. Commissions will appear here automatically when an application is marked Approved or Issued.</p></div>';
+    document.getElementById('comm-expected').textContent='$0';
+    document.getElementById('comm-received').textContent='$0';
+    document.getElementById('comm-pending').textContent='$0';
+    return;
+  }
+  let totalExp=0,totalRec=0;
+  approvedApps.forEach(a=>{
+    const prem=parseFloat((a.prem||'0').replace(/[$,]/g,''))||0;
+    const rate=parseFloat(a.rate||0);
+    const exp=prem*(rate/100)*12;
+    totalExp+=exp;
+    if(a.sts==='issued')totalRec+=exp;
+  });
+  const pending=totalExp-totalRec;
+  document.getElementById('comm-expected').textContent='$'+totalExp.toLocaleString(undefined,{maximumFractionDigits:0});
+  document.getElementById('comm-received').textContent='$'+totalRec.toLocaleString(undefined,{maximumFractionDigits:0});
+  document.getElementById('comm-pending').textContent='$'+pending.toLocaleString(undefined,{maximumFractionDigits:0});
+  document.getElementById('s-rev').textContent='$'+totalRec.toLocaleString(undefined,{maximumFractionDigits:0});
+  el.innerHTML=`<table class="tbl"><thead><tr><th>Client</th><th>Carrier</th><th>Product</th><th>Premium</th><th>Rate</th><th>Expected</th><th>Status</th></tr></thead><tbody>${
+    approvedApps.map(a=>{
+      const prem=parseFloat((a.prem||'0').replace(/[$,]/g,''))||0;
+      const rate=parseFloat(a.rate||0);
+      const exp=(prem*(rate/100)*12).toFixed(0);
+      return`<tr><td class="cn">${a.name}</td><td>${a.car||'—'}</td><td>${a.prod}</td><td>${a.prem||'—'}</td><td>${rate?rate+'%':'—'}</td><td style="font-weight:600;color:var(--md);">$${Number(exp).toLocaleString()}</td><td><span class="pill ${a.sts==='issued'?'pg':a.sts==='approved'?'pm':'pb'}">${a.sts}</span></td></tr>`;
+    }).join('')
+  }</tbody></table>`;
+}
+
+// ─── STATS ───
+function renderStats(){
+  const clients=DB.contacts.filter(c=>c.sts==='client'||c.type==='client').length;
+  const prospects=DB.contacts.filter(c=>c.sts!=='client'&&c.type!=='client').length;
+  const hot=DB.contacts.filter(c=>c.pri==='hot').length;
+  document.getElementById('s-leads').textContent=prospects;
+  document.getElementById('s-clients').textContent=clients;
+  document.getElementById('s-cars').textContent=DB.carriers.length;
+  document.getElementById('ct-total').textContent=DB.contacts.length;
+  document.getElementById('ct-clients').textContent=clients;
+  document.getElementById('ct-prospects').textContent=prospects;
+  document.getElementById('ct-hot').textContent=hot;
+  document.getElementById('nb-c').textContent=DB.contacts.length;
+  document.getElementById('nb-a').textContent=DB.applications.length;
+  document.getElementById('nb-car').textContent=DB.carriers.length;
+  renderAppFollowUps();
+}
+
+function renderAll(){
+  renderStats();
+  renderPipe();
+  renderTasks();
+  renderContacts();
+  renderApps();
+  renderComms();
+  renderCarriers();
+  renderSocial();
+}
+
+// ─── ERS SCRIPT UPDATE ───
+document.addEventListener('change', function(e){
+  if(e.target.id==='cd-ers-ref') updateERSScript();
+});
+
+// ─── PREFILL CARRIERS IF EMPTY ───
+const DEFAULT_CARRIERS=[
+  {id:1001,name:'Mutual of Omaha',aph:'1-800-775-4114',ap:'https://mutualofomaha.com/agent-login',cp:'https://mutualofomaha.com',qt:'',cs:'active',prods:'Life Insurance · Final Expense · Medicare Supplement · Living Benefits',states:'IN, OH, IL, KY, MI, TN, GA, FL, TX',uw:'Phone interview required. Strong underwriting. Living benefits available. Good for healthy clients 18-85. Direct Express accepted on some products.',prodRows:[{product:'Final Expense',minAge:'45',maxAge:'85',coverage:'$2,000-$40,000',guidelines:'Simplified issue, no exam, Direct Express accepted'},{product:'Term Life',minAge:'18',maxAge:'80',coverage:'Up to $1M',guidelines:'Phone interview required, preferred health classes available'},{product:'Whole Life',minAge:'18',maxAge:'85',coverage:'$10K-$500K',guidelines:'Living benefits included, cash value accumulation'}],commRate:80},
+  {id:1002,name:'TransAmerica',aph:'1-800-797-2643',ap:'https://transamerica.com/agent',cp:'https://transamerica.com',qt:'',cs:'active',prods:'Term Life · Whole Life · IUL · Final Expense',states:'IN, OH, IL, KY, MI, TN, GA, FL, TX',uw:'Good for younger clients. Competitive rates. E-application available. No exam options on some products.',prodRows:[{product:'Term Life',minAge:'18',maxAge:'75',coverage:'$25K-$10M',guidelines:'Preferred rates for healthy clients, multiple term lengths'},{product:'IUL',minAge:'18',maxAge:'80',coverage:'$100K+',guidelines:'Index-linked growth, death benefit, living benefits'}],commRate:80},
+  {id:1003,name:'Americo',aph:'1-800-231-0801',ap:'https://americo.com/agent',cp:'https://americo.com',qt:'',cs:'active',prods:'Final Expense · Mortgage Protection · Term Life',states:'IN, OH, IL, KY, MI, TN, GA, FL, TX',uw:'No exam required. Quick issue. Direct Express accepted. Good for health-impaired clients. Simplified underwriting.',prodRows:[{product:'Final Expense',minAge:'50',maxAge:'85',coverage:'$2,000-$30,000',guidelines:'No exam, Direct Express accepted, graded benefit option available'},{product:'Mortgage Protection',minAge:'18',maxAge:'65',coverage:'$25K-$400K',guidelines:'Return of premium option, disability waiver available'}],commRate:80},
+  {id:1004,name:'American Amicable',aph:'1-800-736-7311',ap:'https://americanamicable.com/agent',cp:'https://americanamicable.com',qt:'',cs:'active',prods:'Final Expense · Mortgage Protection · Term Life',states:'IN, OH, IL, KY, MI, TN',uw:'Simplified issue. Good for health conditions. Lenient underwriting on final expense. No phone interview required.',prodRows:[{product:'Final Expense',minAge:'50',maxAge:'85',coverage:'$2,000-$35,000',guidelines:'Simplified issue, lenient health guidelines, good for diabetics'},{product:'Term Life',minAge:'18',maxAge:'70',coverage:'$25K-$500K',guidelines:'Various term lengths, return of premium option'}],commRate:80},
+  {id:1005,name:'Corebridge Financial',aph:'1-800-231-3655',ap:'https://corebridgefinancial.com/agent',cp:'https://corebridgefinancial.com',qt:'',cs:'active',prods:'IUL · Term Life · Whole Life · Annuities',states:'IN, OH, IL, KY, MI, TN, GA, FL, TX',uw:'Phone interview required. Great for IUL and retirement planning. Strong for healthy clients. Full underwriting.',prodRows:[{product:'IUL',minAge:'18',maxAge:'80',coverage:'$100K+',guidelines:'Phone interview, full underwriting, excellent for retirement income'},{product:'Annuity',minAge:'0',maxAge:'85',coverage:'Varies',guidelines:'Fixed indexed, deferred income, good for retirement planning'}],commRate:75},
+  {id:1006,name:'Foresters Financial',aph:'1-800-828-1540',ap:'https://foresters.com/agent',cp:'https://foresters.com',qt:'',cs:'active',prods:'Term Life · Whole Life · Final Expense',states:'IN, OH, IL, KY, MI, TN, GA, FL, TX',uw:'Fraternal benefit society. Member benefits included. No exam options available. Good community benefits.',prodRows:[{product:'Term Life',minAge:'18',maxAge:'75',coverage:'$50K-$2M',guidelines:'Member benefits, competitive rates, no exam up to $400K'},{product:'Final Expense',minAge:'50',maxAge:'85',coverage:'$2,000-$35,000',guidelines:'Simplified issue, member benefits included'}],commRate:80},
+  {id:1007,name:'American Equity',aph:'1-888-647-1371',ap:'https://american-equity.com/agent',cp:'https://american-equity.com',qt:'',cs:'active',prods:'Fixed Indexed Annuities · Retirement Income',states:'IN, OH, IL, KY, MI, TN, GA, FL, TX',uw:'Annuity specialist. No underwriting required. Good for retirement income planning. Strong bonus features.',prodRows:[{product:'Fixed Indexed Annuity',minAge:'0',maxAge:'85',coverage:'Varies by product',guidelines:'No medical underwriting, income riders available, bonus interest'}],commRate:6},
+  {id:1008,name:'North American',aph:'1-800-800-3656',ap:'https://northamericancompany.com/agent',cp:'https://northamericancompany.com',qt:'',cs:'active',prods:'IUL · Term Life · Final Expense · Annuities',states:'IN, OH, IL, KY, MI, TN, GA, FL, TX',uw:'Competitive IUL rates. Good living benefits. Full underwriting on life products. Strong annuity line.',prodRows:[{product:'IUL',minAge:'18',maxAge:'80',coverage:'$100K+',guidelines:'Strong cap rates, living benefits, chronic illness rider'},{product:'Term Life',minAge:'18',maxAge:'70',coverage:'$100K-$10M',guidelines:'Competitive rates, conversion option available'}],commRate:80},
+  {id:1009,name:'Aflac',aph:'1-800-992-3522',ap:'https://aflac.com/agent',cp:'https://aflac.com',qt:'',cs:'active',prods:'Supplemental · Accident · Critical Illness · Hospital',states:'IN, OH, IL, KY, MI, TN, GA, FL, TX',uw:'Supplemental specialist. Worksite benefits. Quick issue. Good add-on to primary life coverage.',prodRows:[{product:'Accident',minAge:'18',maxAge:'65',coverage:'Benefit amounts vary',guidelines:'No medical exam, pays on top of other insurance'},{product:'Critical Illness',minAge:'18',maxAge:'65',coverage:'$10K-$100K',guidelines:'Lump sum benefit, good for cancer/heart attack/stroke'}],commRate:25},
+  {id:1010,name:'Royal Arcanum',aph:'1-617-426-4135',ap:'https://royalarcanum.com/agent',cp:'https://royalarcanum.com',qt:'',cs:'active',prods:'Final Expense · Whole Life · Term Life',states:'IN, OH, IL, KY, MI, TN',uw:'Fraternal benefit society. Member advantages and community benefits. Good simplified issue products.',prodRows:[{product:'Final Expense',minAge:'50',maxAge:'85',coverage:'$2,000-$25,000',guidelines:'Simplified issue, member benefits, fraternal organization'},{product:'Whole Life',minAge:'0',maxAge:'75',coverage:'$25K-$250K',guidelines:'Participating policy, dividends, member benefits'}],commRate:80},
+  {id:1011,name:'Citizens Inc.',aph:'1-800-880-0467',ap:'https://citizensinc.com/agent',cp:'https://citizensinc.com',qt:'',cs:'active',prods:'Final Expense · Whole Life · Direct Express',states:'IN, OH, IL, KY, MI, TN, GA, FL, TX',uw:'Direct Express accepted. Senior-focused products. Good for SSI/disability clients. Simple underwriting.',prodRows:[{product:'Final Expense',minAge:'50',maxAge:'85',coverage:'$2,000-$25,000',guidelines:'Direct Express accepted, no exam, good for SSI clients'}],commRate:80},
+  {id:1012,name:'F&G (Fidelity & Guaranty)',aph:'1-800-445-6758',ap:'https://fglife.com/agent',cp:'https://fglife.com',qt:'',cs:'active',prods:'Fixed Annuities · IUL · Life Insurance',states:'IN, OH, IL, KY, MI, TN, GA, FL, TX',uw:'Competitive annuity rates. Growing carrier. Strong for retirement income. Good IUL product line.',prodRows:[{product:'Fixed Annuity',minAge:'0',maxAge:'85',coverage:'Varies',guidelines:'Competitive guaranteed rates, no underwriting'},{product:'IUL',minAge:'18',maxAge:'80',coverage:'$100K+',guidelines:'Index-linked, living benefits, strong accumulation'}],commRate:75},
+  {id:1013,name:'Aetna / CVS Health',aph:'1-800-872-3862',ap:'https://aetna.com/agent',cp:'https://aetna.com',qt:'',cs:'active',prods:'Medicare Supplement · Supplemental · Senior Products',states:'IN, OH, IL, KY, MI, TN, GA, FL, TX',uw:'Medicare supplement specialist. Strong brand recognition. Good for senior market. No medical underwriting on Medicare products.',prodRows:[{product:'Medicare Supplement',minAge:'65',maxAge:'85',coverage:'Covers Medicare gaps',guidelines:'Guaranteed issue at 65, various plan letters, strong network'}],commRate:20}
+];
+
+async function init(){
+  ldLocal();
+  if(!DB.carriers||DB.carriers.length===0){DB.carriers=DEFAULT_CARRIERS;svLocal();}
+  document.getElementById('dial-count').textContent=DB.dialCount||0;
+  document.getElementById('dial-inline').textContent=DB.dialCount||0;
+  const {data:{session}}=await sb.auth.getSession();
+  if(session){await postLogin(session.user.id);}
+  else{renderAll();renderCal();}
+}
+init();
+</script>
+</body>
+</html>
