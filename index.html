@@ -1030,13 +1030,30 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
   <div class="page" id="page-booking">
     <div class="bk-wrap">
 
-      <!-- Google Calendar info banner (no OAuth needed) -->
-      <div class="gcal-banner" style="background:#EBF4EE;border-color:#6BA882;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#4A7C59" stroke-width="1.8"/><line x1="3" y1="9" x2="21" y2="9" stroke="#4A7C59" stroke-width="1.8"/><line x1="8" y1="2" x2="8" y2="6" stroke="#4A7C59" stroke-width="1.8"/><line x1="16" y1="2" x2="16" y2="6" stroke="#4A7C59" stroke-width="1.8"/></svg>
-          <span style="font-size:12px;font-weight:600;color:var(--g);">Google Calendar</span>
-          <span style="font-size:11px;color:var(--txm);">After confirming a booking, it will open Google Calendar so you can save the event.</span>
+      <!-- Scheduled Appointments (top) -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="ch"><span class="ct">Scheduled Appointments</span></div>
+        <div id="bk-log">
+          <div class="empty"><div class="ei">&#9670;</div><p>No appointments booked yet.</p></div>
         </div>
+      </div>
+
+      <!-- Google Calendar Connect Banner -->
+      <div id="gcal-banner" class="gcal-banner">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#4A72B0" stroke-width="1.8"/><line x1="3" y1="9" x2="21" y2="9" stroke="#4A72B0" stroke-width="1.8"/><line x1="8" y1="2" x2="8" y2="6" stroke="#4A72B0" stroke-width="1.8"/><line x1="16" y1="2" x2="16" y2="6" stroke="#4A72B0" stroke-width="1.8"/></svg>
+          <span style="font-size:12px;font-weight:600;color:var(--blk);">Connect Google Calendar</span>
+          <span style="font-size:11px;color:var(--txm);">Bookings will automatically appear as events in your calendar.</span>
+        </div>
+        <button class="btn bp bsm" id="gcal-connect-btn" onclick="connectGoogleCalendar()">Connect</button>
+      </div>
+      <div id="gcal-connected-banner" class="gcal-banner" style="display:none;background:#EBF4EE;border-color:#6BA882;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="color:var(--g);font-size:13px;">✓</span>
+          <span style="font-size:12px;font-weight:600;color:var(--g);">Google Calendar Connected</span>
+          <span style="font-size:11px;color:var(--txm);" id="gcal-email-label"></span>
+        </div>
+        <button class="btn bg bsm" onclick="disconnectGoogleCalendar()">Disconnect</button>
       </div>
 
       <!-- Agent header -->
@@ -1130,22 +1147,15 @@ body{font-family:'Outfit',sans-serif;background:var(--cr);color:var(--tx);displa
             <div style="font-size:32px;margin-bottom:12px;">✓</div>
             <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--g);margin-bottom:6px;">You're on the calendar.</div>
             <div style="font-size:12px;color:var(--txm);margin-bottom:16px;" id="bk-success-detail"></div>
-            <div style="font-size:11px;color:var(--txm);margin-bottom:12px;">Google Calendar opened in a new tab — click Save to add the event.</div>
-            <a id="bk-gcal-link" href="#" target="_blank">
-              <button class="btn bp bsm" style="margin-bottom:8px;">Open Google Calendar Again</button>
+            <div id="bk-gcal-added" style="display:none;font-size:11px;color:var(--g);margin-bottom:12px;font-weight:600;">✓ Event added to Google Calendar</div>
+            <a id="bk-gcal-link" href="#" target="_blank" style="display:none;">
+              <button class="btn bp bsm" style="margin-bottom:8px;">Open in Google Calendar</button>
             </a>
-            <button class="btn bg bsm" onclick="bkReset()" style="margin-left:6px;">Book Another</button>
+            <button class="btn bg bsm" onclick="bkReset()">Book Another</button>
           </div>
         </div>
       </div>
 
-      <!-- Past bookings log -->
-      <div class="card" style="margin-top:16px;">
-        <div class="ch"><span class="ct">Scheduled Appointments</span></div>
-        <div id="bk-log">
-          <div class="empty"><div class="ei">&#9670;</div><p>No appointments booked yet.</p></div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -3195,16 +3205,24 @@ async function bkConfirm(){
     renderAll();
   }
 
-  // Build Google Calendar link and auto-open it
+  // Google Calendar: use API if connected, else open link
   const gcalLink=bkBuildGCalLink(booking);
   document.getElementById('bk-gcal-link').href=gcalLink;
-  window.open(gcalLink,'_blank');
+  let gcalAdded=false;
+  if(gcalToken){
+    gcalAdded=await bkCreateGCalEvent(booking);
+  }
+  if(!gcalAdded){
+    window.open(gcalLink,'_blank');
+  }
 
   // Show success
   document.getElementById('bk-cal-section').style.display='none';
   document.getElementById('bk-confirm').style.display='none';
   document.getElementById('bk-success').style.display='block';
   document.getElementById('bk-success-detail').textContent=`${bkTypeName} · ${bkSelTime} · ${dateLabel}`;
+  document.getElementById('bk-gcal-added').style.display=gcalAdded?'block':'none';
+  document.getElementById('bk-gcal-link').style.display=gcalAdded?'none':'inline-block';
   bkRenderLog();
   btn.textContent='Confirm Appointment'; btn.disabled=false;
 }
@@ -3289,6 +3307,8 @@ function bkReset(){
   bkSelDay=null; bkSelTime=null;
   document.getElementById('bk-cal-section').style.display='block';
   document.getElementById('bk-success').style.display='none';
+  document.getElementById('bk-gcal-added').style.display='none';
+  document.getElementById('bk-gcal-link').style.display='none';
   ['bk-fn','bk-ln','bk-em','bk-ph','bk-notes'].forEach(id=>document.getElementById(id).value='');
   bkRenderCalendar();
 }
@@ -3302,6 +3322,11 @@ function bkRenderLog(){
 }
 
 function initBooking(){
+  try{
+    const t=localStorage.getItem('olivar-gcal-token');
+    const e=localStorage.getItem('olivar-gcal-email');
+    if(t&&e){gcalToken=t;showGCalConnected(e);}
+  }catch(err){}
   bkRenderCalendar();
   bkRenderLog();
 }
